@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MuuriComponent } from "muuri-react";
-import createButton from "./LayoutGenerator";
 import "../styles/grid.css";
 
 const Grid = props => {
@@ -15,14 +14,13 @@ const Grid = props => {
             dragReleaseDuration: 400,
             layoutOnResize: 100,
             layoutOnInit: true,
-            layoutDuration: 300,
             layoutEasing: "ease",
             layout: {
               alignBottom: true
             }
           }}
         >
-          {props.buttons}
+          {props.children}
         </MuuriComponent>
       </div>
     </React.Fragment>

@@ -1,14 +1,14 @@
 .button {
   width: 125px;
-  margin: 2px;
+  height: 80px;
+  background: #498094; /* TODO: programatic color */
 
+  display: table;
   cursor: pointer;
   font-size: 1.1em;
   text-decoration: none;
-  background: #60a3bc;
   border-radius: 50px;
-
-  border: 5px solid #60a3bc;
+  border: 3px solid #c76141;
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -20,10 +20,12 @@
 }
 
 .button > div {
-  padding: 16px 15px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .button:active {
-  border: 5px inset rgb(255, 34, 170);
+  border: 3px inset rgb(255, 34, 170);
   transition: all 0.2s ease 0s;
 }

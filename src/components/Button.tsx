@@ -16,9 +16,17 @@ export const Button = ({ label, keys, modifiers, onClick }: ButtonProps) => {
 
   return (
     <React.Fragment>
-      <div className="item">
-        <div className="button item-content" onClick={handleClick}>
-          <div>{label}</div>
+      <div className="item" id={label}>
+        <div className="item-content" onClick={handleClick}>
+          {/* <div className="card">
+            <div className="card-id">te</div>
+            <div className="card-title">{label}</div>
+            <div className="card-remove"></div>
+          </div> */}
+
+          <div className="button">
+            <div>{label}</div>
+          </div>
         </div>
       </div>
     </React.Fragment>

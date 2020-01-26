@@ -1,7 +1,6 @@
 import React from "react";
 import { ISettings } from "../models/settings";
 import { IKeyMap } from "../models/keymap";
-import { Area } from "./Area";
 import { IButtonInfo } from "../models/buttonInfo";
 import { sendKeys } from "../api/keySettings";
 import { Button } from "./Button";
@@ -24,52 +23,31 @@ const generateLayout = (settings: ISettings) => {
 
   return (
     <React.Fragment>
-      <article className="main">
-        <Area title="Main">
-          <Grid buttons={filterButtonsByArea("main", settings.keymap)}></Grid>
-        </Area>
-      </article>
-      <aside className="aside aside-2">
-        <Area title="Most Used">
-          {/* TODO: needs to use the count on the buttons */}
-          {filterButtonsByArea("most-used", settings.keymap)}
-        </Area>
-      </aside>
-      <footer className="footer">
-        <Area title="Favorites">
-          <Grid
-            buttons={filterButtonsByArea("favorites", settings.keymap)}
-          ></Grid>
-        </Area>
-        <Area title="Common">
-          <Grid buttons={filterButtonsByArea("common", settings.keymap)}></Grid>
-        </Area>
-      </footer>
+      <div className="flex">
+        <div className="pusher"></div>
+        <div className="main">
+          <Grid>{filterButtonsByArea("main", settings.keymap)}</Grid>
+        </div>
+        <div className="footer">
+          <div className="common">
+            <div className="common-groups">
+              <Grid>{filterButtonsByArea("favorites", settings.keymap)}</Grid>
+            </div>
+            <div className="common-buttons">
+              <Grid>{filterButtonsByArea("common", settings.keymap)}</Grid>
+            </div>
+          </div>
+        </div>
+      </div>
     </React.Fragment>
   );
 };
 
 const filterButtonsByArea = (areaTag: string, { buttons }: IKeyMap) => {
-  return (
-    <React.Fragment>
-      {buttons
-        .filter(info => info.area === areaTag)
-        .map(buttonInfo => createButton(buttonInfo))}
-    </React.Fragment>
-  );
+  return buttons
+    .filter(info => info.area === areaTag)
+    .map(buttonInfo => createButton(buttonInfo));
 };
-
-// const getMostUsedButtons = ({ buttons }: IKeyMap) => {
-//   return (
-//     <React.Fragment>
-//       {buttons
-//         .sort(info => info.count)
-//         .map(buttonInfo => {
-//           return createButton(buttonInfo);
-//         })}
-//     </React.Fragment>
-//   );
-// }
 
 export const createButton = (button: IButtonInfo) => {
   const handleClick = async () => {

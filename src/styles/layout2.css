@@ -1,19 +1,49 @@
 html,
 body {
   height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
 }
 
 .flex {
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.main {
+.pusher {
   flex: 1 0 auto;
+  background: deepskyblue;
+}
+
+.main {
   padding: 20px;
+  background: deepskyblue;
 }
 
 .footer {
   flex-shrink: 0;
+  background: hotpink;
+}
+
+.footer .common {
+  display: flex;
+  flex-direction: column;
+}
+
+/* this is covering the pink area */
+.footer .common-groups {
+  background-color: goldenrod;
+  padding: 20px;
+}
+
+.footer .common-buttons {
   padding: 20px;
 }
