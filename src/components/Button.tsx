@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/button.css";
-import axios from "axios";
 
 interface ButtonProps {
   label: string;

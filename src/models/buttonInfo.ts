@@ -9,4 +9,5 @@ export interface IButtonInfo {
   icon?: string;
   tags?: string[]; //replace groups?
   app?: string;
+  count?: number;
 }

@@ -12,18 +12,18 @@ body {
   margin: auto;
 }
 
-.container {
+.area {
   display: flex;
   flex-wrap: wrap;
 }
 
-.main .container {
+.main .area {
   flex-direction: column-reverse;
   max-height: 300px;
   justify-content: right;
 }
 
-.footer .container {
+.footer .area {
   flex-wrap: wrap-reverse;
 }
 

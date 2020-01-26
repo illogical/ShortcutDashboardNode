@@ -22,7 +22,7 @@
     ]
   },
   "applications": ["blender"],
-  "areas": ["main", "favorites", "recent", "common"],
+  "areas": ["main", "favorites", "most-used", "common"],
   "filters": ["object", "edit", "sculpt"],
   "groups": [
     { "title": "Selection", "area": "favorites", "tags": ["selection"] },
