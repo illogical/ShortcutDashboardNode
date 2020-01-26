@@ -1,0 +1,19 @@
+html,
+body {
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1 0 auto;
+  padding: 20px;
+}
+
+.footer {
+  flex-shrink: 0;
+  padding: 20px;
+}

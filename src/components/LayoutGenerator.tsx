@@ -5,6 +5,7 @@ import { Area } from "./Area";
 import { IButtonInfo } from "../models/buttonInfo";
 import { sendKeys } from "../api/keySettings";
 import { Button } from "./Button";
+import Grid from "./Grid";
 
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   return (
@@ -24,7 +25,9 @@ const generateLayout = (settings: ISettings) => {
   return (
     <React.Fragment>
       <article className="main">
-        <Area title="Main">{filterButtonsByArea("main", settings.keymap)}</Area>
+        <Area title="Main">
+          <Grid buttons={filterButtonsByArea("main", settings.keymap)}></Grid>
+        </Area>
       </article>
       <aside className="aside aside-2">
         <Area title="Most Used">
@@ -34,10 +37,12 @@ const generateLayout = (settings: ISettings) => {
       </aside>
       <footer className="footer">
         <Area title="Favorites">
-          {filterButtonsByArea("favorites", settings.keymap)}
+          <Grid
+            buttons={filterButtonsByArea("favorites", settings.keymap)}
+          ></Grid>
         </Area>
         <Area title="Common">
-          {filterButtonsByArea("common", settings.keymap)}
+          <Grid buttons={filterButtonsByArea("common", settings.keymap)}></Grid>
         </Area>
       </footer>
     </React.Fragment>
@@ -49,9 +54,7 @@ const filterButtonsByArea = (areaTag: string, { buttons }: IKeyMap) => {
     <React.Fragment>
       {buttons
         .filter(info => info.area === areaTag)
-        .map(buttonInfo => {
-          return createButton(buttonInfo);
-        })}
+        .map(buttonInfo => createButton(buttonInfo))}
     </React.Fragment>
   );
 };
@@ -68,16 +71,18 @@ const filterButtonsByArea = (areaTag: string, { buttons }: IKeyMap) => {
 //   );
 // }
 
-const createButton = (button: IButtonInfo) => {
+export const createButton = (button: IButtonInfo) => {
   const handleClick = async () => {
     if (!button.command.keys || !button.command.mods) return;
     await sendKeys(button.command.keys, button.command.mods);
   };
 
-  return <Button label={button.label} onClick={handleClick} />;
-
-  //return <Button />;
+  return (
+    <Button key={button.label} label={button.label} onClick={handleClick} />
+  );
 };
+
+export default createButton;
 
 /*
 

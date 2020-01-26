@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "./Button";
-import { Separator } from "./Separator";
-import axios from "axios";
 import { ISettings } from "../models/settings";
 import { getSettings } from "../api/keySettings";
 import { LayoutGenerator } from "./LayoutGenerator";
