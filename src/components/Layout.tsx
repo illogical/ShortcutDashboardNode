@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import { Button } from "./Button";
 import { Separator } from "./Separator";
-import { IKeyMap } from "../models/keymap";
-import fs from "fs";
+import axios from "axios";
 import { ISettings } from "../models/settings";
+
+//TODO: create a service layer
+const ip = "192.168.7.25:8080";
 
 export const Layout = () => {
   const [output, setOutput] = useState("");
+  const [settings, setSettings] = useState<ISettings>();
 
   const common = {
     onClick: (keys: string, modifiers: string) => {
-      setOutput(`${new Date()}: Sent ${keys} with ${modifiers} mods.`);
+      const mods = modifiers ? `?modifers=${modifiers}` : "";
+      axios.get(`http://${ip}/send/keys/${keys}${mods}`).then(response => {
+        setOutput(`${new Date()}: Sent ${keys} with ${modifiers} mods.`);
+      });
     }
+  };
+
+  const onClickSettings = () => {
+    axios.get(`http://${ip}/settings`).then(response => {
+      setSettings(response.data);
+      console.log("Successfully got settings.", settings);
+    });
   };
 
   const createInitialJson = () => {
@@ -903,10 +916,6 @@ export const Layout = () => {
     };
 
     console.log(JSON.stringify(keymap));
-
-    fs.writeFile("keymap.json", JSON.stringify(keymap), "utf8", () => {
-      console.log("File created.");
-    });
   };
 
   return (
@@ -944,7 +953,7 @@ export const Layout = () => {
           FAVORITES
           <div className="container">
             <Button label="Create initial JSON" onClick={createInitialJson} />
-            <Button {...common} label="Button5" />
+            <Button label="Get Settings" onClick={onClickSettings} />
             <Button {...common} label="Button5" />
             <Button {...common} label="Button5" />
             <Button {...common} label="Button5" />

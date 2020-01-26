@@ -12,15 +12,7 @@ interface ButtonProps {
 
 export const Button = ({ label, keys, modifiers, onClick }: ButtonProps) => {
   const handleClick = () => {
-    if (!keys) {
-      //TEMP
-      onClick("", "");
-    }
-    const ip = "192.168.7.25:8080";
-    const mods = modifiers ? `?modifers=${modifiers}` : "";
-    axios.get(`http://${ip}/send/keys/${keys}${mods}`).then(response => {
-      onClick(keys || "", mods);
-    });
+    onClick(keys || "", modifiers || "");
   };
 
   return (
