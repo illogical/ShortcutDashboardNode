@@ -51,12 +51,18 @@ const filterButtonsByArea = (areaTag: string, { buttons }: IKeyMap) => {
 
 export const createButton = (button: IButtonInfo) => {
   const handleClick = async () => {
-    if (!button.command.keys || !button.command.mods) return;
+    if (!button.command.keys) return;
     await sendKeys(button.command.keys, button.command.mods);
   };
 
   return (
-    <Button key={button.label} label={button.label} onClick={handleClick} />
+    <Button
+      key={button.label}
+      label={button.label}
+      onClick={handleClick}
+      keys={button.command.keys}
+      modifiers={button.command.mods}
+    />
   );
 };
 

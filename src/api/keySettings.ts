@@ -3,7 +3,7 @@ import { ISettings } from "../models/settings";
 
 const ip = "192.168.7.25:8080";
 
-export const sendKeys = async (keys: string, modifiers: string) => {
+export const sendKeys = async (keys: string, modifiers?: string) => {
   const mods = modifiers ? `?modifers=${modifiers}` : "";
   return await axios.get(`http://${ip}/send/keys/${keys}${mods}`);
 };
