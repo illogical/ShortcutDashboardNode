@@ -20,17 +20,17 @@ body {
 
 .pusher {
   flex: 1 0 auto;
-  background: deepskyblue;
+  xbackground: deepskyblue;
 }
 
 .main {
   padding: 20px;
-  background: deepskyblue;
+  xbackground: deepskyblue;
 }
 
 .footer {
   flex-shrink: 0;
-  background: hotpink;
+  xbackground: hotpink;
 }
 
 .footer .common {
@@ -40,7 +40,7 @@ body {
 
 /* this is covering the pink area */
 .footer .common-groups {
-  background-color: goldenrod;
+  xbackground-color: goldenrod;
   padding: 20px;
 }
 

@@ -1,10 +1,11 @@
 import React from "react";
 import { ISettings } from "../models/settings";
-import { IKeyMap } from "../models/keymap";
 import { IButtonInfo } from "../models/buttonInfo";
 import { sendKeys } from "../api/keySettings";
 import { Button } from "./Button";
 import Grid from "./Grid";
+import { getTheme, getColorByIndex } from "../helpers/colorSelector";
+import { ITheme } from "../models/theme";
 
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   return (
@@ -19,22 +20,22 @@ interface ILayoutGeneratorProps {
 }
 
 const generateLayout = (settings: ISettings) => {
-  //TODO: color randomizer
+  const theme = getTheme();
 
   return (
     <React.Fragment>
-      <div className="flex">
+      <div className={`flex ${theme.backgroundClass}`}>
         <div className="pusher"></div>
         <div className="main">
-          <Grid>{filterButtonsByArea("main", settings.keymap)}</Grid>
+          <Grid>{filterButtonsByArea("main", settings, theme)}</Grid>
         </div>
         <div className="footer">
           <div className="common">
             <div className="common-groups">
-              <Grid>{filterButtonsByArea("favorites", settings.keymap)}</Grid>
+              <Grid>{filterButtonsByArea("favorites", settings, theme)}</Grid>
             </div>
             <div className="common-buttons">
-              <Grid>{filterButtonsByArea("common", settings.keymap)}</Grid>
+              <Grid>{filterButtonsByArea("common", settings, theme)}</Grid>
             </div>
           </div>
         </div>
@@ -43,25 +44,43 @@ const generateLayout = (settings: ISettings) => {
   );
 };
 
-const filterButtonsByArea = (areaTag: string, { buttons }: IKeyMap) => {
-  return buttons
+const filterButtonsByArea = (
+  areaTag: string,
+  settings: ISettings,
+  theme: ITheme
+) => {
+  return settings.keymap.buttons
     .filter(info => info.area === areaTag)
-    .map(buttonInfo => createButton(buttonInfo));
+    .map((buttonInfo, index) =>
+      createButton(buttonInfo, theme, settings, index)
+    );
 };
 
-export const createButton = (button: IButtonInfo) => {
+export const createButton = (
+  button: IButtonInfo,
+  theme: ITheme,
+  settings: ISettings,
+  colorIndex: number
+) => {
   const handleClick = async () => {
     if (!button.command.keys) return;
     await sendKeys(button.command.keys, button.command.mods);
   };
+
+  const borderColor =
+    theme.overrideBorderColor === true
+      ? getColorByIndex(colorIndex, settings)
+      : "";
+  // const borderColor =
+  //   theme.overrideBorderColor === true ? getRandomBorderColor(settings) : "";
 
   return (
     <Button
       key={button.label}
       label={button.label}
       onClick={handleClick}
-      keys={button.command.keys}
-      modifiers={button.command.mods}
+      borderColor={borderColor}
+      theme={theme}
     />
   );
 };

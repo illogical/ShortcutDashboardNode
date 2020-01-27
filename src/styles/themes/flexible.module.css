@@ -1,0 +1,15 @@
+/* These were my original colors. Work well for swapping out the border colors. */
+.background {
+  background-color: #000d13;
+  color: #e8a87c;
+}
+
+.button {
+  background-color: #152126;
+  color: #d8ffe3;
+  border-color: #00a9ff;
+}
+
+.buttonhover {
+  border-color: #c38d9e;
+}

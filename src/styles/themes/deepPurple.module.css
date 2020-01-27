@@ -1,0 +1,14 @@
+.background {
+  background-color: #59253a;
+  color: #895061;
+}
+
+.button {
+  background-color: #2d4159;
+  color: #0677a1;
+  border-color: #0677a1;
+}
+
+.buttonhover {
+  border-color: #78244c;
+}

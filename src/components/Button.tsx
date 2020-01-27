@@ -1,26 +1,32 @@
 import React from "react";
 import "../styles/button.css";
+import { ITheme } from "../models/theme";
 
 interface ButtonProps {
   label: string;
-  keys?: string;
-  modifiers?: string;
-  color?: string;
+  theme?: ITheme;
+  borderColor?: string;
   onClick: () => void;
 }
 
-export const Button = ({ label, keys, modifiers, onClick }: ButtonProps) => {
+export const Button = ({ label, theme, borderColor, onClick }: ButtonProps) => {
+  const overrideTheme = theme?.overrideBorderColor;
+  const buttonClass = theme?.buttonClass;
+  const buttonStyles = !overrideTheme
+    ? {}
+    : {
+        borderColor
+      };
+
   return (
     <React.Fragment>
       <div className="item" id={label}>
         <div className="item-content">
-          {/* <div className="card">
-            <div className="card-id">te</div>
-            <div className="card-title">{label}</div>
-            <div className="card-remove"></div>
-          </div> */}
-
-          <div className="button" onClick={onClick}>
+          <div
+            className={`button ${buttonClass}`}
+            style={buttonStyles}
+            onClick={onClick}
+          >
             <div>{label}</div>
           </div>
         </div>
