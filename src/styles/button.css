@@ -1,11 +1,11 @@
 .button {
-  width: 125px;
+  width: 140px;
   height: 75px;
   background: #498094; /* TODO: programatic color */
 
   display: table;
   cursor: pointer;
-  font-size: 1.1em;
+  font-size: 1em;
   text-decoration: none;
   border-radius: 50px;
   border: 2px solid #c76141;

@@ -1,7 +1,6 @@
 import React from "react";
-import { IGroupInfo } from "../models/groupInfo";
 
-export const Area: React.FunctionComponent<IGroupInfo> = ({
+export const Area: React.FunctionComponent<IAreaProps> = ({
   title,
   children
 }) => {
@@ -12,3 +11,7 @@ export const Area: React.FunctionComponent<IGroupInfo> = ({
     </React.Fragment>
   );
 };
+
+interface IAreaProps {
+  title: string;
+}

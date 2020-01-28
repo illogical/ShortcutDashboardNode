@@ -3,19 +3,36 @@ import classyPink from "../styles/themes/classyPink.module.css";
 import deepPurple from "../styles/themes/deepPurple.module.css";
 import flat from "../styles/themes/flat.module.css";
 import flexible from "../styles/themes/flexible.module.css";
-import { ISettings } from "../models/settings";
 import faker from "faker";
 
-export const getRandomBorderColor = (settings: ISettings) => {
-  return settings.colors.buttons[
-    faker.random.number({ min: 0, max: settings.colors.buttons.length - 1 })
-  ];
-};
+export class ColorSelector {
+  colors: string[];
+  index: number;
 
-export const getColorByIndex = (index: number, settings: ISettings) => {
-  return settings.colors.buttons[index % settings.colors.buttons.length];
-};
+  constructor(colors: string[], startIndex?: number) {
+    this.index = startIndex || 0;
+    this.colors = colors;
+  }
 
+  getColor() {
+    const color = this.colors[this.index % this.colors.length];
+    this.index++;
+    return color;
+  }
+
+  getColorByIndex(index: number) {
+    return this.colors[index % this.colors.length];
+  }
+
+  getRandomColor() {
+    return this.colors[
+      faker.random.number({ min: 0, max: this.colors.length - 1 })
+    ];
+  }
+}
+
+//TODO: give this a better home
+//theme definitions that use CSS modules
 export const getTheme = () => {
   const themeIndex = 0;
   const selectedTheme = { ...themes[themeIndex] };

@@ -8,7 +8,6 @@
 
   margin: 5px;
   z-index: 1;
-  color: #fff;
 }
 .item.muuri-item-dragging {
   z-index: 3;

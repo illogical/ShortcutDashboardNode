@@ -7,7 +7,7 @@ export interface IButtonInfo {
   command: ICommandInfo;
   width?: 1 | 2 | 3;
   icon?: string;
-  tags?: string[]; //replace groups?
+  tags?: string[];
   app?: string;
   count?: number;
 }

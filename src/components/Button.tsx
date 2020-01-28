@@ -27,7 +27,7 @@ export const Button = ({ label, theme, borderColor, onClick }: ButtonProps) => {
             style={buttonStyles}
             onClick={onClick}
           >
-            <div>{label}</div>
+            <div>{label.toUpperCase()}</div>
           </div>
         </div>
       </div>
