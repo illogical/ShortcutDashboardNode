@@ -20,6 +20,12 @@ body {
   flex-direction: column;
 }
 
+.loader {
+  height: 100%;
+  text-align: center;
+  padding: 400px;
+}
+
 .pusher {
   flex: 1 0 auto;
   xbackground: deepskyblue;

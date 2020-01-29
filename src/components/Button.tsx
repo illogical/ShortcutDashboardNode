@@ -6,11 +6,18 @@ import { GridItem } from "./GridItem";
 interface ButtonProps {
   label: string;
   theme?: ITheme;
+  loading?: boolean;
   borderColor?: string;
   onClick: () => void;
 }
 
-export const Button = ({ label, theme, borderColor, onClick }: ButtonProps) => {
+export const Button = ({
+  label,
+  theme,
+  borderColor,
+  loading,
+  onClick
+}: ButtonProps) => {
   const overrideTheme = theme?.overrideBorderColor;
   const buttonClass = theme?.buttonClass;
   const buttonStyles = !overrideTheme
@@ -19,10 +26,13 @@ export const Button = ({ label, theme, borderColor, onClick }: ButtonProps) => {
         borderColor
       };
 
+  const singleLetterLabelClass = label.length === 1 ? "letter" : "";
+  const loadingClass = loading || "";
+
   return (
     <GridItem id={label}>
       <div
-        className={`button drag ${buttonClass}`}
+        className={`button drag ${buttonClass} ${singleLetterLabelClass} ${loadingClass}`}
         style={buttonStyles}
         onClick={onClick}
       >

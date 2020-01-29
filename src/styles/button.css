@@ -19,6 +19,10 @@
                                   supported by Chrome and Opera */
 }
 
+.button.loading {
+  border-color: #c76141;
+}
+
 .button > div {
   display: table-cell;
   vertical-align: middle;
@@ -28,4 +32,8 @@
 .button:active {
   border: 2px inset rgb(255, 34, 170);
   transition: all 0.2s ease 0s;
+}
+
+.button.letter {
+  font-size: 1.6em;
 }

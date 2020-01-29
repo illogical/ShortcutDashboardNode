@@ -8,25 +8,29 @@ import { getTheme, ColorSelector } from "../helpers/colorSelector";
 import { ITheme } from "../models/theme";
 import { IGroupInfo } from "../models/groupInfo";
 import { Group } from "./Group";
-import faker from "faker";
+import { ReactComponent as Loader } from "../styles/three-dots.svg";
 
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
-  return (
-    <React.Fragment>
-      {settings ? generateLayout(settings) : <h2>Generating Layout...</h2>}
-    </React.Fragment>
-  );
+  return <React.Fragment>{generateLayout(settings)}</React.Fragment>;
 };
 
 interface ILayoutGeneratorProps {
   settings?: ISettings;
 }
 
-const generateLayout = (settings: ISettings) => {
+const generateLayout = (settings?: ISettings) => {
   const theme = getTheme();
+  if (!settings) {
+    return (
+      <div className={`loader ${theme.backgroundClass}`}>
+        <Loader />
+      </div>
+    );
+  }
+
   const colorSelector = new ColorSelector(
-    settings.colors.buttons,
-    faker.random.number()
+    settings.colors.buttons
+    //faker.random.number()
   ); //use this for groups and buttons
 
   return (
@@ -111,10 +115,6 @@ export const createGroup = (
 ) => {
   const groupColor = colorSelector.getColor();
   group.color = groupColor;
-
-  // return buttons
-  //   .filter(btn => btn.tags?.indexOf(group.tag))
-  //   .map(btnInfo => createButton(btnInfo, theme, groupColor));
 
   return (
     <Group key={group.title} groupInfo={group}>
