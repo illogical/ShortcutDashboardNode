@@ -8,12 +8,12 @@
     { "title": "Edit", "area": "favorites", "tag": "edit mode" },
     { "title": "Animation", "area": "favorites", "tag": "animation" },
     { "title": "Sculpt", "area": "favorites", "tag": "sculpt" },
-    { "title": "View", "tag": "view", "area": "common" },
-    { "title": "Edges", "tag": "edges", "area": "common" },
-    { "title": "Vertices", "tag": "vertices", "area": "common" },
-    { "title": "Object", "tag": "object", "area": "common" },
-    { "title": "View Direction", "tag": "view-direction", "area": "common" },
-    { "title": "Menus", "tag": "menu", "area": "common" }
+    { "title": "View", "tag": "view", "area": "main" },
+    { "title": "Edges", "tag": "edges", "area": "main" },
+    { "title": "Vertices", "tag": "vertices", "area": "main" },
+    { "title": "Object", "tag": "object", "area": "main" },
+    { "title": "View Direction", "tag": "view-direction", "area": "main" },
+    { "title": "Menus", "tag": "menu", "area": "main" }
   ],
   "keymap": {
     "buttons": [

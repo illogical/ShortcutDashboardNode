@@ -33,7 +33,7 @@ const generateLayout = (settings: ISettings) => {
           <Grid>
             {createArea(
               "main",
-              settings.groups,
+              settings.groups.reverse(),
               settings.keymap.buttons,
               theme,
               colorSelector
@@ -46,35 +46,22 @@ const generateLayout = (settings: ISettings) => {
               <Grid>
                 {createArea(
                   "favorites",
-                  settings.groups,
+                  settings.groups.reverse(),
                   settings.keymap.buttons,
                   theme,
                   colorSelector
                 )}
-
-                {/* {filterButtonsByArea(
-                  "favorites",
-                  settings,
-                  theme,
-                  colorSelector.getColor()
-                )} */}
               </Grid>
             </div>
             <div className="common-buttons">
               <Grid>
                 {createArea(
                   "common",
-                  settings.groups,
+                  settings.groups.reverse(),
                   settings.keymap.buttons,
                   theme,
                   colorSelector
                 )}
-                {/* {filterButtonsByArea(
-                  "common",
-                  settings,
-                  theme,
-                  colorSelector.getColor()
-                )} */}
               </Grid>
             </div>
           </div>
@@ -82,17 +69,6 @@ const generateLayout = (settings: ISettings) => {
       </div>
     </React.Fragment>
   );
-};
-
-const filterButtonsByArea = (
-  areaTag: string,
-  settings: ISettings,
-  theme: ITheme,
-  color: string
-) => {
-  return settings.keymap.buttons
-    .filter(info => info.area === areaTag)
-    .map(buttonInfo => createButton(buttonInfo, theme, color));
 };
 
 export const createButton = (
@@ -165,7 +141,7 @@ export const createArea = (
     .filter(grp => grp.area === area)
     .map(grp => createGroup(grp, buttons, theme, colorSelector));
 
-  return [...untaggedButtons, ...groupsByArea];
+  return [...groupsByArea, ...untaggedButtons];
 };
 
 export default createButton;

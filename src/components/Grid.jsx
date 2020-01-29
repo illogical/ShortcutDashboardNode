@@ -16,7 +16,8 @@ const Grid = props => {
             layoutOnInit: true,
             layoutEasing: "ease",
             layout: {
-              alignBottom: true
+              alignBottom: true,
+              fillGaps: true
             },
             dragPlaceholder: {
               enabled: false,

@@ -26,7 +26,7 @@ body {
 }
 
 .main {
-  padding: 20px;
+  padding: 10px;
   xbackground: deepskyblue;
 }
 
@@ -43,9 +43,9 @@ body {
 /* this is covering the pink area */
 .footer .common-groups {
   xbackground-color: goldenrod;
-  padding: 20px;
+  padding: 10px;
 }
 
 .footer .common-buttons {
-  padding: 20px;
+  padding: 10px;
 }
