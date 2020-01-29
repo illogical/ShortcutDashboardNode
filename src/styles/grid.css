@@ -27,12 +27,18 @@
 .item > .item-content > .item {
   position: relative;
 }
-
+/* Groups *******************************************************************************/
 .group {
-  width: 360px;
+  width: 350px;
 }
 
 /* wraps buttons in groups */
+.group.item:not(.muuri-item) {
+  position: relative;
+  float: left;
+  xbackground-color: lightcoral;
+}
+
 .group .item {
   float: left;
 }

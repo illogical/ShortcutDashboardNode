@@ -8,6 +8,7 @@ import { getTheme, ColorSelector } from "../helpers/colorSelector";
 import { ITheme } from "../models/theme";
 import { IGroupInfo } from "../models/groupInfo";
 import { Group } from "./Group";
+import faker from "faker";
 
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   return (
@@ -23,7 +24,10 @@ interface ILayoutGeneratorProps {
 
 const generateLayout = (settings: ISettings) => {
   const theme = getTheme();
-  const colorSelector = new ColorSelector(settings.colors.buttons); //use this for groups and buttons
+  const colorSelector = new ColorSelector(
+    settings.colors.buttons,
+    faker.random.number()
+  ); //use this for groups and buttons
 
   return (
     <React.Fragment>
@@ -33,7 +37,7 @@ const generateLayout = (settings: ISettings) => {
           <Grid>
             {createArea(
               "main",
-              settings.groups.reverse(),
+              settings.groups,
               settings.keymap.buttons,
               theme,
               colorSelector
@@ -46,7 +50,7 @@ const generateLayout = (settings: ISettings) => {
               <Grid>
                 {createArea(
                   "favorites",
-                  settings.groups.reverse(),
+                  settings.groups,
                   settings.keymap.buttons,
                   theme,
                   colorSelector
