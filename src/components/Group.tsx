@@ -10,12 +10,12 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
   const titleStyle = groupInfo.color ? { color: groupInfo.color } : {};
 
   return (
-    <React.Fragment>
-      <div className="area-title" style={titleStyle}>
-        {groupInfo.title}
+    <div className="item group" style={titleStyle}>
+      <div className="item-content">
+        <div>{groupInfo.title}</div>
+        {children}
       </div>
-      <div className="area">{children}</div>
-    </React.Fragment>
+    </div>
   );
 };
 

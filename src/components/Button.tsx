@@ -19,18 +19,16 @@ export const Button = ({ label, theme, borderColor, onClick }: ButtonProps) => {
       };
 
   return (
-    <React.Fragment>
-      <div className="item" id={label}>
-        <div className="item-content">
-          <div
-            className={`button ${buttonClass}`}
-            style={buttonStyles}
-            onClick={onClick}
-          >
-            <div>{label.toUpperCase()}</div>
-          </div>
+    <div className="item" id={label}>
+      <div className="item-content">
+        <div
+          className={`button ${buttonClass}`}
+          style={buttonStyles}
+          onClick={onClick}
+        >
+          <div>{label.toUpperCase()}</div>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };

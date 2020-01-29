@@ -51,7 +51,7 @@ const generateLayout = (settings: ISettings) => {
                   theme,
                   colorSelector
                 )}
-                }
+
                 {/* {filterButtonsByArea(
                   "favorites",
                   settings,
@@ -132,17 +132,20 @@ export const createGroup = (
   const groupColor = colorSelector.getColor();
   group.color = groupColor;
 
+  // return buttons
+  //   .filter(btn => btn.tags?.indexOf(group.tag))
+  //   .map(btnInfo => createButton(btnInfo, theme, groupColor));
+
   return (
-    <React.Fragment>
+    <Group key={group.title} groupInfo={group}>
       {buttons
-        .filter(btn => btn.tags?.indexOf(group.tag))
+        .filter(btn => {
+          if (!btn.tags) return false;
+          return btn.tags?.indexOf(group.tag) >= 0;
+        })
         .map(btnInfo => createButton(btnInfo, theme, groupColor))}
-    </React.Fragment>
+    </Group>
   );
-
-  // <Group key={group.title} groupInfo={group}>
-
-  // </Group>
 };
 
 export const createArea = (
@@ -160,14 +163,12 @@ export const createArea = (
 
   const groupsByArea = groups
     .filter(grp => grp.area === area)
-    .map(grp =>
-      createGroup(
-        grp,
-        buttons.filter(btn => btn.tags?.indexOf(grp.tag)),
-        theme,
-        colorSelector
-      )
-    );
+    .map(grp => createGroup(grp, buttons, theme, colorSelector));
+
+  //TODO: Fix groups. They probably need a style for .item > .item-content > .item
+  //      WHY SO MANY REPEATED BUTTONS?!?!?!
+
+  //currently untaggedButtons work just fine. Groups a very busted
 
   return [...untaggedButtons, ...groupsByArea];
 };
