@@ -12,7 +12,7 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
   return (
     <div className="item group" style={titleStyle}>
       <div className="item-content">
-        <div>{groupInfo.title}</div>
+        <div className="drag">{groupInfo.title.toUpperCase()}</div>
         {children}
       </div>
     </div>

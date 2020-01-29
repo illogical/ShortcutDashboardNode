@@ -29,8 +29,10 @@
 }
 
 .group {
-  height: 300px;
-  width: 400px;
-  overflow: hidden;
-  background-color: indigo;
+  width: 360px;
+}
+
+/* wraps buttons in groups */
+.group .item {
+  float: left;
 }

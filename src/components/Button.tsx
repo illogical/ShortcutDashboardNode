@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/button.css";
 import { ITheme } from "../models/theme";
+import { GridItem } from "./GridItem";
 
 interface ButtonProps {
   label: string;
@@ -19,16 +20,14 @@ export const Button = ({ label, theme, borderColor, onClick }: ButtonProps) => {
       };
 
   return (
-    <div className="item" id={label}>
-      <div className="item-content">
-        <div
-          className={`button ${buttonClass}`}
-          style={buttonStyles}
-          onClick={onClick}
-        >
-          <div>{label.toUpperCase()}</div>
-        </div>
+    <GridItem id={label}>
+      <div
+        className={`button drag ${buttonClass}`}
+        style={buttonStyles}
+        onClick={onClick}
+      >
+        <div>{label.toUpperCase()}</div>
       </div>
-    </div>
+    </GridItem>
   );
 };

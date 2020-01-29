@@ -17,7 +17,16 @@ const Grid = props => {
             layoutEasing: "ease",
             layout: {
               alignBottom: true
-            }
+            },
+            dragPlaceholder: {
+              enabled: false,
+              duration: 300,
+              easing: "ease",
+              createElement: null,
+              onCreate: null,
+              onRemove: null
+            },
+            dragContainer: "drag"
           }}
         >
           {props.children}

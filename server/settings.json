@@ -5,7 +5,7 @@
   "groups": [
     { "title": "Selection", "area": "favorites", "tag": "selection" },
     { "title": "Viewport Shading", "area": "favorites", "tag": "shading" },
-    { "title": "Edit", "area": "favorites", "tag": "edit" },
+    { "title": "Edit", "area": "favorites", "tag": "edit mode" },
     { "title": "Animation", "area": "favorites", "tag": "animation" },
     { "title": "Sculpt", "area": "favorites", "tag": "sculpt" },
     { "title": "View", "tag": "view", "area": "common" },
@@ -251,63 +251,63 @@
         "label": "Wireframe",
         "area": "favorites",
         "app": "blender",
-        "tags": ["selection", "mode"],
+        "tags": ["shading", "mode"],
         "command": { "python": "C.space_data.viewport_shade = 'WIREFRAME'" }
       },
       {
         "label": "Material",
         "area": "favorites",
         "app": "blender",
-        "tags": ["selection", "mode"],
+        "tags": ["shading", "mode"],
         "command": { "python": "C.space_data.viewport_shade = 'MATERIAL'" }
       },
       {
         "label": "Rendered",
         "area": "favorites",
         "app": "blender",
-        "tags": ["selection", "mode"],
+        "tags": ["shading", "mode"],
         "command": { "python": "C.space_data.viewport_shade = 'RENDERED'" }
       },
       {
         "label": "Solid",
         "area": "favorites",
         "app": "blender",
-        "tags": ["selection", "mode"],
+        "tags": ["shading", "mode"],
         "command": { "python": "C.space_data.viewport_shade = 'SOLID'" }
       },
       {
         "label": "Extrude",
         "area": "favorites",
         "app": "blender",
-        "tags": ["edit"],
+        "tags": ["edit mode"],
         "command": { "keys": "e" }
       },
       {
         "label": "Inset",
         "area": "favorites",
         "app": "blender",
-        "tags": ["edit"],
+        "tags": ["edit mode"],
         "command": { "keys": "i" }
       },
       {
         "label": "Loop Cut",
         "area": "favorites",
         "app": "blender",
-        "tags": ["edit"],
+        "tags": ["edit mode"],
         "command": { "keys": "r" }
       },
       {
         "label": "Subdivide",
         "area": "favorites",
         "app": "blender",
-        "tags": ["edit"],
+        "tags": ["edit mode"],
         "command": { "python": "bpy.ops.mesh.subdivide()" }
       },
       {
         "label": "Proportional",
         "area": "favorites",
         "app": "blender",
-        "tags": ["edit"],
+        "tags": ["edit mode"],
         "command": {
           "python": "C.scene.tool_settings.proportional_edit = 'ENABLED'"
         }
@@ -316,7 +316,7 @@
         "label": "Disable Proportional",
         "area": "favorites",
         "app": "blender",
-        "tags": ["edit"],
+        "tags": ["edit mode"],
         "command": {
           "python": "C.scene.tool_settings.proportional_edit = 'DISABLED'"
         }

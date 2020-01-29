@@ -165,11 +165,6 @@ export const createArea = (
     .filter(grp => grp.area === area)
     .map(grp => createGroup(grp, buttons, theme, colorSelector));
 
-  //TODO: Fix groups. They probably need a style for .item > .item-content > .item
-  //      WHY SO MANY REPEATED BUTTONS?!?!?!
-
-  //currently untaggedButtons work just fine. Groups a very busted
-
   return [...untaggedButtons, ...groupsByArea];
 };
 
