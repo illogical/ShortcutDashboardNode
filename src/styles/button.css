@@ -19,6 +19,14 @@
                                   supported by Chrome and Opera */
 }
 
+.button.medium {
+  width: 165px;
+}
+
+.button.large {
+  width: 340px;
+}
+
 .button.loading {
   border-color: #c76141;
 }

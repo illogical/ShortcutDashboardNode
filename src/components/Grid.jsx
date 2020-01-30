@@ -17,7 +17,7 @@ const Grid = props => {
             layoutEasing: "ease",
             layout: {
               alignBottom: true,
-              fillGaps: true
+              fillGaps: false
             },
             dragPlaceholder: {
               enabled: false,

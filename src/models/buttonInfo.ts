@@ -10,4 +10,5 @@ export interface IButtonInfo {
   tags?: string[];
   app?: string;
   count?: number;
+  size?: "default" | "medium" | "large";
 }

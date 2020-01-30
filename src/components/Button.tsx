@@ -1,42 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/button.css";
 import { ITheme } from "../models/theme";
 import { GridItem } from "./GridItem";
+import { sendKeys } from "../api/keySettings";
+import { IButtonInfo } from "../models/buttonInfo";
 
 interface ButtonProps {
-  label: string;
+  buttonInfo: IButtonInfo;
   theme?: ITheme;
   loading?: boolean;
   borderColor?: string;
-  onClick: () => void;
+  size: "default" | "medium" | "large";
+  onClick?: () => void;
 }
 
 export const Button = ({
-  label,
+  buttonInfo,
   theme,
   borderColor,
-  loading,
+  size,
   onClick
 }: ButtonProps) => {
+  const [loading, setLoading] = useState(false);
   const overrideTheme = theme?.overrideBorderColor;
   const buttonClass = theme?.buttonClass;
-  const buttonStyles = !overrideTheme
-    ? {}
-    : {
-        borderColor
-      };
+  const loadingClass = loading ? "loading" : "";
+  const buttonStyles =
+    !overrideTheme || loading
+      ? {}
+      : {
+          borderColor
+        };
 
-  const singleLetterLabelClass = label.length === 1 ? "letter" : "";
-  const loadingClass = loading || "";
+  const singleLetterLabelClass = buttonInfo.label.length === 1 ? "letter" : "";
+
+  const handleClick = async () => {
+    if (!buttonInfo.command.keys) return;
+    try {
+      //TODO: change button borderColor to green
+      setLoading(true);
+      await sendKeys(buttonInfo.command.keys, buttonInfo.command.mods);
+      setLoading(false);
+    } catch (error) {
+      //TODO: change button borderColor to red
+      setLoading(false);
+    }
+  };
 
   return (
-    <GridItem id={label}>
+    <GridItem id={buttonInfo.label}>
       <div
-        className={`button drag ${buttonClass} ${singleLetterLabelClass} ${loadingClass}`}
+        className={`button drag ${buttonClass} ${singleLetterLabelClass} ${loadingClass} ${size}`}
         style={buttonStyles}
-        onClick={onClick}
+        onClick={onClick || handleClick}
       >
-        <div>{label.toUpperCase()}</div>
+        <div>{buttonInfo.label.toUpperCase()}</div>
       </div>
     </GridItem>
   );

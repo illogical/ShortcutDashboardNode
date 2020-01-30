@@ -572,7 +572,7 @@
         "label": "Apply",
         "area": "main",
         "app": "blender",
-        "tags": ["menu", "object"],
+        "tags": ["menu"],
         "command": { "keys": "a", "mods": "c" }
       },
       {
@@ -648,6 +648,36 @@
         "app": "blender",
         "tags": ["menu"],
         "command": { "keys": "c", "mods": "a" }
+      },
+      {
+        "label": "Volume +",
+        "area": "right",
+        "app": "blender",
+        "command": { "keys": "{VOLUME UP}" }
+      },
+      {
+        "label": "Volume -",
+        "area": "right",
+        "app": "blender",
+        "command": { "keys": "{VOLUME_DOWN}" }
+      },
+      {
+        "label": "Mute",
+        "area": "right",
+        "app": "blender",
+        "command": { "keys": "{VOLUME_MUTE}" }
+      },
+      {
+        "label": "Play/Pause",
+        "area": "right",
+        "app": "blender",
+        "command": { "keys": "{MEDIA_PLAY_PAUSE}" }
+      },
+      {
+        "label": "Screenshot",
+        "area": "right",
+        "app": "blender",
+        "command": { "keys": "{PRINTSCREEN}", "mods": "cs" }
       }
     ]
   },

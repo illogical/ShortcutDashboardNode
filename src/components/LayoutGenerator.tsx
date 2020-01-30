@@ -1,7 +1,6 @@
 import React from "react";
 import { ISettings } from "../models/settings";
 import { IButtonInfo } from "../models/buttonInfo";
-import { sendKeys } from "../api/keySettings";
 import { Button } from "./Button";
 import Grid from "./Grid";
 import { getTheme, ColorSelector } from "../helpers/colorSelector";
@@ -84,25 +83,15 @@ export const createButton = (
   theme: ITheme,
   colorOverride?: string
 ) => {
-  const handleClick = async () => {
-    if (!button.command.keys) return;
-    try {
-      //TODO: change button borderColor to green
-      await sendKeys(button.command.keys, button.command.mods);
-    } catch (error) {
-      //TODO: change button borderColor to red
-    }
-  };
-
   const themeOverride = theme.overrideBorderColor === true ? colorOverride : "";
 
   return (
     <Button
+      buttonInfo={button}
       key={button.label}
-      label={button.label}
-      onClick={handleClick}
       borderColor={themeOverride}
       theme={theme}
+      size={button.size ? button.size : "default"}
     />
   );
 };
@@ -116,14 +105,27 @@ export const createGroup = (
   const groupColor = colorSelector.getColor();
   group.color = groupColor;
 
+  const filteredButtons = buttons.filter(btn => {
+    if (!btn.tags) return false;
+    return btn.tags?.indexOf(group.tag) >= 0;
+  });
+
+  //stretch buttons across bottom of groups
+  switch (filteredButtons.length % 3) {
+    case 2:
+      filteredButtons[filteredButtons.length - 1].size = "medium";
+      filteredButtons[filteredButtons.length - 2].size = "medium";
+      break;
+    case 1:
+      filteredButtons[filteredButtons.length - 1].size = "large";
+      break;
+  }
+
   return (
     <Group key={group.title} groupInfo={group}>
-      {buttons
-        .filter(btn => {
-          if (!btn.tags) return false;
-          return btn.tags?.indexOf(group.tag) >= 0;
-        })
-        .map(btnInfo => createButton(btnInfo, theme, groupColor))}
+      {filteredButtons.map(btnInfo => {
+        return createButton(btnInfo, theme, groupColor);
+      })}
     </Group>
   );
 };
