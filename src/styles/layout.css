@@ -58,7 +58,6 @@ body {
 .aside-2 {
   background: hotpink;
   overflow-y: auto;
-  max-height: 300px;
 }
 
 @media all and (min-width: 600px) {

@@ -35,6 +35,15 @@ const generateLayout = (settings?: ISettings) => {
   return (
     <React.Fragment>
       <div className={`flex ${theme.backgroundClass}`}>
+        <div className="top">
+          {createArea(
+            "top",
+            settings.groups,
+            settings.keymap.buttons,
+            theme,
+            colorSelector
+          )}
+        </div>
         <div className="pusher"></div>
         <div className="main">
           <Grid>
@@ -47,6 +56,7 @@ const generateLayout = (settings?: ISettings) => {
             )}
           </Grid>
         </div>
+
         <div className="footer">
           <div className="common">
             <div className="common-groups">

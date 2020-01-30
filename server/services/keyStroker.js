@@ -15,7 +15,7 @@ function keyStroker(command) {
 
   keyStroke += command.keys;
 
-  return keyStroke;
+  return `"${keyStroke}"`;
 }
 
 module.exports = keyStroker;

@@ -650,34 +650,34 @@
         "command": { "keys": "c", "mods": "a" }
       },
       {
-        "label": "Volume +",
-        "area": "right",
+        "label": "Screenshot",
+        "area": "top",
         "app": "blender",
-        "command": { "keys": "{VOLUME UP}" }
+        "command": { "keys": "{PRINTSCREEN}", "mods": "cs" }
+      },
+      {
+        "label": "Volume +",
+        "area": "top",
+        "app": "blender",
+        "command": { "keys": "{VOLUME_UP}" }
       },
       {
         "label": "Volume -",
-        "area": "right",
+        "area": "top",
         "app": "blender",
         "command": { "keys": "{VOLUME_DOWN}" }
       },
       {
         "label": "Mute",
-        "area": "right",
+        "area": "top",
         "app": "blender",
         "command": { "keys": "{VOLUME_MUTE}" }
       },
       {
         "label": "Play/Pause",
-        "area": "right",
+        "area": "top",
         "app": "blender",
         "command": { "keys": "{MEDIA_PLAY_PAUSE}" }
-      },
-      {
-        "label": "Screenshot",
-        "area": "right",
-        "app": "blender",
-        "command": { "keys": "{PRINTSCREEN}", "mods": "cs" }
       }
     ]
   },
@@ -689,14 +689,12 @@
     "buttons": [
       "#FF9780",
       "#00798C",
-      "#FFAF77",
       "#E27D60",
       "#C38D9E",
       "#7395AE",
       "#B1A296",
       "#99CED3",
       "#4D6D9A",
-      "#EDB5BF",
       "#FFCB9A",
       "#648199",
       "#116466",
@@ -704,6 +702,7 @@
       "#DA7B93",
       "#376E6F",
       "#5085A5",
+      "#EDB5BF",
       "#31708E",
       "#687864",
       "#0677A1",

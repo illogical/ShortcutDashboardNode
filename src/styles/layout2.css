@@ -31,9 +31,15 @@ body {
   xbackground: deepskyblue;
 }
 
+.top > .item {
+  position: relative;
+  float: left;
+}
+
 .main {
   padding: 10px;
   xbackground: deepskyblue;
+  overflow-y: hidden;
 }
 
 .footer {
