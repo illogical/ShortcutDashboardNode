@@ -1,7 +1,8 @@
 .button {
   width: 106px;
   height: 55px;
-  background: #498094; /* TODO: programatic color */
+  background: #0d1c22; /* TODO: programatic color */
+  color: #d8ffe3;
 
   display: table;
   cursor: pointer;
@@ -28,18 +29,14 @@
 }
 
 .button.loading {
-  border-color: #c76141;
+  border-color: #008cc3;
 }
 
+.btn > div,
 .button > div {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-}
-
-.button:active {
-  border: 2px inset rgb(255, 34, 170);
-  transition: all 0.2s ease 0s;
 }
 
 .button.letter {

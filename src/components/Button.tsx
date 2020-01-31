@@ -4,6 +4,7 @@ import { ITheme } from "../models/theme";
 import { GridItem } from "./GridItem";
 import { sendKeys } from "../api/keySettings";
 import { IButtonInfo } from "../models/buttonInfo";
+import { motion } from "framer-motion";
 
 interface ButtonProps {
   buttonInfo: IButtonInfo;
@@ -23,7 +24,6 @@ export const Button = ({
 }: ButtonProps) => {
   const [loading, setLoading] = useState(false);
   const overrideTheme = theme?.overrideBorderColor;
-  const buttonClass = theme?.buttonClass;
   const loadingClass = loading ? "loading" : "";
   const buttonStyles =
     !overrideTheme || loading
@@ -49,13 +49,15 @@ export const Button = ({
 
   return (
     <GridItem id={buttonInfo.label}>
-      <div
-        className={`button drag ${buttonClass} ${singleLetterLabelClass} ${loadingClass} ${size}`}
+      <motion.div
+        className={`button drag ${singleLetterLabelClass} ${loadingClass} ${size}`}
         style={buttonStyles}
-        onClick={onClick || handleClick}
+        onTap={onClick || handleClick}
+        whileTap={{ scale: 0.85 }}
+        transition={{ type: "spring", stiffness: 130 }}
       >
         <div>{buttonInfo.label.toUpperCase()}</div>
-      </div>
+      </motion.div>
     </GridItem>
   );
 };
