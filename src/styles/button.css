@@ -1,7 +1,7 @@
 .button {
   width: 106px;
   height: 55px;
-  background: #0d1c22; /* TODO: programatic color */
+  background: #152126; /* TODO: programatic color */
   color: #d8ffe3;
 
   display: table;
@@ -30,6 +30,15 @@
 
 .button.loading {
   border-color: #008cc3;
+  color: #23c1ff;
+}
+
+.button.fail {
+  border-color: #f50b0b;
+}
+
+.button .hidden {
+  display: none;
 }
 
 .btn > div,

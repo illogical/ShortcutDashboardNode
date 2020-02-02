@@ -5,6 +5,7 @@ export interface IButtonInfo {
   color?: string; //should groups have colors?
   area: string;
   command: ICommandInfo;
+  filter?: string;
   width?: 1 | 2 | 3;
   icon?: string;
   tags?: string[];

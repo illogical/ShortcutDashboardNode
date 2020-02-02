@@ -6,13 +6,14 @@
     { "title": "General", "tag": "general", "area": "main" },
     { "title": "Selection", "area": "favorites", "tag": "selection" },
     { "title": "Viewport Shading", "area": "favorites", "tag": "shading" },
-    { "title": "Edit", "area": "favorites", "tag": "edit mode" },
+    { "title": "View", "tag": "view", "area": "main" },
+    { "title": "Edit Mode", "area": "main", "tag": "edit-mode" },
+    { "title": "Edit Tools", "area": "favorites", "tag": "edit-tools" },
     { "title": "Animation", "area": "favorites", "tag": "animation" },
     { "title": "Sculpt", "area": "favorites", "tag": "sculpt" },
-    { "title": "View", "tag": "view", "area": "main" },
     { "title": "Edges", "tag": "edges", "area": "main" },
     { "title": "Vertices", "tag": "vertices", "area": "main" },
-    { "title": "Object", "tag": "object", "area": "main" },
+    { "title": "Object Mode", "tag": "object", "area": "main" },
     { "title": "View Direction", "tag": "view-direction", "area": "main" },
     { "title": "Menus", "tag": "menu", "area": "main" }
   ],
@@ -40,62 +41,92 @@
         "label": "Grab",
         "area": "common",
         "app": "blender",
+        "icon": "fad fa-fist-raised fa-2x",
         "command": { "keys": "g" }
       },
       {
         "label": "Scale",
         "area": "common",
         "app": "blender",
+        "icon": "fad fa-expand-arrows-alt fa-2x",
         "command": { "keys": "s" }
       },
       {
         "label": "Rotate",
         "area": "common",
         "app": "blender",
+        "icon": "fad fa-retweet-alt fa-2x",
+        "command": { "keys": "r" }
+      },
+      {
+        "label": "Extrude",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
+        "command": { "keys": "e" }
+      },
+      {
+        "label": "Inset",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
+        "command": { "keys": "i" }
+      },
+      {
+        "label": "Loop Cut",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
         "command": { "keys": "r" }
       },
       {
         "label": "Vertices",
         "area": "common",
         "app": "blender",
-        "tags": ["edit", "mode"],
+        "tags": ["edit-tools", "edit"],
+        "icon": "fad fa-draw-polygon fa-2x",
         "command": { "keys": "1" }
       },
       {
         "label": "Edges",
         "area": "common",
         "app": "blender",
-        "tags": ["edit", "mode"],
+        "tags": ["edit-tools", "edit"],
+        "icon": "far fa-cube fa-2x",
         "command": { "keys": "2" }
       },
       {
         "label": "Faces",
         "area": "common",
         "app": "blender",
-        "tags": ["edit", "mode"],
+        "tags": ["edit-tools", "edit"],
+        "icon": "fad fa-cube fa-2x",
         "command": { "keys": "3" }
       },
       {
         "label": "Undo",
         "area": "common",
         "app": "blender",
+        "icon": "fad fa-undo fa-2x",
         "command": { "keys": "z", "mods": "c" }
       },
       {
         "label": "Redo",
         "area": "common",
         "app": "blender",
+        "icon": "fad fa-redo fa-2x",
         "command": { "keys": "z", "mods": "cs" }
       },
       {
         "label": "History",
         "area": "common",
         "app": "blender",
+        "icon": "fad fa-history fa-2x",
         "command": { "keys": "z", "mods": "ca" }
       },
       {
         "label": "Delete",
-        "icon": "fas fa-trash",
+        "icon": "fad fa-trash fa-2x",
         "area": "common",
         "app": "blender",
         "command": { "keys": "x" }
@@ -240,6 +271,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["selection"],
+        "icon": "fad fa-expand fa-2x",
         "command": { "keys": "b" }
       },
       {
@@ -254,6 +286,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["selection"],
+        "icon": "far fa-sitemap fa-2x",
         "command": { "keys": "l" }
       },
       {
@@ -261,6 +294,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["shading", "mode"],
+        "icon": "far fa-cubes fa-3x",
         "command": { "python": "C.space_data.viewport_shade = 'WIREFRAME'" }
       },
       {
@@ -284,48 +318,28 @@
         "tags": ["shading", "mode"],
         "command": { "python": "C.space_data.viewport_shade = 'SOLID'" }
       },
-      {
-        "label": "Extrude",
-        "area": "favorites",
-        "app": "blender",
-        "tags": ["edit mode"],
-        "command": { "keys": "e" }
-      },
-      {
-        "label": "Inset",
-        "area": "favorites",
-        "app": "blender",
-        "tags": ["edit mode"],
-        "command": { "keys": "i" }
-      },
-      {
-        "label": "Loop Cut",
-        "area": "favorites",
-        "app": "blender",
-        "tags": ["edit mode"],
-        "command": { "keys": "r" }
-      },
+
       {
         "label": "Subdivide",
-        "area": "favorites",
+        "area": "common",
         "app": "blender",
-        "tags": ["edit mode"],
+        "tags": ["edit-mode", "edit"],
         "command": { "python": "bpy.ops.mesh.subdivide()" }
       },
       {
         "label": "Proportional",
-        "area": "favorites",
+        "area": "common",
         "app": "blender",
-        "tags": ["edit mode"],
+        "tags": ["edit-mode", "edit"],
         "command": {
           "python": "C.scene.tool_settings.proportional_edit = 'ENABLED'"
         }
       },
       {
         "label": "Disable Proportional",
-        "area": "favorites",
+        "area": "common",
         "app": "blender",
-        "tags": ["edit mode"],
+        "tags": ["edit-mode", "edit"],
         "command": {
           "python": "C.scene.tool_settings.proportional_edit = 'DISABLED'"
         }
@@ -335,27 +349,38 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["animation"],
-        "command": { "python": "bpy.ops.screen.frame_jump(end=False)" }
+        "icon": "fad fa-fast-backward fa-2x",
+        "command": { "keys": "{LEFT}", "mods": "s" }
       },
       {
         "label": "Step Back",
         "area": "favorites",
         "app": "blender",
         "tags": ["animation"],
-        "command": { "python": "" }
+        "icon": "fad fa-step-backward fa-2x",
+        "command": { "keys": "{LEFT}" }
       },
       {
         "label": "Step Forward",
         "area": "favorites",
         "app": "blender",
         "tags": ["animation"],
-        "command": { "python": "" }
+        "icon": "fad fa-step-forward fa-2x",
+        "command": { "keys": "{RIGHT}" }
       },
       {
-        "label": "Play",
+        "label": "Insert Keyframe",
         "area": "favorites",
         "app": "blender",
         "tags": ["animation"],
+        "command": { "keys": "i" }
+      },
+      {
+        "label": "Play/Pause",
+        "area": "favorites",
+        "app": "blender",
+        "tags": ["animation"],
+        "icon": "fad fa-pause fa-2x",
         "command": { "keys": "a", "mods": "a" }
       },
       {
@@ -419,7 +444,8 @@
         "area": "main",
         "app": "blender",
         "tags": ["view"],
-        "command": { "python": "bpy.ops.wm.window_fullscreen_toggle()" }
+        "icon": "fad fa-tv fa-3x",
+        "command": { "keys": "{SPACE}", "mods": "ca" }
       },
       {
         "label": "Bevel",
@@ -468,6 +494,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["vertices", "edit"],
+        "icon": "fad fa-scalpel-path fa-3x",
         "command": { "keys": "k" }
       },
       {
@@ -475,6 +502,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["object"],
+        "icon": "fad fa-plus-circle fa-2x",
         "command": { "keys": "a", "mods": "s" }
       },
       {
@@ -496,42 +524,43 @@
         "area": "main",
         "app": "blender",
         "tags": ["view-direction"],
-        "command": { "python": "bpy.ops.view3d.viewnumpad(type='CAMERA')" }
+        "icon": "fad fa-camera-movie fa-2x",
+        "command": { "keys": "{NUMPAD0}" }
       },
       {
         "label": "Front",
         "area": "main",
         "app": "blender",
         "tags": ["view-direction"],
-        "command": { "python": "bpy.ops.view3d.viewnumpad(type='FRONT')" }
+        "command": { "keys": "{NUMPAD1}" }
       },
       {
         "label": "Top",
         "area": "main",
         "app": "blender",
         "tags": ["view-direction"],
-        "command": { "python": "bpy.ops.view3d.viewnumpad(type='TOP')" }
+        "command": { "keys": "{NUMPAD7}" }
       },
       {
         "label": "Left",
         "area": "main",
         "app": "blender",
         "tags": ["view-direction"],
-        "command": { "python": "bpy.ops.view3d.viewnumpad(type='LEFT')" }
+        "command": { "keys": "{NUMPAD3}", "mods": "s" }
       },
       {
         "label": "Back",
         "area": "main",
         "app": "blender",
         "tags": ["view-direction"],
-        "command": { "python": "bpy.ops.view3d.viewnumpad(type='BACK')" }
+        "command": { "keys": "{NUMPAD1}", "mods": "s" }
       },
       {
         "label": "Right",
         "area": "main",
         "app": "blender",
         "tags": ["view-direction"],
-        "command": { "python": "bpy.ops.view3d.viewnumpad(type='RIGHT')" }
+        "command": { "keys": "{NUMPAD3}" }
       },
       {
         "label": "Toggle Ortho",
@@ -630,7 +659,7 @@
         "app": "blender",
         "tags": ["menu"],
         "command": {
-          "python": "bpy.ops.wm.call_menu(name='VIEW3D_MT_edit_proportional')"
+          "keys": "o"
         }
       },
       {
@@ -653,30 +682,35 @@
         "label": "Screenshot",
         "area": "top",
         "app": "blender",
+        "icon": "fad fa-camera-retro fa-3x",
         "command": { "keys": "{PRINTSCREEN}", "mods": "cs" }
       },
       {
         "label": "Volume +",
         "area": "top",
         "app": "blender",
+        "icon": "fad fa-volume-up fa-3x",
         "command": { "keys": "{VOLUME_UP}" }
       },
       {
         "label": "Volume -",
         "area": "top",
         "app": "blender",
+        "icon": "fad fa-volume-down fa-3x",
         "command": { "keys": "{VOLUME_DOWN}" }
       },
       {
         "label": "Mute",
         "area": "top",
         "app": "blender",
+        "icon": "fad fa-volume-mute fa-3x",
         "command": { "keys": "{VOLUME_MUTE}" }
       },
       {
         "label": "Play/Pause",
         "area": "top",
         "app": "blender",
+        "icon": "fad fa-pause fa-3x",
         "command": { "keys": "{MEDIA_PLAY_PAUSE}" }
       }
     ]

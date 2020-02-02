@@ -22,11 +22,22 @@ export const Button = ({
   size,
   onClick
 }: ButtonProps) => {
-  const [loading, setLoading] = useState(false);
+  const [loadingClass, setLoadingClass] = useState("");
   const overrideTheme = theme?.overrideBorderColor;
-  const loadingClass = loading ? "loading" : "";
+
+  const handleClick = async () => {
+    if (!buttonInfo.command.keys) return;
+    try {
+      setLoadingClass("loading");
+      await sendKeys(buttonInfo.command.keys, buttonInfo.command.mods);
+      setLoadingClass("");
+    } catch (error) {
+      setLoadingClass("fail");
+    }
+  };
+
   const buttonStyles =
-    !overrideTheme || loading
+    !overrideTheme || loadingClass === "loading"
       ? {}
       : {
           borderColor
@@ -34,16 +45,10 @@ export const Button = ({
 
   const singleLetterLabelClass = buttonInfo.label.length === 1 ? "letter" : "";
 
-  const handleClick = async () => {
-    if (!buttonInfo.command.keys) return;
-    try {
-      //TODO: change button borderColor to green
-      setLoading(true);
-      await sendKeys(buttonInfo.command.keys, buttonInfo.command.mods);
-      setLoading(false);
-    } catch (error) {
-      //TODO: change button borderColor to red
-      setLoading(false);
+  const variants = {
+    push: {
+      scale: 0.85,
+      transition: { type: "spring", damping: 6, stiffness: 160 }
     }
   };
 
@@ -53,10 +58,17 @@ export const Button = ({
         className={`button drag ${singleLetterLabelClass} ${loadingClass} ${size}`}
         style={buttonStyles}
         onTap={onClick || handleClick}
-        whileTap={{ scale: 0.85 }}
-        transition={{ type: "spring", stiffness: 130 }}
+        whileTap={"push"}
+        variants={variants}
       >
-        <div>{buttonInfo.label.toUpperCase()}</div>
+        {buttonInfo.icon ? (
+          <div>
+            <span className={buttonInfo.icon} />
+            <span className="hidden">{buttonInfo.label.toUpperCase()}</span>
+          </div>
+        ) : (
+          <div>{buttonInfo.label.toUpperCase()}</div>
+        )}
       </motion.div>
     </GridItem>
   );

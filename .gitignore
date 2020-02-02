@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+#Hide FontAwesome Pro. Unzip /css and /webfonts to fix
+/public/styles/fontawesome
+
 # testing
 /coverage
 
