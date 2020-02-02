@@ -9,7 +9,7 @@ const Grid = props => {
         <MuuriComponent
           options={{
             layoutDuration: 400,
-            dragEnabled: true,
+            dragEnabled: false,
             dragSortInterval: 50,
             dragReleaseDuration: 400,
             layoutOnResize: 100,

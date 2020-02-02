@@ -33,7 +33,7 @@ body {
 
 .top > .item {
   position: relative;
-  float: left;
+  float: right;
 }
 
 .main {

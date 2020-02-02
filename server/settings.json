@@ -20,6 +20,27 @@
   "keymap": {
     "buttons": [
       {
+        "label": "Grab",
+        "area": "common",
+        "app": "blender",
+        "icon": "fad fa-fist-raised fa-3x",
+        "command": { "keys": "g" }
+      },
+      {
+        "label": "Scale",
+        "area": "common",
+        "app": "blender",
+        "icon": "fad fa-expand-arrows-alt fa-3x",
+        "command": { "keys": "s" }
+      },
+      {
+        "label": "Rotate",
+        "area": "common",
+        "app": "blender",
+        "icon": "fad fa-retweet-alt fa-3x",
+        "command": { "keys": "r" }
+      },
+      {
         "label": "X",
         "area": "common",
         "app": "blender",
@@ -37,71 +58,13 @@
         "app": "blender",
         "command": { "keys": "z" }
       },
+
       {
-        "label": "Grab",
+        "label": "Tab",
         "area": "common",
         "app": "blender",
-        "icon": "fad fa-fist-raised fa-2x",
-        "command": { "keys": "g" }
-      },
-      {
-        "label": "Scale",
-        "area": "common",
-        "app": "blender",
-        "icon": "fad fa-expand-arrows-alt fa-2x",
-        "command": { "keys": "s" }
-      },
-      {
-        "label": "Rotate",
-        "area": "common",
-        "app": "blender",
-        "icon": "fad fa-retweet-alt fa-2x",
+        "icon": "fad fa-bring-forward fa-3x",
         "command": { "keys": "r" }
-      },
-      {
-        "label": "Extrude",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
-        "command": { "keys": "e" }
-      },
-      {
-        "label": "Inset",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
-        "command": { "keys": "i" }
-      },
-      {
-        "label": "Loop Cut",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
-        "command": { "keys": "r" }
-      },
-      {
-        "label": "Vertices",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
-        "icon": "fad fa-draw-polygon fa-2x",
-        "command": { "keys": "1" }
-      },
-      {
-        "label": "Edges",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
-        "icon": "far fa-cube fa-2x",
-        "command": { "keys": "2" }
-      },
-      {
-        "label": "Faces",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
-        "icon": "fad fa-cube fa-2x",
-        "command": { "keys": "3" }
       },
       {
         "label": "Undo",
@@ -136,6 +99,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["general"],
+        "icon": "far fa-check-circle fa-3x",
         "command": { "keys": "{ENTER}" }
       },
       {
@@ -143,6 +107,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["general"],
+        "icon": "far fa-minus-circle fa-3x",
         "command": { "keys": "{ESC}" }
       },
       {
@@ -264,6 +229,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["selection"],
+        "icon": "fad fa-circle-notch fa-3x",
         "command": { "keys": "c" }
       },
       {
@@ -271,7 +237,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["selection"],
-        "icon": "fad fa-expand fa-2x",
+        "icon": "fad fa-expand fa-3x",
         "command": { "keys": "b" }
       },
       {
@@ -286,7 +252,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["selection"],
-        "icon": "far fa-sitemap fa-2x",
+        "icon": "far fa-sitemap fa-3x",
         "command": { "keys": "l" }
       },
       {
@@ -318,7 +284,51 @@
         "tags": ["shading", "mode"],
         "command": { "python": "C.space_data.viewport_shade = 'SOLID'" }
       },
-
+      {
+        "label": "Extrude",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
+        "command": { "keys": "e" }
+      },
+      {
+        "label": "Inset",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
+        "command": { "keys": "i" }
+      },
+      {
+        "label": "Loop Cut",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
+        "command": { "keys": "r" }
+      },
+      {
+        "label": "Vertices",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
+        "icon": "fad fa-draw-square fa-3x",
+        "command": { "keys": "1" }
+      },
+      {
+        "label": "Edges",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
+        "icon": "far fa-cube fa-3x",
+        "command": { "keys": "2" }
+      },
+      {
+        "label": "Faces",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-tools", "edit"],
+        "icon": "fad fa-cube fa-3x",
+        "command": { "keys": "3" }
+      },
       {
         "label": "Subdivide",
         "area": "common",
@@ -416,6 +426,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["view"],
+        "icon": "fad fa-eye-slash fa-3x",
         "command": { "keys": "h" }
       },
       {
@@ -437,6 +448,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["view"],
+        "icon": "far fa-th-large fa-3x",
         "command": { "keys": "q", "mods": "ca" }
       },
       {
@@ -502,7 +514,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["object"],
-        "icon": "fad fa-plus-circle fa-2x",
+        "icon": "fad fa-shapes fa-3x",
         "command": { "keys": "a", "mods": "s" }
       },
       {
@@ -524,7 +536,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["view-direction"],
-        "icon": "fad fa-camera-movie fa-2x",
+        "icon": "fad fa-camera-movie fa-3x",
         "command": { "keys": "{NUMPAD0}" }
       },
       {
@@ -659,7 +671,7 @@
         "app": "blender",
         "tags": ["menu"],
         "command": {
-          "keys": "o"
+          "python": "bpy.ops.wm.call_menu(name='VIEW3D_MT_edit_proportional')"
         }
       },
       {
