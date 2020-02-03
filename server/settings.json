@@ -5,10 +5,10 @@
   "groups": [
     { "title": "General", "tag": "general", "area": "main" },
     { "title": "Selection", "area": "favorites", "tag": "selection" },
-    { "title": "Viewport Shading", "area": "favorites", "tag": "shading" },
     { "title": "View", "tag": "view", "area": "main" },
     { "title": "Edit Mode", "area": "main", "tag": "edit-mode" },
     { "title": "Edit Tools", "area": "favorites", "tag": "edit-tools" },
+    { "title": "Viewport Shading", "area": "favorites", "tag": "shading" },
     { "title": "Animation", "area": "favorites", "tag": "animation" },
     { "title": "Sculpt", "area": "favorites", "tag": "sculpt" },
     { "title": "Edges", "tag": "edges", "area": "main" },
@@ -37,7 +37,7 @@
         "label": "Rotate",
         "area": "common",
         "app": "blender",
-        "icon": "fad fa-retweet-alt fa-3x",
+        "icon": "fad fa-swatchbook fa-3x",
         "command": { "keys": "r" }
       },
       {
@@ -222,7 +222,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["selection"],
-        "command": { "keys": "aa" }
+        "command": { "keys": "a", "mods": "a" }
       },
       {
         "label": "Circle",
@@ -303,7 +303,7 @@
         "area": "common",
         "app": "blender",
         "tags": ["edit-tools", "edit"],
-        "command": { "keys": "r" }
+        "command": { "keys": "r", "mods": "c" }
       },
       {
         "label": "Vertices",
@@ -390,7 +390,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["animation"],
-        "icon": "fad fa-pause fa-2x",
+        "icon": "fad fa-pause fa-2x fa-swap-opacity",
         "command": { "keys": "a", "mods": "a" }
       },
       {
@@ -722,16 +722,66 @@
         "label": "Play/Pause",
         "area": "top",
         "app": "blender",
-        "icon": "fad fa-pause fa-3x",
+        "icon": "fad fa-pause fa-2x fa-swap-opacity",
         "command": { "keys": "{MEDIA_PLAY_PAUSE}" }
+      },
+      {
+        "label": "Divvy",
+        "area": "top",
+        "app": "blender",
+        "icon": "fad fa-window-alt fa-3x",
+        "command": { "keys": "{SPACE}", "mods": "csa" }
+      },
+      {
+        "label": "Paste",
+        "area": "top",
+        "app": "blender",
+        "icon": "fad fa-paste fa-2x",
+        "command": { "keys": "v", "mods": "c" }
+      },
+      {
+        "label": "Cut",
+        "area": "top",
+        "app": "blender",
+        "icon": "fad fa-cut fa-2x",
+        "command": { "keys": "x", "mods": "c" }
+      },
+      {
+        "label": "Copy",
+        "area": "top",
+        "app": "blender",
+        "icon": "fad fa-copy fa-2x",
+        "command": { "keys": "c", "mods": "c" }
+      },
+
+      {
+        "label": "Refresh",
+        "area": "top",
+        "app": "blender",
+        "icon": "fad fa-sync-alt fa-2x",
+        "command": { "keys": "{F5}", "mods": "c" }
+      },
+      {
+        "label": "Forward",
+        "area": "top",
+        "app": "blender",
+        "icon": "fad fa-long-arrow-alt-right fa-3x",
+        "command": { "keys": "{RIGHT}", "mods": "a" }
+      },
+      {
+        "label": "Back",
+        "area": "top",
+        "app": "blender",
+        "icon": "fad fa-long-arrow-alt-left fa-3x",
+        "command": { "keys": "{LEFT}", "mods": "a" }
       }
     ]
   },
   "colors": {
     "background": "#FF000D13",
-    "buttonText": "#FFD8FFE3",
-    "buttonBorder": "#FF00151F",
-    "buttonBackground": "#19D9D9D9",
+    "buttonText": "#ffd6bb",
+    "buttonBorder": "#c76141",
+    "buttonBackground": "#152126",
     "buttons": [
       "#FF9780",
       "#00798C",

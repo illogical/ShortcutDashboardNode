@@ -36,15 +36,24 @@ export const Button = ({
     }
   };
 
-  const buttonStyles =
+  //sets fontawesome's duotone icon secondary color
+  let buttonStyles: any = {
+    "--fa-primary-color": "#6dbef5",
+    "--fa-secondary-color": "#ffbed4"
+  };
+  //changes button color while waiting for server response
+  buttonStyles =
     !overrideTheme || loadingClass === "loading"
-      ? {}
+      ? buttonStyles
       : {
+          ...buttonStyles,
           borderColor
         };
 
-  const singleLetterLabelClass = buttonInfo.label.length === 1 ? "letter" : "";
+  //X,Y,Z
+  const singleLetterLabelClass = buttonInfo.label.length === 1 && "letter";
 
+  //animation
   const variants = {
     push: {
       scale: 0.85,

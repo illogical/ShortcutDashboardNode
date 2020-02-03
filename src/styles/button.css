@@ -2,7 +2,7 @@
   width: 106px;
   height: 55px;
   background: #152126; /* TODO: programatic color */
-  color: #d8ffe3;
+  color: #ffd6bb; /* TODO: programatic color */
 
   display: table;
   cursor: pointer;
@@ -49,5 +49,6 @@
 }
 
 .button.letter {
-  font-size: 1.6em;
+  font-size: 1.7em;
+  font-weight: bold;
 }
