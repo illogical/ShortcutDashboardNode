@@ -11,6 +11,7 @@ function keyStroker(command) {
     if (command.modifiers.indexOf("a") > -1) keyStroke += "!";
     if (command.modifiers.indexOf("c") > -1) keyStroke += "^^"; // used to do .replace("^", "^^")
     if (command.modifiers.indexOf("s") > -1) keyStroke += "+";
+    if (command.modifiers.indexOf("w") > -1) keyStroke += "#";
   }
 
   keyStroke += command.keys;
