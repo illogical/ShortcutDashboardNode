@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ISettings } from "../models/settings";
 import { IButtonInfo } from "../models/buttonInfo";
 import { Button } from "./Button";
@@ -7,25 +7,28 @@ import { getTheme, ColorSelector } from "../helpers/colorSelector";
 import { ITheme } from "../models/theme";
 import { IGroupInfo } from "../models/groupInfo";
 import { Group } from "./Group";
-import { ReactComponent as Loader } from "../styles/three-dots.svg";
 
-export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
-  return <React.Fragment>{generateLayout(settings)}</React.Fragment>;
+export const LayoutGenerator = ({ settings, theme }: ILayoutGeneratorProps) => {
+  return (
+    <React.Fragment>
+      <GenerateLayout settings={settings} theme={theme} />
+    </React.Fragment>
+  );
 };
 
 interface ILayoutGeneratorProps {
-  settings?: ISettings;
+  settings: ISettings;
+  theme: ITheme;
 }
 
-const generateLayout = (settings?: ISettings) => {
-  const theme = getTheme();
-  if (!settings) {
-    return (
-      <div className={`loader ${theme.backgroundClass}`}>
-        <Loader />
-      </div>
-    );
-  }
+const GenerateLayout = ({ settings, theme }: ILayoutGeneratorProps) => {
+  const [selectedApp, setSelectedApp] = useState(
+    settings ? settings.applications[0] : "blender"
+  );
+
+  const handleSelectApp = (app: string) => {
+    setSelectedApp(app);
+  };
 
   const colorSelector = new ColorSelector(
     settings.colors.buttons
@@ -35,8 +38,18 @@ const generateLayout = (settings?: ISettings) => {
   return (
     <React.Fragment>
       <div className={`flex ${theme.backgroundClass}`}>
+        <div className="applications">
+          <div>
+            <ApplicationFilters
+              applications={settings.applications}
+              selected={selectedApp}
+              onSelect={handleSelectApp}
+            />
+          </div>
+        </div>
         <div className="top">
           {createArea(
+            selectedApp,
             "top",
             settings.groups,
             settings.keymap.buttons,
@@ -48,6 +61,7 @@ const generateLayout = (settings?: ISettings) => {
         <div className="main">
           <Grid>
             {createArea(
+              selectedApp,
               "main",
               settings.groups,
               settings.keymap.buttons,
@@ -62,6 +76,7 @@ const generateLayout = (settings?: ISettings) => {
             <div className="common-groups">
               <Grid>
                 {createArea(
+                  selectedApp,
                   "favorites",
                   settings.groups,
                   settings.keymap.buttons,
@@ -73,6 +88,7 @@ const generateLayout = (settings?: ISettings) => {
             <div className="common-buttons">
               <Grid>
                 {createArea(
+                  selectedApp,
                   "common",
                   settings.groups.reverse(),
                   settings.keymap.buttons,
@@ -141,6 +157,7 @@ export const createGroup = (
 };
 
 export const createArea = (
+  app: string,
   area: string,
   groups: IGroupInfo[], //pass all groups
   buttons: IButtonInfo[], //pass all buttons
@@ -150,14 +167,48 @@ export const createArea = (
   const untaggedButtonColor = colorSelector.getColor();
 
   const untaggedButtons = buttons
-    .filter(btn => btn.area === area && !btn.tags) // get untagged buttons
+    .filter(
+      btn =>
+        (btn.app === "all" || btn.app === app) && btn.area === area && !btn.tags
+    ) // get untagged buttons
     .map(btnInfo => createButton(btnInfo, theme, untaggedButtonColor));
 
   const groupsByArea = groups
-    .filter(grp => grp.area === area)
+    .filter(grp => (grp.app === "all" || grp.app === app) && grp.area === area)
     .map(grp => createGroup(grp, buttons, theme, colorSelector));
 
   return [...groupsByArea, ...untaggedButtons];
+};
+
+interface IApplicationFilters {
+  applications: string[];
+  selected: string;
+  onSelect: (app: string) => void;
+}
+
+const ApplicationFilters = ({
+  applications,
+  selected,
+  onSelect
+}: IApplicationFilters) => {
+  return (
+    <React.Fragment>
+      {applications.map(app => {
+        const handleClick = () => {
+          onSelect(app);
+        };
+
+        return (
+          <span
+            onClick={handleClick}
+            className={`app-item ${selected === app ? "selected" : ""}`}
+          >
+            {app.toUpperCase()}
+          </span>
+        );
+      })}
+    </React.Fragment>
+  );
 };
 
 export default createButton;

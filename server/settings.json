@@ -1,21 +1,66 @@
 {
-  "applications": ["blender"],
+  "applications": ["blender", "windows"],
   "areas": ["main", "favorites", "most-used", "common"],
   "filters": ["object", "edit", "sculpt"],
   "groups": [
-    { "title": "General", "tag": "general", "area": "main" },
-    { "title": "Selection", "area": "favorites", "tag": "selection" },
-    { "title": "View", "tag": "view", "area": "main" },
-    { "title": "Edit Mode", "area": "main", "tag": "edit-mode" },
-    { "title": "Edit Tools", "area": "favorites", "tag": "edit-tools" },
-    { "title": "Viewport Shading", "area": "favorites", "tag": "shading" },
-    { "title": "Animation", "area": "favorites", "tag": "animation" },
-    { "title": "Sculpt", "area": "favorites", "tag": "sculpt" },
-    { "title": "Edges", "tag": "edges", "area": "main" },
-    { "title": "Vertices", "tag": "vertices", "area": "main" },
-    { "title": "Object Mode", "tag": "object", "area": "main" },
-    { "title": "View Direction", "tag": "view-direction", "area": "main" },
-    { "title": "Menus", "tag": "menu", "area": "main" }
+    { "title": "General", "tag": "general", "area": "main", "app": "blender" },
+    {
+      "title": "Selection",
+      "tag": "selection",
+      "area": "favorites",
+      "app": "blender"
+    },
+    { "title": "View", "tag": "view", "area": "main", "app": "blender" },
+    {
+      "title": "Edit Mode",
+      "tag": "edit-mode",
+      "area": "main",
+      "app": "blender"
+    },
+    {
+      "title": "Edit Tools",
+      "tag": "edit-tools",
+      "area": "favorites",
+      "app": "blender"
+    },
+    {
+      "title": "Viewport Shading",
+      "tag": "shading",
+      "area": "favorites",
+      "app": "blender"
+    },
+    {
+      "title": "Animation",
+      "tag": "animation",
+      "area": "favorites",
+      "app": "blender"
+    },
+    {
+      "title": "Sculpt & Paint",
+      "tag": "sculpt",
+      "area": "favorites",
+      "app": "blender"
+    },
+    { "title": "Edges", "tag": "edges", "area": "main", "app": "blender" },
+    {
+      "title": "Vertices",
+      "tag": "vertices",
+      "area": "main",
+      "app": "blender"
+    },
+    {
+      "title": "Object Mode",
+      "tag": "object",
+      "area": "main",
+      "app": "blender"
+    },
+    {
+      "title": "View Direction",
+      "tag": "view-direction",
+      "area": "main",
+      "app": "blender"
+    },
+    { "title": "Menus", "tag": "menu", "area": "main", "app": "blender" }
   ],
   "keymap": {
     "buttons": [
@@ -67,18 +112,18 @@
         "command": { "keys": "r" }
       },
       {
-        "label": "Undo",
+        "label": "Escape",
         "area": "common",
         "app": "blender",
-        "icon": "fad fa-undo fa-2x",
-        "command": { "keys": "z", "mods": "c" }
+        "icon": "fad fa-minus-circle fa-3x",
+        "command": { "keys": "{ESC}" }
       },
       {
-        "label": "Redo",
+        "label": "Enter",
         "area": "common",
         "app": "blender",
-        "icon": "fad fa-redo fa-2x",
-        "command": { "keys": "z", "mods": "cs" }
+        "icon": "fad fa-check-circle fa-3x",
+        "command": { "keys": "{ENTER}" }
       },
       {
         "label": "History",
@@ -93,22 +138,6 @@
         "area": "common",
         "app": "blender",
         "command": { "keys": "x" }
-      },
-      {
-        "label": "Enter",
-        "area": "main",
-        "app": "blender",
-        "tags": ["general"],
-        "icon": "far fa-check-circle fa-3x",
-        "command": { "keys": "{ENTER}" }
-      },
-      {
-        "label": "Escape",
-        "area": "main",
-        "app": "blender",
-        "tags": ["general"],
-        "icon": "far fa-minus-circle fa-3x",
-        "command": { "keys": "{ESC}" }
       },
       {
         "label": "Save",
@@ -252,7 +281,7 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["selection"],
-        "icon": "far fa-sitemap fa-3x",
+        "icon": "fad fa-sitemap fa-3x",
         "command": { "keys": "l" }
       },
       {
@@ -386,11 +415,18 @@
         "command": { "keys": "i" }
       },
       {
+        "label": "Remove Keyframe",
+        "area": "favorites",
+        "app": "blender",
+        "tags": ["animation"],
+        "command": { "keys": "i", "mods": "a" }
+      },
+      {
         "label": "Play/Pause",
         "area": "favorites",
         "app": "blender",
         "tags": ["animation"],
-        "icon": "fad fa-pause fa-2x fa-swap-opacity",
+        "icon": "fad fa-pause fa-2x",
         "command": { "keys": "a", "mods": "a" }
       },
       {
@@ -422,6 +458,13 @@
         "command": { "keys": "{HOME}" }
       },
       {
+        "label": "Only Active",
+        "area": "main",
+        "app": "blender",
+        "tags": ["view"],
+        "command": { "keys": "{NUMPADDIV}" }
+      },
+      {
         "label": "Hide",
         "area": "main",
         "app": "blender",
@@ -430,25 +473,18 @@
         "command": { "keys": "h" }
       },
       {
-        "label": "Show All",
+        "label": "Show",
         "area": "main",
         "app": "blender",
         "tags": ["view", "object", ""],
         "command": { "keys": "h", "mods": "a" }
       },
       {
-        "label": "Only Active",
-        "area": "main",
-        "app": "blender",
-        "tags": ["view"],
-        "command": { "keys": "{NUMPADDIV}" }
-      },
-      {
         "label": "Quad View",
         "area": "main",
         "app": "blender",
         "tags": ["view"],
-        "icon": "far fa-th-large fa-3x",
+        "icon": "fad fa-th-large fa-3x",
         "command": { "keys": "q", "mods": "ca" }
       },
       {
@@ -510,14 +546,6 @@
         "command": { "keys": "k" }
       },
       {
-        "label": "Add",
-        "area": "main",
-        "app": "blender",
-        "tags": ["object"],
-        "icon": "fad fa-shapes fa-3x",
-        "command": { "keys": "a", "mods": "s" }
-      },
-      {
         "label": "Make Smooth",
         "area": "main",
         "app": "blender",
@@ -530,6 +558,14 @@
         "app": "blender",
         "tags": ["object"],
         "command": { "python": "bpy.ops.object.shade_flat()" }
+      },
+      {
+        "label": "Add",
+        "area": "main",
+        "app": "blender",
+        "tags": ["object"],
+        "icon": "fad fa-shapes fa-3x",
+        "command": { "keys": "a", "mods": "s" }
       },
       {
         "label": "Camera",
@@ -693,85 +729,98 @@
       {
         "label": "Screenshot",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-camera-retro fa-3x",
         "command": { "keys": "{PRINTSCREEN}", "mods": "cs" }
       },
       {
         "label": "Volume +",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-volume-up fa-3x",
         "command": { "keys": "{VOLUME_UP}" }
       },
       {
         "label": "Volume -",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-volume-down fa-3x",
         "command": { "keys": "{VOLUME_DOWN}" }
       },
       {
         "label": "Mute",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-volume-mute fa-3x",
         "command": { "keys": "{VOLUME_MUTE}" }
       },
       {
         "label": "Play/Pause",
         "area": "top",
-        "app": "blender",
-        "icon": "fad fa-pause fa-2x fa-swap-opacity",
+        "app": "all",
+        "icon": "fad fa-pause fa-2x",
         "command": { "keys": "{MEDIA_PLAY_PAUSE}" }
       },
       {
         "label": "Divvy",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-window-alt fa-3x",
         "command": { "keys": "{SPACE}", "mods": "csa" }
       },
       {
         "label": "Paste",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-paste fa-2x",
         "command": { "keys": "v", "mods": "c" }
       },
       {
         "label": "Cut",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-cut fa-2x",
         "command": { "keys": "x", "mods": "c" }
       },
       {
         "label": "Copy",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-copy fa-2x",
         "command": { "keys": "c", "mods": "c" }
       },
-
+      {
+        "label": "Undo",
+        "area": "top",
+        "app": "all",
+        "icon": "fad fa-undo fa-2x",
+        "command": { "keys": "z", "mods": "c" }
+      },
+      {
+        "label": "Redo",
+        "area": "top",
+        "app": "all",
+        "icon": "fad fa-redo fa-2x",
+        "command": { "keys": "z", "mods": "cs" }
+      },
       {
         "label": "Refresh",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-sync-alt fa-2x",
         "command": { "keys": "{F5}", "mods": "c" }
       },
       {
         "label": "Forward",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-long-arrow-alt-right fa-3x",
         "command": { "keys": "{RIGHT}", "mods": "a" }
       },
       {
         "label": "Back",
         "area": "top",
-        "app": "blender",
+        "app": "all",
         "icon": "fad fa-long-arrow-alt-left fa-3x",
         "command": { "keys": "{LEFT}", "mods": "a" }
       }
@@ -788,20 +837,19 @@
       "#E27D60",
       "#C38D9E",
       "#7395AE",
-      "#B1A296",
       "#99CED3",
       "#4D6D9A",
       "#FFCB9A",
-      "#648199",
-      "#116466",
       "#8FC1E3",
+      "#EDB5BF",
       "#DA7B93",
+      "#648199",
       "#376E6F",
       "#5085A5",
-      "#EDB5BF",
       "#31708E",
       "#687864",
       "#0677A1",
+      "#106466",
       "#AC3B61",
       "#895061",
       "#78244C",

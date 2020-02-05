@@ -36,10 +36,18 @@ export const Button = ({
     }
   };
 
+  const isSingleLetterLabel = buttonInfo.label.length === 1;
+  const customFontSize =
+    buttonInfo.icon === undefined && !isSingleLetterLabel
+      ? { "font-size": getFontSize(buttonInfo.label) }
+      : {}; //use sizes defined in the CSS when an icon is defined or when the label is a single letter
+
   //sets fontawesome's duotone icon secondary color
   let buttonStyles: any = {
-    "--fa-primary-color": "#6dbef5",
-    "--fa-secondary-color": "#ffbed4"
+    "--fa-primary-color": "#23c1ff",
+    "--fa-secondary-color": "#ffbed4",
+    "--fa-secondary-opacity": 0.6,
+    ...customFontSize
   };
   //changes button color while waiting for server response
   buttonStyles =
@@ -51,7 +59,7 @@ export const Button = ({
         };
 
   //X,Y,Z
-  const singleLetterLabelClass = buttonInfo.label.length === 1 && "letter";
+  const singleLetterLabelClass = isSingleLetterLabel ? "letter" : "";
 
   //animation
   const variants = {
@@ -81,4 +89,34 @@ export const Button = ({
       </motion.div>
     </GridItem>
   );
+};
+
+const getFontSize = (label: string, isDefault?: boolean): string => {
+  const defaultFontSize = 0.85;
+  if (isDefault) {
+    return numberToFontSize(defaultFontSize);
+  }
+
+  const maxIncrease = 0.1;
+  const minDecrease = 0.07;
+
+  let longestWord = label.split(" ").reduce((accumulator, currentValue) => {
+    if (currentValue.length > accumulator.length) {
+      return currentValue;
+    } else {
+      return accumulator;
+    }
+  });
+
+  if (longestWord.length >= 12) {
+    //smallest font size for long words ("proportional" being the longest thus far)
+    return numberToFontSize(defaultFontSize - minDecrease);
+  } else {
+    //largest font size
+    return numberToFontSize(defaultFontSize + maxIncrease);
+  }
+};
+
+const numberToFontSize = (num: number) => {
+  return `${num.toString()}em`;
 };
