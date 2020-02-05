@@ -7,6 +7,7 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var sendRouter = require("./routes/send");
 var settingsRouter = require("./routes/settings");
+var pingRouter = require("./routes/ping");
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/send", sendRouter);
 app.use("/settings", settingsRouter);
+app.use("/ping", pingRouter);
 app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
