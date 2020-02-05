@@ -12,9 +12,9 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
   const titleStyle = groupInfo.color ? { color: groupInfo.color } : {};
 
   return (
-    <div className="item group" style={titleStyle}>
+    <div className="item group">
       <div className="item-content">
-        <div className="drag title">
+        <div className="drag title" style={titleStyle}>
           <FontAwesomeIcon icon={faHorizontalRule} size="lg" />
           {` ${groupInfo.title.toUpperCase()} `}
           <FontAwesomeIcon icon={faHorizontalRule} size="lg" />

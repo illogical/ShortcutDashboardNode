@@ -46,7 +46,7 @@ export const Button = ({
   let buttonStyles: any = {
     "--fa-primary-color": "#23c1ff",
     "--fa-secondary-color": "#ffbed4",
-    "--fa-secondary-opacity": 0.6,
+    "--fa-secondary-opacity": 0.45,
     ...customFontSize
   };
   //changes button color while waiting for server response
