@@ -3,7 +3,7 @@ import { ISettings } from "../models/settings";
 import { IButtonInfo } from "../models/buttonInfo";
 import { Button } from "./Button";
 import Grid from "./Grid";
-import { getTheme, ColorSelector } from "../helpers/colorSelector";
+import { ColorSelector } from "../helpers/colorSelector";
 import { ITheme } from "../models/theme";
 import { IGroupInfo } from "../models/groupInfo";
 import { Group } from "./Group";
@@ -37,66 +37,62 @@ const GenerateLayout = ({ settings, theme }: ILayoutGeneratorProps) => {
 
   return (
     <React.Fragment>
-      <div className={`flex ${theme.backgroundClass}`}>
-        <div className="applications">
-          <div>
-            <ApplicationFilters
-              applications={settings.applications}
-              selected={selectedApp}
-              onSelect={handleSelectApp}
-            />
-          </div>
-        </div>
-        <div className="top">
+      <div className="applications">
+        <ApplicationFilters
+          applications={settings.applications}
+          selected={selectedApp}
+          onSelect={handleSelectApp}
+        />
+      </div>
+      <div className="top">
+        {createArea(
+          selectedApp,
+          "top",
+          settings.groups,
+          settings.keymap.buttons,
+          theme,
+          colorSelector
+        )}
+      </div>
+      <div className="pusher"></div>
+      <div className="main">
+        <Grid>
           {createArea(
             selectedApp,
-            "top",
+            "main",
             settings.groups,
             settings.keymap.buttons,
             theme,
             colorSelector
           )}
-        </div>
-        <div className="pusher"></div>
-        <div className="main">
-          <Grid>
-            {createArea(
-              selectedApp,
-              "main",
-              settings.groups,
-              settings.keymap.buttons,
-              theme,
-              colorSelector
-            )}
-          </Grid>
-        </div>
+        </Grid>
+      </div>
 
-        <div className="footer">
-          <div className="common">
-            <div className="common-groups">
-              <Grid>
-                {createArea(
-                  selectedApp,
-                  "favorites",
-                  settings.groups,
-                  settings.keymap.buttons,
-                  theme,
-                  colorSelector
-                )}
-              </Grid>
-            </div>
-            <div className="common-buttons">
-              <Grid>
-                {createArea(
-                  selectedApp,
-                  "common",
-                  settings.groups.reverse(),
-                  settings.keymap.buttons,
-                  theme,
-                  colorSelector
-                )}
-              </Grid>
-            </div>
+      <div className="footer">
+        <div className="common">
+          <div className="common-groups">
+            <Grid>
+              {createArea(
+                selectedApp,
+                "favorites",
+                settings.groups,
+                settings.keymap.buttons,
+                theme,
+                colorSelector
+              )}
+            </Grid>
+          </div>
+          <div className="common-buttons">
+            <Grid>
+              {createArea(
+                selectedApp,
+                "common",
+                settings.groups.reverse(),
+                settings.keymap.buttons,
+                theme,
+                colorSelector
+              )}
+            </Grid>
           </div>
         </div>
       </div>

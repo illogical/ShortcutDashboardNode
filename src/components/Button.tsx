@@ -63,6 +63,12 @@ export const Button = ({
 
   //animation
   const variants = {
+    initial: { opacity: 0.1, scale: 0.5 },
+    show: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.5, type: "tween" }
+    },
     push: {
       scale: 0.85,
       transition: { type: "spring", damping: 6, stiffness: 160 }
@@ -73,9 +79,11 @@ export const Button = ({
     <GridItem id={buttonInfo.label}>
       <motion.div
         className={`button drag ${singleLetterLabelClass} ${loadingClass} ${size}`}
+        initial="initial"
+        whileTap={"push"}
+        animate={"show"}
         style={buttonStyles}
         onTap={onClick || handleClick}
-        whileTap={"push"}
         variants={variants}
       >
         {buttonInfo.icon ? (

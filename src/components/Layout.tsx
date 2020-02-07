@@ -32,8 +32,8 @@ export const Layout = () => {
   }
 
   return (
-    <React.Fragment>
+    <div className={`flex ${theme.backgroundClass}`}>
       <LayoutGenerator settings={settings} theme={theme}></LayoutGenerator>
-    </React.Fragment>
+    </div>
   );
 };
