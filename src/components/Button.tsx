@@ -61,7 +61,7 @@ export const Button = ({
   //X,Y,Z
   const singleLetterLabelClass = isSingleLetterLabel ? "letter" : "";
 
-  //animation
+  //animations
   const variants = {
     initial: { opacity: 0.1, scale: 0.5 },
     show: {
@@ -80,8 +80,8 @@ export const Button = ({
       <motion.div
         className={`button drag ${singleLetterLabelClass} ${loadingClass} ${size}`}
         initial="initial"
-        whileTap={"push"}
-        animate={"show"}
+        whileTap="push"
+        animate="show"
         style={buttonStyles}
         onTap={onClick || handleClick}
         variants={variants}
