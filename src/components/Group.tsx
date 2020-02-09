@@ -1,7 +1,5 @@
 import React from "react";
 import { IGroupInfo } from "../models/groupInfo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHorizontalRule } from "@fortawesome/pro-solid-svg-icons";
 
 export const Group: React.FunctionComponent<IGroupProps> = ({
   groupInfo,
@@ -15,9 +13,9 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
     <div className="item group">
       <div className="item-content">
         <div className="drag title" style={titleStyle}>
-          <FontAwesomeIcon icon={faHorizontalRule} size="lg" />
+          <span className="far fa-horizontal-rule fa-lg"></span>
           {` ${groupInfo.title.toUpperCase()} `}
-          <FontAwesomeIcon icon={faHorizontalRule} size="lg" />
+          <span className="far fa-horizontal-rule fa-lg"></span>
         </div>
         {children}
       </div>

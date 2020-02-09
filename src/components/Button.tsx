@@ -39,7 +39,7 @@ export const Button = ({
   const isSingleLetterLabel = buttonInfo.label.length === 1;
   const customFontSize =
     buttonInfo.icon === undefined && !isSingleLetterLabel
-      ? { "font-size": getFontSize(buttonInfo.label) }
+      ? { fontSize: getFontSize(buttonInfo.label) }
       : {}; //use sizes defined in the CSS when an icon is defined or when the label is a single letter
 
   //sets fontawesome's duotone icon secondary color
