@@ -3,7 +3,6 @@ import { ISettings } from "../models/settings";
 import { getSettings } from "../api/keySettings";
 import { LayoutGenerator } from "./LayoutGenerator";
 import "../styles/layout2.css";
-import { getTheme } from "../helpers/colorSelector";
 import { ReactComponent as Loader } from "../styles/three-dots.svg";
 
 export const Layout = () => {
@@ -19,21 +18,18 @@ export const Layout = () => {
     fetchSettings();
   }, []);
 
-  //uses css modules
-  const theme = getTheme();
-
   //show loader
   if (!settings) {
     return (
-      <div className={`loader ${theme.backgroundClass}`}>
+      <div className={`loader`}>
         <Loader />
       </div>
     );
   }
 
   return (
-    <div className={`flex ${theme.backgroundClass}`}>
-      <LayoutGenerator settings={settings} theme={theme}></LayoutGenerator>
+    <div className={`flex`}>
+      <LayoutGenerator settings={settings}></LayoutGenerator>
     </div>
   );
 };

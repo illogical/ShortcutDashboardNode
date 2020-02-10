@@ -4,24 +4,22 @@ import { IButtonInfo } from "../models/buttonInfo";
 import { Button } from "./Button";
 import Grid from "./Grid";
 import { ColorSelector } from "../helpers/colorSelector";
-import { ITheme } from "../models/theme";
 import { IGroupInfo } from "../models/groupInfo";
 import { Group } from "./Group";
 
-export const LayoutGenerator = ({ settings, theme }: ILayoutGeneratorProps) => {
+export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   return (
     <React.Fragment>
-      <GenerateLayout settings={settings} theme={theme} />
+      <GenerateLayout settings={settings} />
     </React.Fragment>
   );
 };
 
 interface ILayoutGeneratorProps {
   settings: ISettings;
-  theme: ITheme;
 }
 
-const GenerateLayout = ({ settings, theme }: ILayoutGeneratorProps) => {
+const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
   const [selectedApp, setSelectedApp] = useState(
     settings ? settings.applications[0] : "blender"
   );
@@ -50,7 +48,6 @@ const GenerateLayout = ({ settings, theme }: ILayoutGeneratorProps) => {
           "top",
           settings.groups,
           settings.keymap.buttons,
-          theme,
           colorSelector
         )}
       </div>
@@ -62,7 +59,6 @@ const GenerateLayout = ({ settings, theme }: ILayoutGeneratorProps) => {
             "main",
             settings.groups,
             settings.keymap.buttons,
-            theme,
             colorSelector
           )}
         </Grid>
@@ -77,7 +73,6 @@ const GenerateLayout = ({ settings, theme }: ILayoutGeneratorProps) => {
                 "favorites",
                 settings.groups,
                 settings.keymap.buttons,
-                theme,
                 colorSelector
               )}
             </Grid>
@@ -89,7 +84,6 @@ const GenerateLayout = ({ settings, theme }: ILayoutGeneratorProps) => {
                 "common",
                 settings.groups.reverse(),
                 settings.keymap.buttons,
-                theme,
                 colorSelector
               )}
             </Grid>
@@ -100,19 +94,12 @@ const GenerateLayout = ({ settings, theme }: ILayoutGeneratorProps) => {
   );
 };
 
-export const createButton = (
-  button: IButtonInfo,
-  theme: ITheme,
-  colorOverride?: string
-) => {
-  const themeOverride = theme.overrideBorderColor === true ? colorOverride : "";
-
+export const createButton = (button: IButtonInfo, colorOverride?: string) => {
   return (
     <Button
       buttonInfo={button}
       key={button.label}
-      borderColor={themeOverride}
-      theme={theme}
+      borderColor={colorOverride}
       size={button.size ? button.size : "default"}
     />
   );
@@ -121,7 +108,6 @@ export const createButton = (
 export const createGroup = (
   group: IGroupInfo,
   buttons: IButtonInfo[], //pass all buttons
-  theme: ITheme,
   colorSelector: ColorSelector
 ) => {
   const groupColor = colorSelector.getColor();
@@ -146,7 +132,7 @@ export const createGroup = (
   return (
     <Group key={group.title} groupInfo={group}>
       {filteredButtons.map(btnInfo => {
-        return createButton(btnInfo, theme, groupColor);
+        return createButton(btnInfo, groupColor);
       })}
     </Group>
   );
@@ -157,7 +143,6 @@ export const createArea = (
   area: string,
   groups: IGroupInfo[], //pass all groups
   buttons: IButtonInfo[], //pass all buttons
-  theme: ITheme,
   colorSelector: ColorSelector
 ) => {
   const untaggedButtonColor = colorSelector.getColor();
@@ -167,11 +152,11 @@ export const createArea = (
       btn =>
         (btn.app === "all" || btn.app === app) && btn.area === area && !btn.tags
     ) // get untagged buttons
-    .map(btnInfo => createButton(btnInfo, theme, untaggedButtonColor));
+    .map(btnInfo => createButton(btnInfo, untaggedButtonColor));
 
   const groupsByArea = groups
     .filter(grp => (grp.app === "all" || grp.app === app) && grp.area === area)
-    .map(grp => createGroup(grp, buttons, theme, colorSelector));
+    .map(grp => createGroup(grp, buttons, colorSelector));
 
   return [...groupsByArea, ...untaggedButtons];
 };
