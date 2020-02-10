@@ -103,13 +103,12 @@
         "app": "blender",
         "command": { "keys": "z" }
       },
-
       {
         "label": "Tab",
         "area": "common",
         "app": "blender",
         "icon": "fad fa-bring-forward fa-3x",
-        "command": { "keys": "r" }
+        "command": { "keys": "{tab}" }
       },
       {
         "label": "Escape",
@@ -790,18 +789,18 @@
         "command": { "keys": "c", "mods": "c" }
       },
       {
-        "label": "Undo",
-        "area": "top",
-        "app": "all",
-        "icon": "fad fa-undo fa-2x",
-        "command": { "keys": "z", "mods": "c" }
-      },
-      {
         "label": "Redo",
         "area": "top",
         "app": "all",
         "icon": "fad fa-redo fa-2x",
         "command": { "keys": "z", "mods": "cs" }
+      },
+      {
+        "label": "Undo",
+        "area": "top",
+        "app": "all",
+        "icon": "fad fa-undo fa-2x",
+        "command": { "keys": "z", "mods": "c" }
       },
       {
         "label": "Refresh",
