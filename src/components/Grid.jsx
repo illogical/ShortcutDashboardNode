@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { MuuriComponent } from "muuri-react";
 import "../styles/grid.css";
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
 import { ISettings } from "../models/settings";
 import { getSettings } from "../api/keySettings";
 import { LayoutGenerator } from "./LayoutGenerator";
@@ -6,9 +6,9 @@ import "../styles/layout2.css";
 import { ReactComponent as Loader } from "../styles/three-dots.svg";
 
 export const Layout = () => {
-  const [settings, setSettings] = useState<ISettings>();
+  const [settings, setSettings] = React.useState<ISettings>();
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchSettings = async () => {
       const { data } = await getSettings();
       console.log("Settings:", data);

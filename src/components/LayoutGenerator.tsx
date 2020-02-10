@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import * as React from "react";
 import { ISettings } from "../models/settings";
 import { IButtonInfo } from "../models/buttonInfo";
 import { Button } from "./Button";
@@ -20,7 +20,7 @@ interface ILayoutGeneratorProps {
 }
 
 const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
-  const [selectedApp, setSelectedApp] = useState(
+  const [selectedApp, setSelectedApp] = React.useState(
     settings ? settings.applications[0] : "blender"
   );
 

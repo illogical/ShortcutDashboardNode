@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IGroupInfo } from "../models/groupInfo";
 
 export const Group: React.FunctionComponent<IGroupProps> = ({

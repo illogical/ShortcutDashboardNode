@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import * as React from "react";
 import "../styles/button.css";
-import { ITheme } from "../models/theme";
 import { GridItem } from "./GridItem";
 import { sendKeys } from "../api/keySettings";
 import { IButtonInfo } from "../models/buttonInfo";
@@ -8,7 +7,6 @@ import { motion } from "framer-motion";
 
 interface ButtonProps {
   buttonInfo: IButtonInfo;
-  theme?: ITheme;
   loading?: boolean;
   borderColor?: string;
   size: "default" | "medium" | "large";
@@ -17,13 +15,11 @@ interface ButtonProps {
 
 export const Button = ({
   buttonInfo,
-  theme,
   borderColor,
   size,
   onClick
 }: ButtonProps) => {
-  const [loadingClass, setLoadingClass] = useState("");
-  const overrideTheme = theme?.overrideBorderColor;
+  const [loadingClass, setLoadingClass] = React.useState("");
 
   const handleClick = async () => {
     if (!buttonInfo.command.keys) return;
@@ -51,7 +47,7 @@ export const Button = ({
   };
   //changes button color while waiting for server response
   buttonStyles =
-    !overrideTheme || loadingClass === "loading"
+    loadingClass === "loading"
       ? buttonStyles
       : {
           ...buttonStyles,
