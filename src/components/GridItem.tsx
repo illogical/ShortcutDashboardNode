@@ -10,7 +10,7 @@ export const GridItem: React.FunctionComponent<GridItemProps> = ({
 }) => {
   return (
     <div className="item" id={id}>
-      <div className="item-content">{children}</div>
+      {children}
     </div>
   );
 };

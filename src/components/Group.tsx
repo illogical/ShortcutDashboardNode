@@ -10,7 +10,7 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
   const titleStyle = groupInfo.color ? { color: groupInfo.color } : {};
 
   return (
-    <div className="item group">
+    <div className="group">
       <div className="item-content">
         <div className="drag title" style={titleStyle}>
           <span className="far fa-horizontal-rule fa-lg"></span>

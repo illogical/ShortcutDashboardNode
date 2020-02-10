@@ -1,4 +1,4 @@
-/* https://github.com/haltu/muuri#getting-started  */
+/* Horizonal rows. TODO: remove logic that stretches buttons. */
 .grid {
   position: relative;
 }
@@ -7,11 +7,6 @@
 
   margin: 5px;
   z-index: 1;
-}
-
-.item-content {
-  width: 100%;
-  height: 100%;
 }
 
 /* Groups *******************************************************************************/

@@ -2,10 +2,10 @@ import * as React from "react";
 import { ISettings } from "../models/settings";
 import { IButtonInfo } from "../models/buttonInfo";
 import { Button } from "./Button";
-import Grid from "./Grid";
 import { ColorSelector } from "../helpers/colorSelector";
 import { IGroupInfo } from "../models/groupInfo";
 import { Group } from "./Group";
+import { Grid } from "./Grid";
 
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   return (

@@ -3,7 +3,6 @@
   "areas": ["main", "favorites", "most-used", "common"],
   "filters": ["object", "edit", "sculpt"],
   "groups": [
-    { "title": "General", "tag": "general", "area": "main", "app": "blender" },
     {
       "title": "Selection",
       "tag": "selection",
@@ -11,6 +10,19 @@
       "app": "blender"
     },
     { "title": "View", "tag": "view", "area": "main", "app": "blender" },
+    {
+      "title": "View Direction",
+      "tag": "view-direction",
+      "area": "main",
+      "app": "blender"
+    },
+    {
+      "title": "Object Mode",
+      "tag": "object",
+      "area": "main",
+      "app": "blender"
+    },
+    { "title": "Edges", "tag": "edges", "area": "main", "app": "blender" },
     {
       "title": "Edit Mode",
       "tag": "edit-mode",
@@ -41,26 +53,14 @@
       "area": "favorites",
       "app": "blender"
     },
-    { "title": "Edges", "tag": "edges", "area": "main", "app": "blender" },
+    { "title": "Menus", "tag": "menu", "area": "main", "app": "blender" },
+    { "title": "General", "tag": "general", "area": "main", "app": "blender" },
     {
       "title": "Vertices",
       "tag": "vertices",
       "area": "main",
       "app": "blender"
-    },
-    {
-      "title": "Object Mode",
-      "tag": "object",
-      "area": "main",
-      "app": "blender"
-    },
-    {
-      "title": "View Direction",
-      "tag": "view-direction",
-      "area": "main",
-      "app": "blender"
-    },
-    { "title": "Menus", "tag": "menu", "area": "main", "app": "blender" }
+    }
   ],
   "keymap": {
     "buttons": [
