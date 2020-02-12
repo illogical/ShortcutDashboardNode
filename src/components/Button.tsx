@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../styles/button.css";
 import { GridItem } from "./GridItem";
-import { sendKeys } from "../api/keySettings";
+import { sendKeys, sendCommand } from "../api/keySettings";
 import { IButtonInfo } from "../models/buttonInfo";
 import { motion } from "framer-motion";
 
@@ -22,10 +22,14 @@ export const Button = ({
   const [loadingClass, setLoadingClass] = React.useState("");
 
   const handleClick = async () => {
-    if (!buttonInfo.command.keys) return;
     try {
       setLoadingClass("loading");
-      await sendKeys(buttonInfo.command.keys, buttonInfo.command.mods);
+
+      if (buttonInfo.command.exec) {
+        await sendCommand(buttonInfo.command.exec);
+      } else if (buttonInfo.command.keys) {
+        await sendKeys(buttonInfo.command.keys, buttonInfo.command.mods);
+      }
       setLoadingClass("");
     } catch (error) {
       setLoadingClass("fail");

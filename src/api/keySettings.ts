@@ -11,6 +11,10 @@ export const sendKeys = async (keys: string, modifiers?: string) => {
   return await axios.get(getUrl(`/send/keys/${keys}${mods}`));
 };
 
+export const sendCommand = async (command: string) => {
+  return await axios.post(getUrl(`/send/command`), { command });
+};
+
 export const getSettings = async () => {
   return await axios.get<ISettings>(getUrl(`/settings`));
 };

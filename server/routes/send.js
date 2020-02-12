@@ -36,6 +36,20 @@ router.get("/keys/:keys", function(req, res, next) {
 router.post("/command", function(req, res, next) {
   const command = req.body.command;
 
+  try {
+    cp.exec(command);
+    res.send(200);
+  } catch (error) {
+    res.status(400).json({
+      error: "Error executing command.",
+      exception: error
+    });
+  }
+});
+
+router.post("/python", function(req, res, next) {
+  const command = req.body.command;
+
   res.json({ success: "YAY", command });
 
   try {

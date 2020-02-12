@@ -60,6 +60,12 @@
       "tag": "vertices",
       "area": "main",
       "app": "blender"
+    },
+    {
+      "title": "Websites",
+      "tag": "websites",
+      "area": "main",
+      "app": "windows"
     }
   ],
   "keymap": {
@@ -822,6 +828,37 @@
         "app": "all",
         "icon": "fad fa-long-arrow-alt-left fa-3x",
         "command": { "keys": "{LEFT}", "mods": "a" }
+      },
+      {
+        "label": "Youtube",
+        "area": "main",
+        "app": "windows",
+        "icon": "fab fa-youtube fa-3x",
+        "tags": ["websites"],
+        "command": { "exec": "start http://www.youtube.com" }
+      },
+      {
+        "label": "Twitch",
+        "area": "main",
+        "app": "windows",
+        "icon": "fab fa-twitch fa-3x",
+        "tags": ["websites"],
+        "command": { "exec": "start http://www.twitch.tv" }
+      },
+      {
+        "label": "Instagram",
+        "area": "main",
+        "app": "windows",
+        "icon": "fab fa-instagram fa-3x",
+        "tags": ["websites"],
+        "command": { "exec": "start http://www.twitch.tv" }
+      },
+      {
+        "label": "Artstation",
+        "area": "main",
+        "app": "windows",
+        "tags": ["websites"],
+        "command": { "exec": "start http://www.artstation.com" }
       }
     ]
   },
