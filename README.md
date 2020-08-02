@@ -1,5 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Overview
 > This project was created for a touch screen laptop to send commands to a machine running Blender 2.8x.
 >
@@ -26,9 +24,9 @@ Send keys example:
 GET /send/keys/a?modifiers=asc
 ```
 
-a=alt
-s=shift
-c=ctrl
+> a=alt
+> s=shift
+> c=ctrl
 
 Application settings:
 ```
@@ -36,6 +34,8 @@ GET /settings
 ```
 
 ### npm start
+
+Use this for development hot module reloading.
 
 Runs the React app in the development mode on port 3000.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
