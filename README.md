@@ -1,3 +1,5 @@
+![Shortcut Dashboard](screenshots/2020-08-02 01_22_23-Shortcut Dashboard.png)
+
 ## Overview
 > This project was created for a touch screen laptop to send commands to a machine running Blender 2.8x.
 >
