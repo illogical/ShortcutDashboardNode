@@ -81,7 +81,8 @@ body {
 }
 
 .recent {
-  flex-basis: 180px;
+  flex-basis: 190px;
+  overflow: hidden;
   xbackground-color: limegreen;
 }
 

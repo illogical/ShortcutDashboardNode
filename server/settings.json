@@ -295,28 +295,28 @@
         "app": "blender",
         "tags": ["shading", "mode"],
         "icon": "far fa-cubes fa-3x",
-        "command": { "python": "C.space_data.viewport_shade = 'WIREFRAME'" }
+        "command": { "keys": "'z4'" }
       },
       {
         "label": "Material",
         "area": "favorites",
         "app": "blender",
         "tags": ["shading", "mode"],
-        "command": { "python": "C.space_data.viewport_shade = 'MATERIAL'" }
+        "command": { "keys": "'z2'" }
       },
       {
         "label": "Rendered",
         "area": "favorites",
         "app": "blender",
         "tags": ["shading", "mode"],
-        "command": { "python": "C.space_data.viewport_shade = 'RENDERED'" }
+        "command": { "keys": "'z8'" }
       },
       {
         "label": "Solid",
         "area": "favorites",
         "app": "blender",
         "tags": ["shading", "mode"],
-        "command": { "python": "C.space_data.viewport_shade = 'SOLID'" }
+        "command": { "keys": "'z6'" }
       },
       {
         "label": "Extrude",
@@ -380,6 +380,34 @@
         }
       },
       {
+        "label": "Unwrap",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-mode", "edit"],
+        "command": { "keys": "u" }
+      },
+      {
+        "label": "Vertex Menu",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-mode", "edit"],
+        "command": { "keys": "v", "mods": "c" }
+      },
+      {
+        "label": "Edge Menu",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-mode", "edit"],
+        "command": { "keys": "e", "mods": "c" }
+      },
+      {
+        "label": "Face Menu",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-mode", "edit"],
+        "command": { "keys": "f", "mods": "c" }
+      },
+      {
         "label": "Separate",
         "area": "common",
         "app": "blender",
@@ -392,13 +420,6 @@
         "app": "blender",
         "tags": ["edit-mode", "edit"],
         "command": { "keys": "m", "mods": "a" }
-      },
-      {
-        "label": "Unwrap",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
-        "command": { "keys": "u" }
       },
       {
         "label": "Reset",
@@ -493,7 +514,7 @@
         "label": "Show",
         "area": "main",
         "app": "blender",
-        "tags": ["view", "object", ""],
+        "tags": ["view"],
         "command": { "keys": "h", "mods": "a" }
       },
       {
@@ -635,34 +656,6 @@
         "command": { "python": "bpy.ops.view3d.view_persportho()" }
       },
       {
-        "label": "Vertex",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": { "keys": "v", "mods": "c" }
-      },
-      {
-        "label": "Edge",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": { "keys": "e", "mods": "c" }
-      },
-      {
-        "label": "Face",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": { "keys": "f", "mods": "c" }
-      },
-      {
-        "label": "Specials",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": { "keys": "w" }
-      },
-      {
         "label": "Apply",
         "area": "main",
         "app": "blender",
@@ -675,13 +668,6 @@
         "app": "blender",
         "tags": ["menu"],
         "command": { "keys": "{TAB}", "mods": "s" }
-      },
-      {
-        "label": "Set Origin",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": { "keys": "c", "mods": "asc" }
       },
       {
         "label": "Make Link",

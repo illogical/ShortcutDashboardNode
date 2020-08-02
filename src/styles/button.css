@@ -1,6 +1,6 @@
 .button {
   width: 106px;
-  height: 55px;
+  height: 50px;
   background: #152126; /* TODO: programatic color */
   color: #ffd6bb; /* TODO: programatic color */
 
@@ -50,6 +50,6 @@
 }
 
 .button.letter {
-  font-size: 2em;
+  font-size: 1.95em;
   font-weight: bold;
 }
