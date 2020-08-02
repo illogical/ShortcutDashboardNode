@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ISettings } from "../models/settings";
 
+// TODO: allow ip and port to be provided via settings
 const ip = "192.168.7.25";
 const port = "3001";
 const getUrl = (path: string) => `http://${ip}:${port}${path}`;
