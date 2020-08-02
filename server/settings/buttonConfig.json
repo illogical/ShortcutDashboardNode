@@ -1,6 +1,6 @@
 {
   "applications": ["blender", "windows"],
-  "areas": ["main", "favorites", "most-used", "common"],
+  "areas": ["top", "main", "favorites", "most-used", "common"],
   "filters": ["object", "edit", "sculpt"],
   "groups": [
     {
@@ -684,39 +684,25 @@
         "command": { "keys": "c", "mods": "a" }
       },
       {
-        "label": "Screenshot",
+        "label": "Back",
         "area": "top",
         "app": "all",
-        "icon": "fad fa-camera-retro fa-3x",
-        "command": { "keys": "{PRINTSCREEN}", "mods": "cs" }
+        "icon": "fad fa-long-arrow-alt-left fa-3x",
+        "command": { "keys": "{LEFT}", "mods": "a" }
       },
       {
-        "label": "Volume +",
+        "label": "Forward",
         "area": "top",
         "app": "all",
-        "icon": "fad fa-volume-up fa-3x",
-        "command": { "keys": "{VOLUME_UP}" }
+        "icon": "fad fa-long-arrow-alt-right fa-3x",
+        "command": { "keys": "{RIGHT}", "mods": "a" }
       },
       {
-        "label": "Volume -",
+        "label": "Refresh",
         "area": "top",
         "app": "all",
-        "icon": "fad fa-volume-down fa-3x",
-        "command": { "keys": "{VOLUME_DOWN}" }
-      },
-      {
-        "label": "Mute",
-        "area": "top",
-        "app": "all",
-        "icon": "fad fa-volume-mute fa-3x",
-        "command": { "keys": "{VOLUME_MUTE}" }
-      },
-      {
-        "label": "Play/Pause",
-        "area": "top",
-        "app": "all",
-        "icon": "fad fa-pause fa-2x",
-        "command": { "keys": "{MEDIA_PLAY_PAUSE}" }
+        "icon": "fad fa-sync-alt fa-2x",
+        "command": { "keys": "{F5}", "mods": "c" }
       },
       {
         "label": "Divvy",
@@ -724,13 +710,6 @@
         "app": "all",
         "icon": "fad fa-window-alt fa-3x",
         "command": { "keys": "{SPACE}", "mods": "csa" }
-      },
-      {
-        "label": "Paste",
-        "area": "top",
-        "app": "all",
-        "icon": "fad fa-paste fa-2x",
-        "command": { "keys": "v", "mods": "c" }
       },
       {
         "label": "Cut",
@@ -747,11 +726,11 @@
         "command": { "keys": "c", "mods": "c" }
       },
       {
-        "label": "Redo",
+        "label": "Paste",
         "area": "top",
         "app": "all",
-        "icon": "fad fa-redo fa-2x",
-        "command": { "keys": "z", "mods": "cs" }
+        "icon": "fad fa-paste fa-2x",
+        "command": { "keys": "v", "mods": "c" }
       },
       {
         "label": "Undo",
@@ -761,25 +740,46 @@
         "command": { "keys": "z", "mods": "c" }
       },
       {
-        "label": "Refresh",
+        "label": "Redo",
         "area": "top",
         "app": "all",
-        "icon": "fad fa-sync-alt fa-2x",
-        "command": { "keys": "{F5}", "mods": "c" }
+        "icon": "fad fa-redo fa-2x",
+        "command": { "keys": "z", "mods": "cs" }
       },
       {
-        "label": "Forward",
+        "label": "Mute",
         "area": "top",
         "app": "all",
-        "icon": "fad fa-long-arrow-alt-right fa-3x",
-        "command": { "keys": "{RIGHT}", "mods": "a" }
+        "icon": "fad fa-volume-mute fa-3x",
+        "command": { "keys": "{VOLUME_MUTE}" }
       },
       {
-        "label": "Back",
+        "label": "Volume -",
         "area": "top",
         "app": "all",
-        "icon": "fad fa-long-arrow-alt-left fa-3x",
-        "command": { "keys": "{LEFT}", "mods": "a" }
+        "icon": "fad fa-volume-down fa-3x",
+        "command": { "keys": "{VOLUME_DOWN}" }
+      },
+      {
+        "label": "Volume +",
+        "area": "top",
+        "app": "all",
+        "icon": "fad fa-volume-up fa-3x",
+        "command": { "keys": "{VOLUME_UP}" }
+      },
+      {
+        "label": "Play/Pause",
+        "area": "top",
+        "app": "all",
+        "icon": "fad fa-play fa-2x",
+        "command": { "keys": "{MEDIA_PLAY_PAUSE}" }
+      },
+      {
+        "label": "Screenshot",
+        "area": "top",
+        "app": "all",
+        "icon": "fad fa-camera-retro fa-3x",
+        "command": { "keys": "{PRINTSCREEN}", "mods": "cs" }
       },
       {
         "label": "Youtube",

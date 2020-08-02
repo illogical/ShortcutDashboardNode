@@ -80,15 +80,28 @@ body {
   flex-wrap: wrap-reverse;
 }
 
-.recent {
+.right-side {
   width: 120px;
   text-align: center;
   overflow: hidden;
   flex-shrink: 0;
+}
+
+.right-split {
+  display: flex;
+  flex-direction: column;
+}
+
+.recent {
+  flex-grow: 1;
   xbackground-color: limegreen;
 }
 
-/* allow areas to scroll */
+.settings {
+  xbackground-color: royalblue;
+}
+
+/* display horizontally */
 .top,
 .footer .common-buttons .grid {
   display: flex;

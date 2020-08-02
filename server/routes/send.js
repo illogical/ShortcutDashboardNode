@@ -13,10 +13,10 @@ function combineCommand(keystroke) {
   return [exe, "-w", windowName, keystroke].join(" ");
 }
 
-function getSettings() {
+function getPythonConfig() {
   try {
     let rawdata = fs.readFileSync(
-      path.join(__dirname, "../serverSettings.json")
+      path.join(__dirname, "../settings/pythonConfig.json")
     );
     return JSON.parse(rawdata);
   } catch (error) {
@@ -70,7 +70,7 @@ router.post("/python", function (req, res, next) {
 
   try {
     // save the command to this file
-    const settings = getSettings();
+    const settings = getPythonConfig();
     fs.writeFileSync(settings.pythonFilePath, command);
 
     const keyStroke = keyStroker(settings.pythonShortcut);

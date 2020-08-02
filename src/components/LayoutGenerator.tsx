@@ -24,12 +24,13 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
   const [selectedApp, setSelectedApp] = React.useState(
     settings ? settings.applications[0] : "blender"
   );
-
+  const [, setIsSettingsOpen] = React.useState(false);
   const [buttonHistory, setButtonHistory] = React.useState<
     Record<string, IButtonInfo>
   >({});
+  const [forceLabels, setForceLabels] = React.useState(false);
 
-  const addButton = (buttonInfo: IButtonInfo) => {
+  const addButtonToHistory = (buttonInfo: IButtonInfo) => {
     setButtonHistory((x) => {
       // update lastUsed for this buttonupdatedHistory
       const updatedHistory = {
@@ -45,11 +46,19 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
     });
   };
 
+  const toggleForceLabel = () => {
+    setForceLabels((x) => !x);
+  };
+
+  const toggleSettings = () => {
+    setIsSettingsOpen((x) => !x);
+  };
+
   const generateButtonHistory = () => {
     const buttons = Object.values(buttonHistory);
     const sortedButtons = lodash.sortBy(buttons, "lastUsed").reverse();
     return sortedButtons.map((button) => {
-      return createButton(button, addButton);
+      return createButton(button, forceLabels, addButtonToHistory);
     });
   };
 
@@ -61,6 +70,13 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
     settings.colors.buttons
     //faker.random.number()
   ); //use this for groups and buttons
+
+  const systemButtons = createSystemButtons(
+    colorSelector,
+    forceLabels,
+    toggleSettings,
+    toggleForceLabel
+  );
 
   return (
     <div className="flex-vertical">
@@ -79,7 +95,8 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
             groups={settings.groups}
             buttons={settings.keymap.buttons}
             colorSelector={colorSelector}
-            addButton={addButton}
+            forceLabels={forceLabels}
+            addButton={addButtonToHistory}
           />
         </div>
         <div className="pusher"></div>
@@ -91,11 +108,11 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
               groups={settings.groups}
               buttons={settings.keymap.buttons}
               colorSelector={colorSelector}
-              addButton={addButton}
+              forceLabels={forceLabels}
+              addButton={addButtonToHistory}
             />
           </Grid>
         </div>
-
         <div className="footer">
           <div className="common">
             <div className="common-groups">
@@ -106,7 +123,8 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
                   groups={settings.groups}
                   buttons={settings.keymap.buttons}
                   colorSelector={colorSelector}
-                  addButton={addButton}
+                  forceLabels={forceLabels}
+                  addButton={addButtonToHistory}
                 />
               </Grid>
             </div>
@@ -118,37 +136,86 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
                   groups={settings.groups}
                   buttons={settings.keymap.buttons}
                   colorSelector={colorSelector}
-                  addButton={addButton}
+                  forceLabels={forceLabels}
+                  addButton={addButtonToHistory}
                 />
               </Grid>
             </div>
           </div>
         </div>
       </div>
-      <div className="recent">
-        <div className="title centered">RECENT</div>
-        {generateButtonHistory()}
+      <div className="right-side right-split">
+        <div className="recent">
+          <div className="title centered">RECENT</div>
+          {generateButtonHistory()}
+        </div>
+        <div className="settings">{systemButtons}</div>
       </div>
     </div>
   );
 };
 
+const createSystemButtons = (
+  colorSelector: ColorSelector,
+  forceLabels: boolean,
+  toggleSettings: () => void,
+  toggleForceLabel: () => void
+) => {
+  const color = colorSelector.getColor();
+
+  const labelToggleBtn: IButtonInfo = {
+    label: "Toggle Labels",
+    area: "settings",
+    command: {
+      // uses a custom onClick
+    },
+  };
+
+  const settingsBtn: IButtonInfo = {
+    label: "Settings",
+    area: "settings",
+    icon: "fad fa-cog fa-3x",
+    command: {
+      // uses a custom onClick
+    },
+  };
+
+  return (
+    <React.Fragment>
+      <Button
+        buttonInfo={labelToggleBtn}
+        key={labelToggleBtn.label}
+        borderColor={color}
+        size="default"
+        forceLabel={forceLabels}
+        onClick={toggleForceLabel}
+      />
+      <Button
+        buttonInfo={settingsBtn}
+        key={settingsBtn.label}
+        borderColor={color}
+        size="default"
+        forceLabel={forceLabels}
+        onClick={toggleSettings}
+      />
+    </React.Fragment>
+  );
+};
+
 export const createButton = (
   button: IButtonInfo,
+  forceLabels: boolean,
   addButton: (buttonInfo: IButtonInfo) => void,
   colorOverride?: string
 ) => {
-  const onClick = (buttonInfo: IButtonInfo) => {
-    addButton(buttonInfo);
-  };
-
   return (
     <Button
       buttonInfo={button}
       key={button.label}
       borderColor={colorOverride}
       size={button.size ? button.size : "default"}
-      onClick={onClick}
+      forceLabel={forceLabels}
+      onClick={addButton}
     />
   );
 };
@@ -157,6 +224,7 @@ export const createGroup = (
   group: IGroupInfo,
   buttons: IButtonInfo[], //pass all buttons
   colorSelector: ColorSelector,
+  forceLabels: boolean,
   addButton: (buttonInfo: IButtonInfo) => void
 ) => {
   const groupColor = colorSelector.getColor();
@@ -181,7 +249,7 @@ export const createGroup = (
   return (
     <Group key={group.title} groupInfo={group}>
       {filteredButtons.map((btnInfo) =>
-        createButton(btnInfo, addButton, groupColor)
+        createButton(btnInfo, forceLabels, addButton, groupColor)
       )}
     </Group>
   );
@@ -193,6 +261,7 @@ interface AreaProps {
   groups: IGroupInfo[]; //pass all groups
   buttons: IButtonInfo[]; //pass all buttons
   colorSelector: ColorSelector;
+  forceLabels: boolean;
   addButton: (buttonInfo: IButtonInfo) => void;
 }
 
@@ -202,6 +271,7 @@ export const Area = ({
   groups,
   buttons,
   colorSelector,
+  forceLabels,
   addButton,
 }: AreaProps) => {
   const untaggedButtonColor = colorSelector.getColor();
@@ -211,13 +281,17 @@ export const Area = ({
       (btn) =>
         (btn.app === "all" || btn.app === app) && btn.area === area && !btn.tags
     ) // get untagged buttons
-    .map((btnInfo) => createButton(btnInfo, addButton, untaggedButtonColor));
+    .map((btnInfo) =>
+      createButton(btnInfo, forceLabels, addButton, untaggedButtonColor)
+    );
 
   const groupsByArea = groups
     .filter(
       (grp) => (grp.app === "all" || grp.app === app) && grp.area === area
     )
-    .map((grp) => createGroup(grp, buttons, colorSelector, addButton));
+    .map((grp) =>
+      createGroup(grp, buttons, colorSelector, forceLabels, addButton)
+    );
 
   return (
     <React.Fragment>{[...groupsByArea, ...untaggedButtons]}</React.Fragment>
