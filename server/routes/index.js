@@ -4,12 +4,16 @@ const path = require("path");
 var router = express.Router();
 
 /* GET home page. */
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   res.sendFile(path.join(__dirname, "../../build", "index.html"));
 });
 
-router.get("/api", function(req, res, next) {
+router.get("/api", function (req, res, next) {
   res.send("API should be running.");
+});
+
+router.get("/status", function (req, res, next) {
+  res.sendFile(path.join(__dirname, "../../build", "status.html"));
 });
 
 module.exports = router;

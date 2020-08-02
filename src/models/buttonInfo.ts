@@ -12,4 +12,5 @@ export interface IButtonInfo {
   app?: string;
   count?: number;
   size?: "default" | "medium" | "large";
+  lastUsed?: Date;
 }

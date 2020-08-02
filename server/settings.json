@@ -389,6 +389,27 @@
         }
       },
       {
+        "label": "Separate",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-mode", "edit"],
+        "command": { "keys": "p" }
+      },
+      {
+        "label": "Merge",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-mode", "edit"],
+        "command": { "keys": "m", "mods": "a" }
+      },
+      {
+        "label": "Unwrap",
+        "area": "common",
+        "app": "blender",
+        "tags": ["edit-mode", "edit"],
+        "command": { "keys": "u" }
+      },
+      {
         "label": "Reset",
         "area": "favorites",
         "app": "blender",
@@ -431,8 +452,8 @@
         "area": "favorites",
         "app": "blender",
         "tags": ["animation"],
-        "icon": "fad fa-pause fa-2x",
-        "command": { "keys": "a", "mods": "a" }
+        "icon": "fad fa-play fa-2x",
+        "command": { "keys": "{SPACEBAR}", "mods": "s" }
       },
       {
         "label": "Brush Size",
@@ -684,27 +705,6 @@
         "app": "blender",
         "tags": ["menu"],
         "command": { "keys": "l", "mods": "c" }
-      },
-      {
-        "label": "Separate",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu", "edit"],
-        "command": { "keys": "p" }
-      },
-      {
-        "label": "Merge",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu", "edit"],
-        "command": { "keys": "m", "mods": "a" }
-      },
-      {
-        "label": "Unwrap",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": { "keys": "u" }
       },
       {
         "label": "Proportional",

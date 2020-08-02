@@ -10,14 +10,16 @@ interface ButtonProps {
   loading?: boolean;
   borderColor?: string;
   size: "default" | "medium" | "large";
-  onClick?: () => void;
+  forceLabel?: boolean;
+  onClick?: (buttonInfo: IButtonInfo) => void;
 }
 
 export const Button = ({
   buttonInfo,
   borderColor,
   size,
-  onClick
+  forceLabel,
+  onClick,
 }: ButtonProps) => {
   const [loadingClass, setLoadingClass] = React.useState("");
 
@@ -30,6 +32,11 @@ export const Button = ({
       } else if (buttonInfo.command.keys) {
         await sendKeys(buttonInfo.command.keys, buttonInfo.command.mods);
       }
+
+      if (onClick) {
+        onClick({ ...buttonInfo });
+      }
+
       setLoadingClass("");
     } catch (error) {
       setLoadingClass("fail");
@@ -47,7 +54,7 @@ export const Button = ({
     "--fa-primary-color": "#23c1ff",
     "--fa-secondary-color": "#ffbed4",
     "--fa-secondary-opacity": 0.45,
-    ...customFontSize
+    ...customFontSize,
   };
   //changes button color while waiting for server response
   buttonStyles =
@@ -55,7 +62,7 @@ export const Button = ({
       ? buttonStyles
       : {
           ...buttonStyles,
-          borderColor
+          borderColor,
         };
 
   //X,Y,Z
@@ -67,12 +74,12 @@ export const Button = ({
     show: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, type: "tween" }
+      transition: { duration: 0.5, type: "tween" },
     },
     push: {
       scale: 0.85,
-      transition: { type: "spring", damping: 6, stiffness: 160 }
-    }
+      transition: { type: "spring", damping: 6, stiffness: 160 },
+    },
   };
 
   return (
@@ -83,10 +90,10 @@ export const Button = ({
         whileTap="push"
         animate="show"
         style={buttonStyles}
-        onTap={onClick || handleClick}
+        onTap={handleClick}
         variants={variants}
       >
-        {buttonInfo.icon ? (
+        {buttonInfo.icon && !forceLabel ? (
           <div>
             <span className={buttonInfo.icon} />
             <span className="hidden">{buttonInfo.label.toUpperCase()}</span>

@@ -15,6 +15,7 @@
     "framer-motion": "^1.8.3",
     "http-errors": "^1.7.3",
     "jjg-ping": "^1.0.3",
+    "ladash": "^1.2.0",
     "morgan": "^1.9.1",
     "node-sass": "^4.13.1",
     "pug": "^2.0.4",
@@ -49,6 +50,7 @@
   "devDependencies": {
     "@types/faker": "^4.1.9",
     "@types/jest": "^24.9.1",
+    "@types/lodash": "^4.14.158",
     "@types/node": "^12.12.26",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5"

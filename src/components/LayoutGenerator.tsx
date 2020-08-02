@@ -6,6 +6,7 @@ import { ColorSelector } from "../helpers/colorSelector";
 import { IGroupInfo } from "../models/groupInfo";
 import { Group } from "./Group";
 import { Grid } from "./Grid";
+import * as lodash from "lodash";
 
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   return (
@@ -24,6 +25,36 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
     settings ? settings.applications[0] : "blender"
   );
 
+  const [buttonHistory, setButtonHistory] = React.useState<
+    Record<string, IButtonInfo>
+  >({});
+
+  // TODO: force label toggle
+
+  const addButton = (buttonInfo: IButtonInfo) => {
+    setButtonHistory((x) => {
+      // update lastUsed for this buttonupdatedHistory
+      const updatedHistory = {
+        ...x,
+        [buttonInfo.label]: {
+          ...buttonInfo,
+          lastUsed: new Date(),
+          size: undefined,
+        },
+      };
+
+      return updatedHistory;
+    });
+  };
+
+  const generateButtonHistory = () => {
+    const buttons = Object.values(buttonHistory);
+    const sortedButtons = lodash.sortBy(buttons, "lastUsed").reverse();
+    return sortedButtons.map((button) => {
+      return createButton(button, addButton);
+    });
+  };
+
   const handleSelectApp = (app: string) => {
     setSelectedApp(app);
   };
@@ -34,73 +65,94 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
   ); //use this for groups and buttons
 
   return (
-    <React.Fragment>
-      <div className="applications">
-        <ApplicationFilters
-          applications={settings.applications}
-          selected={selectedApp}
-          onSelect={handleSelectApp}
-        />
-      </div>
-      <div className="top">
-        {createArea(
-          selectedApp,
-          "top",
-          settings.groups,
-          settings.keymap.buttons,
-          colorSelector
-        )}
-      </div>
-      <div className="pusher"></div>
-      <div className="main">
-        <Grid>
-          {createArea(
-            selectedApp,
-            "main",
-            settings.groups,
-            settings.keymap.buttons,
-            colorSelector
-          )}
-        </Grid>
-      </div>
+    <div className="flex-vertical">
+      <div className="flex flex-main">
+        <div className="applications">
+          <ApplicationFilters
+            applications={settings.applications}
+            selected={selectedApp}
+            onSelect={handleSelectApp}
+          />
+        </div>
+        <div className="top">
+          <Area
+            app={selectedApp}
+            area="top"
+            groups={settings.groups}
+            buttons={settings.keymap.buttons}
+            colorSelector={colorSelector}
+            addButton={addButton}
+          />
+        </div>
+        <div className="pusher"></div>
+        <div className="main">
+          <Grid>
+            <Area
+              app={selectedApp}
+              area="main"
+              groups={settings.groups}
+              buttons={settings.keymap.buttons}
+              colorSelector={colorSelector}
+              addButton={addButton}
+            />
+          </Grid>
+        </div>
 
-      <div className="footer">
-        <div className="common">
-          <div className="common-groups">
-            <Grid>
-              {createArea(
-                selectedApp,
-                "favorites",
-                settings.groups,
-                settings.keymap.buttons,
-                colorSelector
-              )}
-            </Grid>
-          </div>
-          <div className="common-buttons">
-            <Grid>
-              {createArea(
-                selectedApp,
-                "common",
-                settings.groups.reverse(),
-                settings.keymap.buttons,
-                colorSelector
-              )}
-            </Grid>
+        {/* TODO: area right of main for vertical list of recently used icons. Needs a "Recent" label */}
+
+        <div className="footer">
+          <div className="common">
+            <div className="common-groups">
+              <Grid>
+                <Area
+                  app={selectedApp}
+                  area="favorites"
+                  groups={settings.groups}
+                  buttons={settings.keymap.buttons}
+                  colorSelector={colorSelector}
+                  addButton={addButton}
+                />
+              </Grid>
+            </div>
+            <div className="common-buttons">
+              <Grid>
+                <Area
+                  app={selectedApp}
+                  area="common"
+                  groups={settings.groups}
+                  buttons={settings.keymap.buttons}
+                  colorSelector={colorSelector}
+                  addButton={addButton}
+                />
+              </Grid>
+            </div>
           </div>
         </div>
       </div>
-    </React.Fragment>
+      <div className="recent">
+        <div className="title centered">RECENT</div>
+        {generateButtonHistory()}
+      </div>
+    </div>
   );
 };
 
-export const createButton = (button: IButtonInfo, colorOverride?: string) => {
+export const createButton = (
+  button: IButtonInfo,
+  addButton: (buttonInfo: IButtonInfo) => void,
+  colorOverride?: string
+) => {
+  const onClick = (buttonInfo: IButtonInfo) => {
+    addButton(buttonInfo);
+  };
+
   return (
     <Button
       buttonInfo={button}
       key={button.label}
       borderColor={colorOverride}
       size={button.size ? button.size : "default"}
+      onClick={onClick}
     />
   );
 };
@@ -108,12 +160,13 @@ export const createButton = (button: IButtonInfo, colorOverride?: string) => {
 export const createGroup = (
   group: IGroupInfo,
   buttons: IButtonInfo[], //pass all buttons
-  colorSelector: ColorSelector
+  colorSelector: ColorSelector,
+  addButton: (buttonInfo: IButtonInfo) => void
 ) => {
   const groupColor = colorSelector.getColor();
   group.color = groupColor;
 
-  const filteredButtons = buttons.filter(btn => {
+  const filteredButtons = buttons.filter((btn) => {
     if (!btn.tags) return false;
     return btn.tags?.indexOf(group.tag) >= 0;
   });
@@ -131,34 +184,48 @@ export const createGroup = (
 
   return (
     <Group key={group.title} groupInfo={group}>
-      {filteredButtons.map(btnInfo => {
-        return createButton(btnInfo, groupColor);
-      })}
+      {filteredButtons.map((btnInfo) =>
+        createButton(btnInfo, addButton, groupColor)
+      )}
     </Group>
   );
 };
 
-export const createArea = (
-  app: string,
-  area: string,
-  groups: IGroupInfo[], //pass all groups
-  buttons: IButtonInfo[], //pass all buttons
-  colorSelector: ColorSelector
-) => {
+interface AreaProps {
+  app: string;
+  area: string;
+  groups: IGroupInfo[]; //pass all groups
+  buttons: IButtonInfo[]; //pass all buttons
+  colorSelector: ColorSelector;
+  addButton: (buttonInfo: IButtonInfo) => void;
+}
+
+export const Area = ({
+  app,
+  area,
+  groups,
+  buttons,
+  colorSelector,
+  addButton,
+}: AreaProps) => {
   const untaggedButtonColor = colorSelector.getColor();
 
   const untaggedButtons = buttons
     .filter(
-      btn =>
+      (btn) =>
         (btn.app === "all" || btn.app === app) && btn.area === area && !btn.tags
     ) // get untagged buttons
-    .map(btnInfo => createButton(btnInfo, untaggedButtonColor));
+    .map((btnInfo) => createButton(btnInfo, addButton, untaggedButtonColor));
 
   const groupsByArea = groups
-    .filter(grp => (grp.app === "all" || grp.app === app) && grp.area === area)
-    .map(grp => createGroup(grp, buttons, colorSelector));
+    .filter(
+      (grp) => (grp.app === "all" || grp.app === app) && grp.area === area
+    )
+    .map((grp) => createGroup(grp, buttons, colorSelector, addButton));
 
-  return [...groupsByArea, ...untaggedButtons];
+  return (
+    <React.Fragment>{[...groupsByArea, ...untaggedButtons]}</React.Fragment>
+  );
 };
 
 interface IApplicationFilters {
@@ -170,11 +237,11 @@ interface IApplicationFilters {
 const ApplicationFilters = ({
   applications,
   selected,
-  onSelect
+  onSelect,
 }: IApplicationFilters) => {
   return (
     <React.Fragment>
-      {applications.map(app => {
+      {applications.map((app) => {
         const handleClick = () => {
           onSelect(app);
         };

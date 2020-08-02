@@ -28,8 +28,8 @@ export const Layout = () => {
   }
 
   return (
-    <div className={`flex`}>
+    <React.Fragment>
       <LayoutGenerator settings={settings}></LayoutGenerator>
-    </div>
+    </React.Fragment>
   );
 };

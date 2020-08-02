@@ -15,10 +15,14 @@ body {
   font-family: "Roboto";
 }
 
-.flex {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.centered {
+  text-align: center;
+}
+
+.title {
+  color: rgb(24, 144, 214); /* default */
+  font-weight: bold;
+  font-size: 1.26em;
 }
 
 .loader {
@@ -27,14 +31,25 @@ body {
   padding: 400px;
 }
 
+.flex {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-vertical {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-main {
+  flex-basis: auto;
+}
+
 .pusher {
   flex: 1 0 auto;
   xbackground: deepskyblue;
-}
-
-.top > .item {
-  position: relative;
-  float: right;
 }
 
 .applications {
@@ -65,9 +80,16 @@ body {
   flex-wrap: wrap-reverse;
 }
 
-.footer {
-  flex-shrink: 0;
-  xbackground: hotpink;
+.recent {
+  flex-basis: 180px;
+  xbackground-color: limegreen;
+}
+
+/* allow areas to scroll */
+.top,
+.footer .common-buttons .grid {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .footer .common {
@@ -77,14 +99,10 @@ body {
 
 /* this is covering the pink area */
 .footer .common-groups {
-  xbackground-color: goldenrod;
   padding-left: 3px;
+  xbackground-color: goldenrod;
 }
 
 .footer .common-buttons {
   padding: 8px 0 0 3px;
-}
-
-.footer .common-buttons .item {
-  float: left;
 }
