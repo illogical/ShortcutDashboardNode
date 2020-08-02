@@ -185,29 +185,12 @@ export default createButton;
 
 /*
 
-	* check python
-	* 
-filter out icons by tag
-		* 
-edit OR object
-		* 
+edit OR object via tags
+		
 sculpt just shows/hides sculpt group
-	* 
-check common
-	* 
-build groups
-	* 
-add untagged to main
-	* 
-add groups to main
-	* 
+	
 add groups to favorites (rename from favorites?)
-	* 
-add recent
-	* 
+	
 don't forget to throw out empty groups (all could be hidden via tag filter)
 
-
 */
-
-//convert settings into a layout

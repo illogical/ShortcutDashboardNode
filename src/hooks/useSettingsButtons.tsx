@@ -41,7 +41,7 @@ const SystemButtons = ({
   toggleSettings,
 }: ISystemButtonsProps) => {
   const labelToggleBtn: IButtonInfo = {
-    label: "Toggle Labels",
+    label: "Toggle Icons",
     area: "settings",
     command: {
       // uses a custom onClick
