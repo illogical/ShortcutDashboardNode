@@ -15,6 +15,10 @@ export const sendCommand = async (command: string) => {
   return await axios.post(getUrl(`/send/command`), { command });
 };
 
+export const sendPython = async (command: string) => {
+  return await axios.post(getUrl(`/send/python`), { command });
+};
+
 export const getSettings = async () => {
   return await axios.get<ISettings>(getUrl(`/settings`));
 };

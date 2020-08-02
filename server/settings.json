@@ -376,16 +376,7 @@
         "app": "blender",
         "tags": ["edit-mode", "edit"],
         "command": {
-          "python": "C.scene.tool_settings.proportional_edit = 'ENABLED'"
-        }
-      },
-      {
-        "label": "Disable Proportional",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
-        "command": {
-          "python": "C.scene.tool_settings.proportional_edit = 'DISABLED'"
+          "command": { "keys": "o" }
         }
       },
       {
@@ -683,7 +674,7 @@
         "area": "main",
         "app": "blender",
         "tags": ["menu"],
-        "command": { "python": "bpy.ops.wm.call_menu(name=\"VIEW3D_MT_snap\")" }
+        "command": { "keys": "{TAB}", "mods": "s" }
       },
       {
         "label": "Set Origin",
@@ -693,36 +684,11 @@
         "command": { "keys": "c", "mods": "asc" }
       },
       {
-        "label": "Extrude",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": { "keys": "e", "mods": "c" }
-      },
-      {
         "label": "Make Link",
         "area": "main",
         "app": "blender",
         "tags": ["menu"],
         "command": { "keys": "l", "mods": "c" }
-      },
-      {
-        "label": "Proportional",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": {
-          "python": "bpy.ops.wm.call_menu(name='VIEW3D_MT_edit_proportional')"
-        }
-      },
-      {
-        "label": "Pivot Point",
-        "area": "main",
-        "app": "blender",
-        "tags": ["menu"],
-        "command": {
-          "python": "bpy.ops.wm.call_menu(name=\"VIEW3D_MT_Pivot\")"
-        }
       },
       {
         "label": "Convert to",

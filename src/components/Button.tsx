@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../styles/button.css";
 import { GridItem } from "./GridItem";
-import { sendKeys, sendCommand } from "../api/keySettings";
+import { sendKeys, sendCommand, sendPython } from "../api/keySettings";
 import { IButtonInfo } from "../models/buttonInfo";
 import { motion } from "framer-motion";
 
@@ -29,6 +29,8 @@ export const Button = ({
 
       if (buttonInfo.command.exec) {
         await sendCommand(buttonInfo.command.exec);
+      } else if (buttonInfo.command.python) {
+        await sendPython(buttonInfo.command.python);
       } else if (buttonInfo.command.keys) {
         await sendKeys(buttonInfo.command.keys, buttonInfo.command.mods);
       }

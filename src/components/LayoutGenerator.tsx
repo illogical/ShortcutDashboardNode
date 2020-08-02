@@ -29,8 +29,6 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
     Record<string, IButtonInfo>
   >({});
 
-  // TODO: force label toggle
-
   const addButton = (buttonInfo: IButtonInfo) => {
     setButtonHistory((x) => {
       // update lastUsed for this buttonupdatedHistory
@@ -97,8 +95,6 @@ const GenerateLayout = ({ settings }: ILayoutGeneratorProps) => {
             />
           </Grid>
         </div>
-
-        {/* TODO: area right of main for vertical list of recently used icons. Needs a "Recent" label */}
 
         <div className="footer">
           <div className="common">
