@@ -1,8 +1,9 @@
-![Shortcut Dashboard](screenshots/2020-08-02 01_22_23-Shortcut Dashboard.png)
+
+![Shortcut Dashaboard](https://github.com/illogical/ShortcutDashboardNode/tree/master/screenshots/2020-08-02-ShortcutDashboard.png)
 
 ## Overview
-> This project was created for a touch screen laptop to send commands to a machine running Blender 2.8x.
->
+This project was created for a touch screen laptop to send commands to a machine running Blender 2.8x.
+
 > ### Server/Client
 > * Server: node Express app that provides endpoints for receiving keyboard shortcuts, python commands, and a few Windows shortcuts such as volume controls.
 > * Client: React frontend that provides a dashboard of buttons that send commands to the Express app.
@@ -12,6 +13,10 @@ The client and server can both be served via __http://localhost:3001__ by execut
 npm run build
 npm run sendkeys
 ```
+
+### Features
+* Configurable button layout
+      * Button groups and tags
 
 ## Available Scripts
 
