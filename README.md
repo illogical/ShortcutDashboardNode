@@ -1,5 +1,5 @@
 
-![Shortcut Dashaboard](https://github.com/illogical/ShortcutDashboardNode/tree/master/screenshots/2020-08-02-ShortcutDashboard.png)
+![Shortcut Dashaboard](https://raw.githubusercontent.com/illogical/ShortcutDashboardNode/master/screenshots/2020-08-02-ShortcutDashboard.png)
 
 ## Overview
 This project was created for a touch screen laptop to send commands to a machine running Blender 2.8x.
