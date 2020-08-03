@@ -1,22 +1,26 @@
 import * as React from "react";
 import { ISettings } from "../models/settings";
-import { IButtonInfo } from "../models/buttonInfo";
 import { ColorSelector } from "../helpers/colorSelector";
-import { IGroupInfo } from "../models/groupInfo";
 import { Grid } from "./Grid";
 import { useSettingsButtons } from "../hooks/useSettingsButtons";
-import { createButton, createGroup } from "../helpers/generators";
+import { createButton } from "../helpers/generators";
 import { useButtonHistory } from "../hooks/useButtonHistory";
 import { Area } from "./Area";
+import { Tags } from "./Tags";
 
 interface ILayoutGeneratorProps {
   settings: ISettings;
 }
 
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
+  // TODO: Add a slide out panel for app selection
+  // TODO: Add a SettingsButton that will open the slide out panel
   const [selectedApp, setSelectedApp] = React.useState(
     settings ? settings.applications[0] : "blender"
   );
+  const [selectedTags, setSelectedTags] = React.useState<string[]>([
+    ...settings.filters,
+  ]);
 
   const colorSelector = new ColorSelector(
     settings.colors.buttons
@@ -31,14 +35,22 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
     forceLabels
   );
 
+  // TODO: otherwise check if group tags or button tags match any selected tags
+  // const allTagsEnabled = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
+
   return (
     <div className="flex-vertical">
       <div className="flex flex-main">
         <div className="applications">
-          <ApplicationFilters
+          {/* <ApplicationFilters
             applications={settings.applications}
             selected={selectedApp}
             onSelect={setSelectedApp}
+          /> */}
+          <Tags
+            tags={settings.filters}
+            selectedTags={selectedTags}
+            selectTags={setSelectedTags}
           />
         </div>
         <div className="top">

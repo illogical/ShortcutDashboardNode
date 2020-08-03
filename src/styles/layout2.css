@@ -56,14 +56,16 @@ body {
   text-align: center;
 }
 
-.app-item {
+.app-item,
+.tag-item {
   color: rgb(24, 144, 214);
   margin: 0 10px;
   opacity: 0.7;
   cursor: pointer;
 }
 
-.app-item.selected {
+.app-item.selected,
+.tag-item.selected {
   font-weight: bold;
   opacity: 1;
   font-size: 1.45em;
