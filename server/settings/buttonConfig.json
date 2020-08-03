@@ -146,59 +146,59 @@
       },
       {
         "label": "Save",
-        "area": "main",
-        "app": "blender",
+        "group": "general",
         "tags": ["general"],
         "command": { "keys": "s", "mods": "c" }
       },
       {
         "label": "Save Copy",
-        "area": "main",
-        "app": "blender",
+        "group": "general",
         "tags": ["general"],
         "command": { "keys": "s", "mods": "ca" }
       },
       {
         "label": "Duplicate",
-        "area": "main",
-        "app": "blender",
+        "group": "general",
         "tags": ["general"],
         "command": { "keys": "d", "mods": "s" }
       },
       {
         "label": "Duplicate Linked",
-        "area": "main",
-        "app": "blender",
+        "group": "general",
         "tags": ["general"],
         "command": { "keys": "d", "mods": "a" }
       },
       {
         "label": "Reset Cursor",
-        "area": "main",
-        "app": "blender",
+        "group": "general",
         "tags": ["general"],
         "command": { "python": "bpy.ops.view3d.snap_cursor_to_center()" }
       },
       {
         "label": "Render",
-        "area": "main",
-        "app": "blender",
+        "group": "general",
         "tags": ["general"],
         "command": { "keys": "{F12}" }
       },
       {
         "label": "Parent",
-        "area": "main",
-        "app": "blender",
+        "group": "object",
         "tags": ["object"],
         "command": { "keys": "p", "mods": "c" }
       },
       {
         "label": "Join",
-        "area": "main",
-        "app": "blender",
+        "group": "object",
         "tags": ["object"],
         "command": { "keys": "j", "mods": "c" }
+      },
+      {
+        "label": "Auto Smooth",
+        "group": "object",
+        "tags": ["object"],
+        "command": {
+          "python": "C.object.data.use_auto_smooth = True\nC.object.data.auto_smooth_angle = 0.5235987901687622"
+        }
       },
       {
         "label": "Reset Normals",
@@ -208,16 +208,7 @@
         "command": { "keys": "n", "mods": "c" }
       },
       {
-        "label": "Auto Smooth",
-        "area": "main",
-        "app": "blender",
-        "tags": ["object"],
-        "command": {
-          "python": "C.object.data.use_auto_smooth = True\nC.object.data.auto_smooth_angle = 0.5235987901687622"
-        }
-      },
-      {
-        "label": "Remote Doubles",
+        "label": "Remove Doubles",
         "area": "main",
         "app": "blender",
         "tags": ["edit"],
@@ -253,433 +244,374 @@
       },
       {
         "label": "Deselect",
-        "area": "favorites",
-        "app": "blender",
+        "group": "selection",
         "tags": ["selection"],
         "command": { "keys": "a", "mods": "a" }
       },
       {
         "label": "Circle",
-        "area": "favorites",
-        "app": "blender",
+        "group": "selection",
         "tags": ["selection"],
         "icon": "fad fa-circle-notch fa-3x",
         "command": { "keys": "c" }
       },
       {
         "label": "Box",
-        "area": "favorites",
-        "app": "blender",
+        "group": "selection",
         "tags": ["selection"],
         "icon": "fad fa-expand fa-3x",
         "command": { "keys": "b" }
       },
       {
         "label": "Invert",
-        "area": "favorites",
-        "app": "blender",
+        "group": "selection",
         "tags": ["selection"],
         "command": { "keys": "i" }
       },
       {
         "label": "Linked",
-        "area": "favorites",
-        "app": "blender",
+        "group": "selection",
         "tags": ["selection"],
         "icon": "fad fa-sitemap fa-3x",
         "command": { "keys": "l" }
       },
       {
         "label": "Wireframe",
-        "area": "favorites",
-        "app": "blender",
+        "group": "shading",
         "tags": ["shading", "mode"],
         "icon": "far fa-cubes fa-3x",
         "command": { "keys": "'z4'" }
       },
       {
         "label": "Material",
-        "area": "favorites",
-        "app": "blender",
+        "group": "shading",
         "tags": ["shading", "mode"],
         "command": { "keys": "'z2'" }
       },
       {
         "label": "Rendered",
-        "area": "favorites",
-        "app": "blender",
+        "group": "shading",
         "tags": ["shading", "mode"],
         "command": { "keys": "'z8'" }
       },
       {
         "label": "Solid",
-        "area": "favorites",
-        "app": "blender",
+        "group": "shading",
         "tags": ["shading", "mode"],
         "command": { "keys": "'z6'" }
       },
       {
         "label": "Extrude",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
+        "group": "edit-tools",
+        "tags": ["edit"],
         "command": { "keys": "e" }
       },
       {
         "label": "Inset",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
+        "group": "edit-tools",
+        "tags": ["edit"],
         "command": { "keys": "i" }
       },
       {
         "label": "Loop Cut",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
+        "group": "edit-tools",
+        "tags": ["edit"],
         "command": { "keys": "r", "mods": "c" }
       },
       {
         "label": "Vertices",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
+        "group": "edit-tools",
+        "tags": ["edit"],
         "icon": "fad fa-draw-square fa-3x",
         "command": { "keys": "1" }
       },
       {
         "label": "Edges",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
+        "group": "edit-tools",
+        "tags": ["edit"],
         "icon": "far fa-cube fa-3x",
         "command": { "keys": "2" }
       },
       {
         "label": "Faces",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-tools", "edit"],
+        "group": "edit-tools",
+        "tags": ["edit"],
         "icon": "fad fa-cube fa-3x",
         "command": { "keys": "3" }
       },
       {
         "label": "Subdivide",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
+        "group": "edit-mode",
+        "tags": ["edit"],
         "command": { "python": "bpy.ops.mesh.subdivide()" }
       },
       {
         "label": "Proportional",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
+        "group": "edit-mode",
+        "tags": ["edit"],
         "command": {
           "command": { "keys": "o" }
         }
       },
       {
         "label": "Unwrap",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
+        "group": "edit-mode",
+        "tags": ["edit"],
         "command": { "keys": "u" }
       },
       {
         "label": "Vertex Menu",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
+        "group": "edit-mode",
+        "tags": ["edit"],
         "command": { "keys": "v", "mods": "c" }
       },
       {
         "label": "Edge Menu",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
+        "group": "edit-mode",
+        "tags": ["edit"],
         "command": { "keys": "e", "mods": "c" }
       },
       {
         "label": "Face Menu",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
+        "group": "edit-mode",
+        "tags": ["edit"],
         "command": { "keys": "f", "mods": "c" }
       },
       {
         "label": "Separate",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
+        "group": "edit-mode",
+        "tags": ["edit"],
         "command": { "keys": "p" }
       },
       {
         "label": "Merge",
-        "area": "common",
-        "app": "blender",
-        "tags": ["edit-mode", "edit"],
+        "group": "edit-mode",
+        "tags": ["edit"],
         "command": { "keys": "m", "mods": "a" }
       },
       {
         "label": "Reset",
-        "area": "favorites",
-        "app": "blender",
+        "group": "animation",
         "tags": ["animation"],
         "icon": "fad fa-fast-backward fa-2x",
         "command": { "keys": "{LEFT}", "mods": "s" }
       },
       {
         "label": "Step Back",
-        "area": "favorites",
-        "app": "blender",
+        "group": "animation",
         "tags": ["animation"],
         "icon": "fad fa-step-backward fa-2x",
         "command": { "keys": "{LEFT}" }
       },
       {
         "label": "Step Forward",
-        "area": "favorites",
-        "app": "blender",
+        "group": "animation",
         "tags": ["animation"],
         "icon": "fad fa-step-forward fa-2x",
         "command": { "keys": "{RIGHT}" }
       },
       {
         "label": "Insert Keyframe",
-        "area": "favorites",
-        "app": "blender",
+        "group": "animation",
         "tags": ["animation"],
         "command": { "keys": "i" }
       },
       {
         "label": "Remove Keyframe",
-        "area": "favorites",
-        "app": "blender",
+        "group": "animation",
         "tags": ["animation"],
         "command": { "keys": "i", "mods": "a" }
       },
       {
         "label": "Play/Pause",
-        "area": "favorites",
-        "app": "blender",
+        "group": "animation",
         "tags": ["animation"],
         "icon": "fad fa-play fa-2x",
         "command": { "keys": "{SPACEBAR}", "mods": "s" }
       },
       {
         "label": "Brush Size",
-        "area": "favorites",
-        "app": "blender",
+        "group": "sculpt",
         "tags": ["sculpt"],
         "command": { "keys": "f" }
       },
       {
         "label": "Brush Strength",
-        "area": "favorites",
-        "app": "blender",
+        "group": "sculpt",
         "tags": ["sculpt"],
         "command": { "keys": "f", "mods": "s" }
       },
       {
         "label": "View Selected",
-        "area": "main",
-        "app": "blender",
+        "group": "view",
         "tags": ["view"],
         "command": { "keys": "{NUMPADDOT}" }
       },
       {
         "label": "View All",
-        "area": "main",
-        "app": "blender",
+        "group": "view",
         "tags": ["view"],
         "command": { "keys": "{HOME}" }
       },
       {
         "label": "Only Active",
-        "area": "main",
-        "app": "blender",
+        "group": "view",
         "tags": ["view"],
         "command": { "keys": "{NUMPADDIV}" }
       },
       {
         "label": "Hide",
-        "area": "main",
-        "app": "blender",
+        "group": "view",
         "tags": ["view"],
         "icon": "fad fa-eye-slash fa-3x",
         "command": { "keys": "h" }
       },
       {
         "label": "Show",
-        "area": "main",
-        "app": "blender",
+        "group": "view",
         "tags": ["view"],
         "command": { "keys": "h", "mods": "a" }
       },
       {
         "label": "Quad View",
-        "area": "main",
-        "app": "blender",
+        "group": "view",
         "tags": ["view"],
         "icon": "fad fa-th-large fa-3x",
         "command": { "keys": "q", "mods": "ca" }
       },
       {
         "label": "Fullscreen",
-        "area": "main",
-        "app": "blender",
+        "group": "view",
         "tags": ["view"],
         "icon": "fad fa-tv fa-3x",
         "command": { "keys": "{SPACE}", "mods": "ca" }
       },
       {
         "label": "Bevel",
-        "area": "main",
-        "app": "blender",
-        "tags": ["edges", "edit-group"],
+        "group": "edges",
+        "tags": ["edges", "edit"],
         "command": { "keys": "b", "mods": "c" }
       },
       {
         "label": "Mark Sharp",
-        "area": "main",
-        "app": "blender",
-        "tags": ["edges", "edit-group"],
+        "group": "edges",
+        "tags": ["edges", "edit"],
         "command": { "python": "bpy.ops.mesh.mark_sharp()" }
       },
       {
         "label": "Clear Sharp",
-        "area": "main",
-        "app": "blender",
-        "tags": ["edges", "edit-group"],
+        "group": "edges",
+        "tags": ["edges", "edit"],
         "command": { "python": "bpy.ops.mesh.mark_sharp(clear=True)" }
       },
       {
         "label": "Crease",
-        "area": "main",
-        "app": "blender",
-        "tags": ["edges", "edit-group"],
+        "group": "edges",
+        "tags": ["edges", "edit-oup"],
         "command": { "python": "bpy.ops.transform.edge_crease()" }
       },
       {
         "label": "Mark Seam",
-        "area": "main",
-        "app": "blender",
-        "tags": ["edges", "edit-group"],
+        "group": "edges",
+        "tags": ["edges", "edit"],
         "command": { "python": "bpy.ops.mesh.mark_seam(clear=False)" }
       },
       {
         "label": "Clear Seam",
-        "area": "main",
-        "app": "blender",
-        "tags": ["edges", "edit-group"],
+        "group": "edges",
+        "tags": ["edges", "edit"],
         "command": { "python": "bpy.ops.mesh.mark_seam(clear=True)" }
       },
       {
         "label": "Knife",
-        "area": "main",
-        "app": "blender",
+        "group": "vertices",
         "tags": ["vertices", "edit"],
         "icon": "fad fa-scalpel-path fa-3x",
         "command": { "keys": "k" }
       },
       {
         "label": "Make Smooth",
-        "area": "main",
-        "app": "blender",
+        "group": "object",
         "tags": ["object"],
         "command": { "python": "bpy.ops.object.shade_smooth()" }
       },
       {
         "label": "Make Flat",
-        "area": "main",
-        "app": "blender",
+        "group": "object",
         "tags": ["object"],
         "command": { "python": "bpy.ops.object.shade_flat()" }
       },
       {
         "label": "Add",
-        "area": "main",
-        "app": "blender",
+        "group": "object",
         "tags": ["object"],
         "icon": "fad fa-shapes fa-3x",
         "command": { "keys": "a", "mods": "s" }
       },
       {
         "label": "Camera",
-        "area": "main",
-        "app": "blender",
+        "group": "view-direction",
         "tags": ["view-direction"],
         "icon": "fad fa-camera-movie fa-3x",
         "command": { "keys": "{NUMPAD0}" }
       },
       {
         "label": "Front",
-        "area": "main",
-        "app": "blender",
+        "group": "view-direction",
         "tags": ["view-direction"],
         "command": { "keys": "{NUMPAD1}" }
       },
       {
         "label": "Top",
-        "area": "main",
-        "app": "blender",
+        "group": "view-direction",
         "tags": ["view-direction"],
         "command": { "keys": "{NUMPAD7}" }
       },
       {
         "label": "Left",
-        "area": "main",
-        "app": "blender",
+        "group": "view-direction",
         "tags": ["view-direction"],
         "command": { "keys": "{NUMPAD3}", "mods": "s" }
       },
       {
         "label": "Back",
-        "area": "main",
-        "app": "blender",
+        "group": "view-direction",
         "tags": ["view-direction"],
         "command": { "keys": "{NUMPAD1}", "mods": "s" }
       },
       {
         "label": "Right",
-        "area": "main",
-        "app": "blender",
+        "group": "view-direction",
         "tags": ["view-direction"],
         "command": { "keys": "{NUMPAD3}" }
       },
       {
         "label": "Toggle Ortho",
-        "area": "main",
-        "app": "blender",
+        "group": "view-direction",
         "tags": ["view-direction", "mode"],
         "command": { "python": "bpy.ops.view3d.view_persportho()" }
       },
       {
         "label": "Apply",
-        "area": "main",
-        "app": "blender",
+        "group": "menu",
         "tags": ["menu"],
         "command": { "keys": "a", "mods": "c" }
       },
       {
         "label": "Snap",
-        "area": "main",
-        "app": "blender",
+        "group": "menu",
         "tags": ["menu"],
         "command": { "keys": "{TAB}", "mods": "s" }
       },
       {
         "label": "Make Link",
-        "area": "main",
-        "app": "blender",
+        "group": "menu",
         "tags": ["menu"],
         "command": { "keys": "l", "mods": "c" }
       },
       {
         "label": "Convert to",
-        "area": "main",
-        "app": "blender",
+        "group": "menu",
         "tags": ["menu"],
         "command": { "keys": "c", "mods": "a" }
       },

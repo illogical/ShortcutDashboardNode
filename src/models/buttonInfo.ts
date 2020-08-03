@@ -2,8 +2,9 @@ import { ICommandInfo } from "./commandInfo";
 
 export interface IButtonInfo {
   label: string;
-  color?: string; //should groups have colors?
-  area: string;
+  color?: string;
+  area?: string; // area is set if group is not
+  group?: string;
   command: ICommandInfo;
   filter?: string;
   width?: 1 | 2 | 3;

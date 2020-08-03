@@ -34,8 +34,8 @@ export const createGroup = (
   group.color = groupColor;
 
   const filteredButtons = buttons.filter((btn) => {
-    if (!btn.tags) return false;
-    return btn.tags?.indexOf(group.tag) >= 0;
+    if (!btn.group) return false;
+    return btn.group?.indexOf(group.tag) >= 0;
   });
 
   //stretch buttons across bottom of groups

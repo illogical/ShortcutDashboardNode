@@ -7,6 +7,7 @@ import { Grid } from "./Grid";
 import { useSettingsButtons } from "../hooks/useSettingsButtons";
 import { createButton, createGroup } from "../helpers/generators";
 import { useButtonHistory } from "../hooks/useButtonHistory";
+import { Area } from "./Area";
 
 interface ILayoutGeneratorProps {
   settings: ISettings;
@@ -104,49 +105,6 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
         <div className="settings">{systemButtons}</div>
       </div>
     </div>
-  );
-};
-
-interface AreaProps {
-  app: string;
-  area: string;
-  groups: IGroupInfo[]; //pass all groups
-  buttons: IButtonInfo[]; //pass all buttons
-  colorSelector: ColorSelector;
-  forceLabels: boolean;
-  addButton: (buttonInfo: IButtonInfo) => void;
-}
-
-export const Area = ({
-  app,
-  area,
-  groups,
-  buttons,
-  colorSelector,
-  forceLabels,
-  addButton,
-}: AreaProps) => {
-  const untaggedButtonColor = colorSelector.getColor();
-
-  const untaggedButtons = buttons
-    .filter(
-      (btn) =>
-        (btn.app === "all" || btn.app === app) && btn.area === area && !btn.tags
-    ) // get untagged buttons
-    .map((btnInfo) =>
-      createButton(btnInfo, forceLabels, addButton, untaggedButtonColor)
-    );
-
-  const groupsByArea = groups
-    .filter(
-      (grp) => (grp.app === "all" || grp.app === app) && grp.area === area
-    )
-    .map((grp) =>
-      createGroup(grp, buttons, colorSelector, forceLabels, addButton)
-    );
-
-  return (
-    <React.Fragment>{[...groupsByArea, ...untaggedButtons]}</React.Fragment>
   );
 };
 
