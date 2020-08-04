@@ -551,44 +551,44 @@
       {
         "label": "Camera",
         "group": "view-direction",
-        "tags": ["view-direction"],
+        "tags": ["view"],
         "icon": "fad fa-camera-movie fa-3x",
         "command": { "keys": "{NUMPAD0}" }
       },
       {
         "label": "Front",
         "group": "view-direction",
-        "tags": ["view-direction"],
+        "tags": ["view"],
         "command": { "keys": "{NUMPAD1}" }
       },
       {
         "label": "Top",
         "group": "view-direction",
-        "tags": ["view-direction"],
+        "tags": ["view"],
         "command": { "keys": "{NUMPAD7}" }
       },
       {
         "label": "Left",
         "group": "view-direction",
-        "tags": ["view-direction"],
+        "tags": ["view"],
         "command": { "keys": "{NUMPAD3}", "mods": "s" }
       },
       {
         "label": "Back",
         "group": "view-direction",
-        "tags": ["view-direction"],
+        "tags": ["view"],
         "command": { "keys": "{NUMPAD1}", "mods": "s" }
       },
       {
         "label": "Right",
         "group": "view-direction",
-        "tags": ["view-direction"],
+        "tags": ["view"],
         "command": { "keys": "{NUMPAD3}" }
       },
       {
         "label": "Toggle Ortho",
         "group": "view-direction",
-        "tags": ["view-direction", "mode"],
+        "tags": ["mode"],
         "command": { "python": "bpy.ops.view3d.view_persportho()" }
       },
       {

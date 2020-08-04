@@ -1,4 +1,3 @@
-import { ColorSelector } from "../helpers/colorSelector";
 import { IButtonInfo } from "../models/buttonInfo";
 import React from "react";
 import { Button } from "../components/Button";

@@ -35,7 +35,7 @@ export const createGroup = (
 
   const filteredButtons = buttons.filter((btn) => {
     if (!btn.group) return false;
-    return btn.group?.indexOf(group.tag) >= 0;
+    return btn.group === group.tag;
   });
 
   //stretch buttons across bottom of groups
