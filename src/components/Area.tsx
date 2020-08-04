@@ -10,6 +10,7 @@ interface AreaProps {
   area: string;
   groups: IGroupInfo[]; //pass all groups
   buttons: IButtonInfo[]; //pass all buttons
+  filter: string;
   colorSelector: ColorSelector;
   forceLabels: boolean;
   addButton: (buttonInfo: IButtonInfo) => void;
@@ -20,13 +21,18 @@ export const Area = ({
   area,
   groups,
   buttons,
+  filter,
   colorSelector,
   forceLabels,
   addButton,
 }: AreaProps) => {
   const untaggedButtonColor = colorSelector.getColor();
 
-  const grouplessButtons = buttons
+  const filteredButtons = buttons.filter((button) =>
+    compareTagsToFilters(filter, button.tags)
+  );
+
+  const grouplessButtons = filteredButtons
     .filter(
       (btn) =>
         (btn.app === "all" || btn.app === app) &&
@@ -42,10 +48,24 @@ export const Area = ({
       (grp) => (grp.app === "all" || grp.app === app) && grp.area === area
     )
     .map((grp) =>
-      createGroup(grp, buttons, colorSelector, forceLabels, addButton)
+      createGroup(grp, filteredButtons, colorSelector, forceLabels, addButton)
     );
 
   return (
     <React.Fragment>{[...groupsByArea, ...grouplessButtons]}</React.Fragment>
   );
+};
+
+const compareTagsToFilters = (filter: string, tags: string[] | undefined) => {
+  if (!tags || tags.length === 0 || filter === "all") {
+    // tagless buttons are always included
+    return true;
+  }
+
+  for (let i = 0; i < tags.length; i++) {
+    if (tags[i] === filter) {
+      return true;
+    }
+  }
+  return false;
 };

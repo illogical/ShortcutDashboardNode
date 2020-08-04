@@ -6,7 +6,7 @@ import { useSettingsButtons } from "../hooks/useSettingsButtons";
 import { createButton } from "../helpers/generators";
 import { useButtonHistory } from "../hooks/useButtonHistory";
 import { Area } from "./Area";
-import { Tags } from "./Tags";
+import { Filters } from "./Filters";
 
 interface ILayoutGeneratorProps {
   settings: ISettings;
@@ -18,9 +18,7 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   const [selectedApp, setSelectedApp] = React.useState(
     settings ? settings.applications[0] : "blender"
   );
-  const [selectedTags, setSelectedTags] = React.useState<string[]>([
-    ...settings.filters,
-  ]);
+  const [filter, setFilter] = React.useState<string>("all");
 
   const colorSelector = new ColorSelector(
     settings.colors.buttons
@@ -36,7 +34,7 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   );
 
   // TODO: otherwise check if group tags or button tags match any selected tags
-  // const allTagsEnabled = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
+  // const allFiltersEnable = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
 
   return (
     <div className="flex-vertical">
@@ -47,10 +45,12 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
             selected={selectedApp}
             onSelect={setSelectedApp}
           /> */}
-          <Tags
+        </div>
+        <div className="filters">
+          <Filters
             tags={settings.filters}
-            selectedTags={selectedTags}
-            selectTags={setSelectedTags}
+            selectedFilter={filter}
+            selectFilter={setFilter}
           />
         </div>
         <div className="top">
@@ -59,6 +59,7 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
             area="top"
             groups={settings.groups}
             buttons={settings.keymap.buttons}
+            filter={filter}
             colorSelector={colorSelector}
             forceLabels={forceLabels}
             addButton={addButtonToHistory}
@@ -72,6 +73,7 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
               area="main"
               groups={settings.groups}
               buttons={settings.keymap.buttons}
+              filter={filter}
               colorSelector={colorSelector}
               forceLabels={forceLabels}
               addButton={addButtonToHistory}
@@ -87,6 +89,7 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
                   area="favorites"
                   groups={settings.groups}
                   buttons={settings.keymap.buttons}
+                  filter={filter}
                   colorSelector={colorSelector}
                   forceLabels={forceLabels}
                   addButton={addButtonToHistory}
@@ -100,6 +103,7 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
                   area="common"
                   groups={settings.groups}
                   buttons={settings.keymap.buttons}
+                  filter={filter}
                   colorSelector={colorSelector}
                   forceLabels={forceLabels}
                   addButton={addButtonToHistory}

@@ -33,25 +33,29 @@ export const createGroup = (
   const groupColor = colorSelector.getColor();
   group.color = groupColor;
 
-  const filteredButtons = buttons.filter((btn) => {
+  const groupButtons = buttons.filter((btn) => {
     if (!btn.group) return false;
     return btn.group === group.tag;
   });
 
+  if (groupButtons.length === 0) {
+    return null;
+  }
+
   //stretch buttons across bottom of groups
-  switch (filteredButtons.length % 3) {
+  switch (groupButtons.length % 3) {
     case 2:
-      filteredButtons[filteredButtons.length - 1].size = "medium";
-      filteredButtons[filteredButtons.length - 2].size = "medium";
+      groupButtons[groupButtons.length - 1].size = "medium";
+      groupButtons[groupButtons.length - 2].size = "medium";
       break;
     case 1:
-      filteredButtons[filteredButtons.length - 1].size = "large";
+      groupButtons[groupButtons.length - 1].size = "large";
       break;
   }
 
   return (
     <Group key={group.title} groupInfo={group}>
-      {filteredButtons.map((btnInfo) =>
+      {groupButtons.map((btnInfo) =>
         createButton(btnInfo, forceLabels, addButton, groupColor)
       )}
     </Group>
