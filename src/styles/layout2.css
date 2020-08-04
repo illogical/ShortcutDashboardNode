@@ -10,7 +10,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
+#root,
+.dashboard {
   height: 100%;
   font-family: "Roboto";
 }

@@ -15,9 +15,6 @@ interface ILayoutGeneratorProps {
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   // TODO: Add a slide out panel for app selection
   // TODO: Add a SettingsButton that will open the slide out panel
-  const [selectedApp, setSelectedApp] = React.useState(
-    settings ? settings.applications[0] : "blender"
-  );
   const [filter, setFilter] = React.useState<string>("all");
 
   const colorSelector = new ColorSelector(
@@ -26,9 +23,12 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   ); //use this for groups and buttons
 
   // custom hooks
-  const [systemButtons, forceLabels] = useSettingsButtons(
-    colorSelector.getColor()
-  );
+  const [
+    systemButtons,
+    applicationMenu,
+    forceLabels,
+    selectedApp,
+  ] = useSettingsButtons(settings.applications, colorSelector.getColor());
   const [generateButtonHistory, addButtonToHistory] = useButtonHistory(
     forceLabels
   );
@@ -37,40 +37,28 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
   // const allFiltersEnable = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
 
   return (
-    <div className="flex-vertical">
-      <div className="flex flex-main">
-        <div className="applications">
-          {/* <ApplicationFilters
+    <div className="dashboard">
+      {applicationMenu}
+      <div className="flex-vertical">
+        <div className="flex flex-main">
+          <div className="applications">
+            {/* <ApplicationFilters
             applications={settings.applications}
             selected={selectedApp}
             onSelect={setSelectedApp}
           /> */}
-        </div>
-        <div className="filters">
-          <Filters
-            tags={settings.filters}
-            selectedFilter={filter}
-            selectFilter={setFilter}
-          />
-        </div>
-        <div className="top">
-          <Area
-            app={selectedApp}
-            area="top"
-            groups={settings.groups}
-            buttons={settings.keymap.buttons}
-            filter={filter}
-            colorSelector={colorSelector}
-            forceLabels={forceLabels}
-            addButton={addButtonToHistory}
-          />
-        </div>
-        <div className="pusher"></div>
-        <div className="main">
-          <Grid>
+          </div>
+          <div className="filters">
+            <Filters
+              tags={settings.filters}
+              selectedFilter={filter}
+              selectFilter={setFilter}
+            />
+          </div>
+          <div className="top">
             <Area
               app={selectedApp}
-              area="main"
+              area="top"
               groups={settings.groups}
               buttons={settings.keymap.buttons}
               filter={filter}
@@ -78,47 +66,62 @@ export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
               forceLabels={forceLabels}
               addButton={addButtonToHistory}
             />
-          </Grid>
-        </div>
-        <div className="footer">
-          <div className="common">
-            <div className="common-groups">
-              <Grid>
-                <Area
-                  app={selectedApp}
-                  area="favorites"
-                  groups={settings.groups}
-                  buttons={settings.keymap.buttons}
-                  filter={filter}
-                  colorSelector={colorSelector}
-                  forceLabels={forceLabels}
-                  addButton={addButtonToHistory}
-                />
-              </Grid>
-            </div>
-            <div className="common-buttons">
-              <Grid>
-                <Area
-                  app={selectedApp}
-                  area="common"
-                  groups={settings.groups}
-                  buttons={settings.keymap.buttons}
-                  filter={filter}
-                  colorSelector={colorSelector}
-                  forceLabels={forceLabels}
-                  addButton={addButtonToHistory}
-                />
-              </Grid>
+          </div>
+          <div className="pusher"></div>
+          <div className="main">
+            <Grid>
+              <Area
+                app={selectedApp}
+                area="main"
+                groups={settings.groups}
+                buttons={settings.keymap.buttons}
+                filter={filter}
+                colorSelector={colorSelector}
+                forceLabels={forceLabels}
+                addButton={addButtonToHistory}
+              />
+            </Grid>
+          </div>
+          <div className="footer">
+            <div className="common">
+              <div className="common-groups">
+                <Grid>
+                  <Area
+                    app={selectedApp}
+                    area="favorites"
+                    groups={settings.groups}
+                    buttons={settings.keymap.buttons}
+                    filter={filter}
+                    colorSelector={colorSelector}
+                    forceLabels={forceLabels}
+                    addButton={addButtonToHistory}
+                  />
+                </Grid>
+              </div>
+              <div className="common-buttons">
+                <Grid>
+                  <Area
+                    app={selectedApp}
+                    area="common"
+                    groups={settings.groups}
+                    buttons={settings.keymap.buttons}
+                    filter={filter}
+                    colorSelector={colorSelector}
+                    forceLabels={forceLabels}
+                    addButton={addButtonToHistory}
+                  />
+                </Grid>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="right-side right-split">
-        <div className="recent">
-          <div className="title centered">RECENT</div>
-          {generateButtonHistory()}
+        <div className="right-side right-split">
+          <div className="recent">
+            <div className="title centered">RECENT</div>
+            {generateButtonHistory()}
+          </div>
+          <div className="settings">{systemButtons}</div>
         </div>
-        <div className="settings">{systemButtons}</div>
       </div>
     </div>
   );
