@@ -1,6 +1,5 @@
 import axios from "axios";
-import { ISettings } from "../models/settings";
-import { IConfigFile } from "../models/configFile";
+import { IConfig } from "../models/config";
 
 // TODO: allow ip and port to be provided via settings
 const ip = "192.168.7.25";
@@ -21,10 +20,10 @@ export const sendPython = async (command: string) => {
   return await axios.post(getUrl(`/send/python`), { command });
 };
 
-export const getSettings = async () => {
-  return await axios.get<ISettings>(getUrl(`/settings`));
+export const getConfig = async () => {
+  return await axios.get<IConfig>(getUrl(`/config`));
 };
 
-export const saveSettings = async (config: IConfigFile) => {
-  return await axios.post<IConfigFile>(getUrl(`/settings`), { config });
+export const saveConfig = async (config: IConfig) => {
+  return await axios.post<IConfig>(getUrl(`/config`), { config });
 };

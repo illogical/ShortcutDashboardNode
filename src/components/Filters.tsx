@@ -1,39 +1,41 @@
 import { useState } from "react";
 import React from "react";
+import { IEntity } from "../models/entity";
 
 interface TagsProps {
-  tags: string[];
-  selectedFilter: string;
-  selectFilter: React.Dispatch<React.SetStateAction<string>>;
+  filters: IEntity[];
+  selectedFilter: number;
+  selectFilter: React.Dispatch<React.SetStateAction<number>>;
 }
-export const Filters = ({ tags, selectedFilter, selectFilter }: TagsProps) => {
-  // TODO: support All (toggle for none)
+export const Filters = ({
+  filters,
+  selectedFilter,
+  selectFilter,
+}: TagsProps) => {
   // TODO: toggle tags by touch
-  // TODO: left-click to disable all but the clicked one
-
-  //const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  // TODO: left-click to disable all but the clicked one?
   const [all, setAll] = useState(true);
 
   const toggleAll = () => {
-    selectFilter("all");
+    selectFilter(-1);
     setAll(true);
   };
 
-  const tagClicked = (tag: string) => {
-    if (tag === selectedFilter) {
+  const tagClicked = (filter: number) => {
+    if (filter === selectedFilter) {
       return;
     }
 
-    setAll(tag === "all");
-    selectFilter(tag);
+    setAll(filter === -1);
+    selectFilter(filter);
   };
 
-  const tagsToDisplay = tags.map((tag) => {
+  const tagsToDisplay = filters.map((filter) => {
     return (
       <FilterToggle
-        key={tag}
-        name={tag}
-        selected={tag === selectedFilter}
+        key={filter.id}
+        filter={filter}
+        selected={filter.id === selectedFilter}
         onClick={tagClicked}
       />
     );
@@ -43,24 +45,28 @@ export const Filters = ({ tags, selectedFilter, selectFilter }: TagsProps) => {
 
   return (
     <div className="tags">
-      <FilterToggle name="All" selected={all} onClick={toggleAll} />
+      <FilterToggle
+        filter={{ name: "all", id: -1 }}
+        selected={all}
+        onClick={toggleAll}
+      />
       {tagsToDisplay}
     </div>
   );
 };
 
-interface TagProps {
-  name: string;
+interface FilterToggleProps {
+  filter: IEntity;
   selected: boolean;
-  onClick: (tag: string) => void;
+  onClick: (id: number) => void;
 }
-const FilterToggle = ({ name, selected, onClick }: TagProps) => {
+const FilterToggle = ({ filter, selected, onClick }: FilterToggleProps) => {
   const selectedTag = selected ? "selected" : "";
-  const handleClick = () => onClick(name);
+  const handleClick = () => onClick(filter.id);
 
   return (
     <span className={`tag-item ${selectedTag}`} onClick={handleClick}>
-      {name.toUpperCase()}
+      {filter.name.toUpperCase()}
     </span>
   );
 };

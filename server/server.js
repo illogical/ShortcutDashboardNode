@@ -6,7 +6,7 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var sendRouter = require("./routes/send");
-var settingsRouter = require("./routes/settings");
+var configRouter = require("./routes/config");
 var pingRouter = require("./routes/ping");
 
 var app = express();
@@ -19,7 +19,7 @@ app.set("view engine", "pug");
 // app.engine("jsx", require("express-react-views").createEngine());
 
 //CORS
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header(
     "Access-Control-Allow-Headers",
@@ -36,18 +36,18 @@ app.use(express.static(path.join(__dirname, "../build")));
 
 // routes //////////////////////////////////////////
 app.use("/send", sendRouter);
-app.use("/settings", settingsRouter);
+app.use("/config", configRouter);
 app.use("/ping", pingRouter);
 app.use("/", indexRouter);
 // routes //////////////////////////////////////////
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};

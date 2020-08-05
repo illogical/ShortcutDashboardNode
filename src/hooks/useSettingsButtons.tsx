@@ -3,13 +3,13 @@ import React from "react";
 import { Button } from "../components/Button";
 import { AppMenu } from "../components/AppMenu";
 import "../styles/slidingPanel.css";
-import App from "../App";
+import { IEntity } from "../models/entity";
 
-export const useSettingsButtons = (apps: string[], color: string) => {
+export const useSettingsButtons = (apps: IEntity[], color: string) => {
   const [, setIsSettingsOpen] = React.useState(false);
   const [forceLabels, setForceLabels] = React.useState(false);
   const [appMenuOpen, setAppMenuOpen] = React.useState(false);
-  const [selectedApp, setSelectedApp] = React.useState("blender");
+  const [selectedApp, setSelectedApp] = React.useState(103); // blender? TODO: support a default app
 
   const toggleForceLabel = () => {
     setForceLabels((x) => !x);
@@ -21,7 +21,7 @@ export const useSettingsButtons = (apps: string[], color: string) => {
 
   const showAppMenu = () => setAppMenuOpen(true);
   const hideAppMenu = () => setAppMenuOpen(false);
-  const selectApp = (app: string) => setSelectedApp(app);
+  const selectApp = (app: number) => setSelectedApp(app);
 
   const systemButtonsComponent = (
     <SystemButtons

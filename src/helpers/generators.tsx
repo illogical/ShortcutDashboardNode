@@ -54,7 +54,7 @@ export const createGroup = (
   }
 
   return (
-    <Group key={group.title} groupInfo={group}>
+    <Group key={group.name} groupInfo={group}>
       {groupButtons.map((btnInfo) =>
         createButton(btnInfo, forceLabels, addButton, groupColor)
       )}

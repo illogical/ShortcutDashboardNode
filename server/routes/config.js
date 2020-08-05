@@ -1,22 +1,20 @@
 var express = require("express");
 var router = express.Router();
 var fs = require("fs");
-var settingsJson = require("../settings/buttonConfig.json");
+const configPath = "../settings/dashboardConfig.json";
+var configJson = require(configPath);
 const path = require("path");
 
 /* GET  */
 router.get("/", function (req, res, next) {
-  res.json(settingsJson);
+  res.json(configJson);
 });
 
 router.post("/", function (req, res, next) {
   var config = req.body.config;
 
   try {
-    fs.writeFileSync(
-      path.join(__dirname, "../settings", "test.json"),
-      JSON.stringify(config)
-    );
+    fs.writeFileSync(path.join(__dirname, configPath), JSON.stringify(config));
 
     res.sendStatus(200);
   } catch (error) {

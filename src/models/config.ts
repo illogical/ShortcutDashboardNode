@@ -4,7 +4,7 @@ import { IEntity } from "./entity";
 import { ISettings } from "./settings";
 import { ISystem } from "./system";
 
-export interface IConfigFile {
+export interface IConfig {
   system: ISystem;
   apps: IEntity[];
   areas: IEntity[];

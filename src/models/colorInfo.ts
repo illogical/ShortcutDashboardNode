@@ -5,6 +5,5 @@ export interface IColorInfo {
   buttonBackground: string;
   buttonText: string;
   buttonBorder: string;
-  buttons: string[]; // TODO: remove buttons property
-  options: IEntity[];
+  options: string[];
 }

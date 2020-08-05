@@ -1,34 +1,32 @@
 import * as React from "react";
-import { ISettings } from "../models/settings";
-import { getSettings, saveSettings } from "../api/keySettings";
+import { getConfig, saveConfig } from "../api/keySettings";
 import { LayoutGenerator } from "./LayoutGenerator";
 import "../styles/layout2.css";
 import { ReactComponent as Loader } from "../styles/three-dots.svg";
-import { IConfigFile } from "../models/configFile";
-import { remapConfig } from "../helpers/remapConfig";
+import { IConfig } from "../models/config";
 
 export const Layout = () => {
-  const [settings, setSettings] = React.useState<ISettings>();
+  const [config, setConfig] = React.useState<IConfig>();
 
   React.useEffect(() => {
     const fetchSettings = async () => {
-      const { data } = await getSettings();
+      const { data } = await getConfig();
       console.log("Settings:", data);
-      setSettings(data);
-      saveConfig(data);
+      setConfig(data);
+      save(data);
     };
 
-    const saveConfig = async (settings: ISettings) => {
-      const configFile: IConfigFile = remapConfig(settings);
+    const save = async (config: IConfig) => {
+      // const configFile: IConfig = remapConfig(config);
 
-      await saveSettings(configFile);
+      await saveConfig(config);
     };
 
     fetchSettings();
   }, []);
 
   //show loader
-  if (!settings) {
+  if (!config) {
     return (
       <div className={`loader`}>
         <Loader />
@@ -38,7 +36,7 @@ export const Layout = () => {
 
   return (
     <React.Fragment>
-      <LayoutGenerator settings={settings}></LayoutGenerator>
+      <LayoutGenerator config={config}></LayoutGenerator>
     </React.Fragment>
   );
 };

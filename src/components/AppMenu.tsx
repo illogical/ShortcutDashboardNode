@@ -1,11 +1,12 @@
 import React from "react";
+import { IEntity } from "../models/entity";
 
 interface AppMenuProps {
-  selectedApp: string;
-  apps: string[];
+  selectedApp: number;
+  apps: IEntity[];
   isOpen: boolean;
   close: () => void;
-  selectApp: (applicationName: string) => void;
+  selectApp: (appId: number) => void;
 }
 
 export const AppMenu = ({
@@ -18,12 +19,12 @@ export const AppMenu = ({
   const openClass = isOpen ? "open" : "";
 
   const appsDisplay = apps.map((app) => {
-    const selectedClass = app === selectedApp ? "selected" : "";
-    const appClick = () => selectApp(app);
+    const selectedClass = app.id === selectedApp ? "selected" : "";
+    const appClick = () => selectApp(app.id);
 
     return (
-      <div key={app} className={`app ${selectedClass}`} onClick={appClick}>
-        {app.toUpperCase()}
+      <div key={app.id} className={`app ${selectedClass}`} onClick={appClick}>
+        {app.name.toUpperCase()}
       </div>
     );
   });

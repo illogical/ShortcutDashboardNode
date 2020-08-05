@@ -6,11 +6,11 @@ import { createGroup } from "../helpers/generators";
 import React from "react";
 
 interface AreaProps {
-  app: string;
+  app: number;
   area: string;
   groups: IGroupInfo[]; //pass all groups
   buttons: IButtonInfo[]; //pass all buttons
-  filter: string;
+  filter: number;
   colorSelector: ColorSelector;
   forceLabels: boolean;
   addButton: (buttonInfo: IButtonInfo) => void;
@@ -29,13 +29,13 @@ export const Area = ({
   const untaggedButtonColor = colorSelector.getColor();
 
   const filteredButtons = buttons.filter((button) =>
-    compareTagsToFilters(filter, button.tags)
+    compareTagsToFilters(filter, button.filterIds)
   );
 
   const grouplessButtons = filteredButtons
     .filter(
       (btn) =>
-        (btn.app === "all" || btn.app === app) &&
+        (btn.app === "all" || btn.appId === app) &&
         btn.area === area &&
         !btn.group
     ) // get untagged buttons
@@ -43,9 +43,10 @@ export const Area = ({
       createButton(btnInfo, forceLabels, addButton, untaggedButtonColor)
     );
 
+  //TODO: just decided "all" will be -1
   const groupsByArea = groups
     .filter(
-      (grp) => (grp.app === "all" || grp.app === app) && grp.area === area
+      (grp) => (grp.appId === -1 || grp.appId === app) && grp.area === area
     )
     .map((grp) =>
       createGroup(grp, filteredButtons, colorSelector, forceLabels, addButton)
@@ -56,14 +57,17 @@ export const Area = ({
   );
 };
 
-const compareTagsToFilters = (filter: string, tags: string[] | undefined) => {
-  if (!tags || tags.length === 0 || filter === "all") {
+const compareTagsToFilters = (
+  filterId: number,
+  filterIds: number[] | undefined
+) => {
+  if (!filterIds || filterIds.length === 0 || filterId === -1) {
     // tagless buttons are always included
     return true;
   }
 
-  for (let i = 0; i < tags.length; i++) {
-    if (tags[i] === filter) {
+  for (let i = 0; i < filterIds.length; i++) {
+    if (filterIds[i] === filterId) {
       return true;
     }
   }
