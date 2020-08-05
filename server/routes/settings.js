@@ -2,19 +2,23 @@ var express = require("express");
 var router = express.Router();
 var fs = require("fs");
 var settingsJson = require("../settings/buttonConfig.json");
+const path = require("path");
 
 /* GET  */
 router.get("/", function (req, res, next) {
   res.json(settingsJson);
 });
 
-router.put("/", function (req, res, next) {
-  var settings = req.body.settings;
+router.post("/", function (req, res, next) {
+  var config = req.body.config;
 
   try {
-    fs.writeFileSync("../settings/buttonConfig.json", JSON.stringify(settings));
+    fs.writeFileSync(
+      path.join(__dirname, "../settings", "test.json"),
+      JSON.stringify(config)
+    );
 
-    res.send(200);
+    res.sendStatus(200);
   } catch (error) {
     res.status(400).json({
       error: "Error writing to settings.json",

@@ -13,8 +13,6 @@ interface ILayoutGeneratorProps {
 }
 
 export const LayoutGenerator = ({ settings }: ILayoutGeneratorProps) => {
-  // TODO: Add a slide out panel for app selection
-  // TODO: Add a SettingsButton that will open the slide out panel
   const [filter, setFilter] = React.useState<string>("all");
 
   const colorSelector = new ColorSelector(
