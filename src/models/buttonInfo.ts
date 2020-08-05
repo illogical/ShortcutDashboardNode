@@ -1,6 +1,7 @@
 import { ICommandInfo } from "./commandInfo";
 
 export interface IButtonInfo {
+  id?: number; // TODO: require ID
   label: string;
   color?: string;
   area?: string; // area is set if group is not

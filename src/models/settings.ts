@@ -3,7 +3,7 @@ import { IColorInfo } from "./colorInfo";
 import { IGroupInfo } from "./groupInfo";
 
 export interface ISettings {
-  keymap: IKeyMap;
+  keymap: IKeyMap; // TODO: remove this from settings
   colors: IColorInfo;
   applications: string[];
   areas: string[];
