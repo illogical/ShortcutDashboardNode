@@ -1,15 +1,20 @@
 import { IButtonInfo } from "../models/buttonInfo";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../components/Button";
 import { AppMenu } from "../components/AppMenu";
 import "../styles/slidingPanel.css";
 import { IEntity } from "../models/entity";
 
 export const useSettingsButtons = (apps: IEntity[], color: string) => {
-  const [, setIsSettingsOpen] = React.useState(false);
-  const [forceLabels, setForceLabels] = React.useState(false);
-  const [appMenuOpen, setAppMenuOpen] = React.useState(false);
-  const [selectedApp, setSelectedApp] = React.useState(103); // blender? TODO: support a default app
+  const [, setIsSettingsOpen] = useState(false);
+  const [editEnabled, setEditEnabled] = useState(false);
+  const [forceLabels, setForceLabels] = useState(false);
+  const [appMenuOpen, setAppMenuOpen] = useState(false);
+  const [selectedApp, setSelectedApp] = useState(103); // blender? TODO: support a default app
+
+  /* TODO: create a useEditMode that tracks editEnabled? needs to supply an onclick event for selecting buttons (and somehow allow editing groups)
+    -needs to supply components for editing groups and buttons
+  */
 
   const toggleForceLabel = () => {
     setForceLabels((x) => !x);
@@ -17,6 +22,10 @@ export const useSettingsButtons = (apps: IEntity[], color: string) => {
 
   const toggleSettings = () => {
     setIsSettingsOpen((x) => !x);
+  };
+
+  const toggleEdit = () => {
+    setEditEnabled(true);
   };
 
   const showAppMenu = () => setAppMenuOpen(true);
@@ -28,6 +37,7 @@ export const useSettingsButtons = (apps: IEntity[], color: string) => {
       color={color}
       forceLabels={forceLabels}
       showAppMenu={showAppMenu}
+      toggleEdit={toggleEdit}
       toggleForceLabel={toggleForceLabel}
       toggleSettings={toggleSettings}
     />
@@ -48,6 +58,7 @@ export const useSettingsButtons = (apps: IEntity[], color: string) => {
     applicationMenuComponent,
     forceLabels,
     selectedApp,
+    editEnabled,
   ] as const;
 };
 
@@ -56,6 +67,7 @@ interface ISystemButtonsProps {
   forceLabels: boolean;
   toggleForceLabel: () => void;
   toggleSettings: () => void;
+  toggleEdit: () => void;
   showAppMenu: () => void;
 }
 
@@ -64,8 +76,17 @@ const SystemButtons = ({
   forceLabels,
   toggleForceLabel,
   toggleSettings,
+  toggleEdit,
   showAppMenu,
 }: ISystemButtonsProps) => {
+  const editBtn: IButtonInfo = {
+    label: "Edit Mode",
+    area: "settings",
+    command: {
+      // uses a custom onClick
+    },
+  };
+
   const labelToggleBtn: IButtonInfo = {
     label: "Toggle Icons",
     area: "settings",
@@ -94,10 +115,18 @@ const SystemButtons = ({
   const defaultStyle = {
     borderColor: color,
     forceLabel: forceLabels,
+    editEnabled: false,
   };
 
   return (
     <React.Fragment>
+      <Button
+        {...defaultStyle}
+        buttonInfo={editBtn}
+        key={editBtn.label}
+        size="default"
+        onClick={toggleEdit}
+      />
       <Button
         {...defaultStyle}
         buttonInfo={labelToggleBtn}

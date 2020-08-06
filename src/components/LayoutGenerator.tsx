@@ -7,13 +7,20 @@ import { useButtonHistory } from "../hooks/useButtonHistory";
 import { Area } from "./Area";
 import { Filters } from "./Filters";
 import { IConfig } from "../models/config";
+import { useEditMode } from "../hooks/useEditMode";
+import { useState } from "react";
+import { IButtonInfo } from "../models/buttonInfo";
 
 interface ILayoutGeneratorProps {
   config: IConfig;
 }
 
 export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
-  const [filter, setFilter] = React.useState<number>(-1);
+  const [filter, setFilter] = useState<number>(-1);
+  const [selectedButton, setSelectedButton] = useState<
+    IButtonInfo | undefined
+  >();
+  const [selectedGroup, setSelectedGroup] = useState();
 
   const colorSelector = new ColorSelector(
     config.settings.colors.options
@@ -26,26 +33,40 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
     applicationMenu,
     forceLabels,
     selectedApp,
+    editEnabled,
   ] = useSettingsButtons(config.apps, colorSelector.getColor());
   const [generateButtonHistory, addButtonToHistory] = useButtonHistory(
     forceLabels
   );
 
-  // TODO: otherwise check if group tags or button tags match any selected tags
+  const [editButtonPanelComponent] = useEditMode(config, selectedButton);
+  const hideClass = "hide";
+  const buttonClick = editEnabled ? setSelectedButton : addButtonToHistory;
+
   // const allFiltersEnable = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
+
+  /* TODO: editEnabled needs to do lots of things
+    -hide recent/settings
+    -when false, hide edit-panel
+    -button clicks should select the button rather than click it
+  */
+
+  const areaProps = {
+    groups: config.groups,
+    buttons: config.buttons,
+    filter,
+    colorSelector,
+    editEnabled,
+    forceLabels,
+    onClick: buttonClick,
+  };
 
   return (
     <div className="dashboard">
       {applicationMenu}
       <div className="flex-vertical">
         <div className="flex flex-main">
-          <div className="applications">
-            {/* <ApplicationFilters
-            applications={settings.applications}
-            selected={selectedApp}
-            onSelect={setSelectedApp}
-          /> */}
-          </div>
+          <div className="applications"></div>
           <div className="filters">
             <Filters
               filters={config.filters}
@@ -54,71 +75,38 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
             />
           </div>
           <div className="top">
-            <Area
-              app={selectedApp}
-              area="top"
-              groups={config.groups}
-              buttons={config.buttons}
-              filter={filter}
-              colorSelector={colorSelector}
-              forceLabels={forceLabels}
-              addButton={addButtonToHistory}
-            />
+            <Area app={selectedApp} area="top" {...areaProps} />
           </div>
           <div className="pusher"></div>
           <div className="main">
             <Grid>
-              <Area
-                app={selectedApp}
-                area="main"
-                groups={config.groups}
-                buttons={config.buttons}
-                filter={filter}
-                colorSelector={colorSelector}
-                forceLabels={forceLabels}
-                addButton={addButtonToHistory}
-              />
+              <Area app={selectedApp} area="main" {...areaProps} />
             </Grid>
           </div>
           <div className="footer">
             <div className="common">
               <div className="common-groups">
                 <Grid>
-                  <Area
-                    app={selectedApp}
-                    area="favorites"
-                    groups={config.groups}
-                    buttons={config.buttons}
-                    filter={filter}
-                    colorSelector={colorSelector}
-                    forceLabels={forceLabels}
-                    addButton={addButtonToHistory}
-                  />
+                  <Area app={selectedApp} area="favorites" {...areaProps} />
                 </Grid>
               </div>
               <div className="common-buttons">
                 <Grid>
-                  <Area
-                    app={selectedApp}
-                    area="common"
-                    groups={config.groups}
-                    buttons={config.buttons}
-                    filter={filter}
-                    colorSelector={colorSelector}
-                    forceLabels={forceLabels}
-                    addButton={addButtonToHistory}
-                  />
+                  <Area app={selectedApp} area="common" {...areaProps} />
                 </Grid>
               </div>
             </div>
           </div>
         </div>
-        <div className="right-side right-split">
+        <div className={`right-side right-split ${editEnabled && hideClass}`}>
           <div className="recent">
             <div className="title centered">RECENT</div>
             {generateButtonHistory()}
           </div>
           <div className="settings">{systemButtons}</div>
+        </div>
+        <div className={`right-side edit-panel ${!editEnabled && hideClass}`}>
+          {editButtonPanelComponent}
         </div>
       </div>
     </div>

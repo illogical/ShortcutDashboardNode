@@ -28,7 +28,7 @@ export const useButtonHistory = (forceLabels: boolean) => {
     const buttons = Object.values(buttonHistory);
     const sortedButtons = lodash.sortBy(buttons, "lastUsed").reverse();
     return sortedButtons.map((button) => {
-      return createButton(button, forceLabels, addButtonToHistory);
+      return createButton(button, forceLabels, false, addButtonToHistory);
     });
   };
 

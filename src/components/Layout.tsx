@@ -13,14 +13,13 @@ export const Layout = () => {
       const { data } = await getConfig();
       console.log("Settings:", data);
       setConfig(data);
-      save(data);
     };
 
-    const save = async (config: IConfig) => {
-      // const configFile: IConfig = remapConfig(config);
+    // const save = async (config: IConfig) => {
+    //   // const configFile: IConfig = remapConfig(config);
 
-      await saveConfig(config);
-    };
+    //   await saveConfig(config);
+    // };
 
     fetchSettings();
   }, []);

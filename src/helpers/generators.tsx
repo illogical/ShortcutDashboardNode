@@ -8,17 +8,19 @@ import { Button } from "../components/Button";
 export const createButton = (
   button: IButtonInfo,
   forceLabels: boolean,
-  addButton: (buttonInfo: IButtonInfo) => void,
+  editEnabled: boolean,
+  onClick: (buttonInfo: IButtonInfo) => void,
   colorOverride?: string
 ) => {
   return (
     <Button
       buttonInfo={button}
-      key={button.label}
+      key={button.id}
       borderColor={colorOverride}
-      size={button.size ? button.size : "default"}
+      size={button.size}
       forceLabel={forceLabels}
-      onClick={addButton}
+      editEnabled={editEnabled}
+      onClick={onClick}
     />
   );
 };
@@ -28,7 +30,8 @@ export const createGroup = (
   buttons: IButtonInfo[], //pass all buttons
   colorSelector: ColorSelector,
   forceLabels: boolean,
-  addButton: (buttonInfo: IButtonInfo) => void
+  editEnabled: boolean,
+  onClick: (buttonInfo: IButtonInfo) => void
 ) => {
   const groupColor = colorSelector.getColor();
   group.color = groupColor;
@@ -56,7 +59,7 @@ export const createGroup = (
   return (
     <Group key={group.name} groupInfo={group}>
       {groupButtons.map((btnInfo) =>
-        createButton(btnInfo, forceLabels, addButton, groupColor)
+        createButton(btnInfo, forceLabels, editEnabled, onClick, groupColor)
       )}
     </Group>
   );

@@ -4,6 +4,7 @@ import { ColorSelector } from "../helpers/colorSelector";
 import createButton from "./LayoutGenerator";
 import { createGroup } from "../helpers/generators";
 import React from "react";
+import { compareTagsToFilters } from "../helpers/compareTags";
 
 interface AreaProps {
   app: number;
@@ -13,7 +14,8 @@ interface AreaProps {
   filter: number;
   colorSelector: ColorSelector;
   forceLabels: boolean;
-  addButton: (buttonInfo: IButtonInfo) => void;
+  editEnabled: boolean;
+  onClick: (buttonInfo: IButtonInfo) => void;
 }
 
 export const Area = ({
@@ -24,7 +26,8 @@ export const Area = ({
   filter,
   colorSelector,
   forceLabels,
-  addButton,
+  editEnabled,
+  onClick,
 }: AreaProps) => {
   const untaggedButtonColor = colorSelector.getColor();
 
@@ -40,36 +43,31 @@ export const Area = ({
         !btn.group
     ) // get untagged buttons
     .map((btnInfo) =>
-      createButton(btnInfo, forceLabels, addButton, untaggedButtonColor)
+      createButton(
+        btnInfo,
+        forceLabels,
+        editEnabled,
+        onClick,
+        untaggedButtonColor
+      )
     );
 
-  //TODO: just decided "all" will be -1
   const groupsByArea = groups
     .filter(
       (grp) => (grp.appId === -1 || grp.appId === app) && grp.area === area
     )
     .map((grp) =>
-      createGroup(grp, filteredButtons, colorSelector, forceLabels, addButton)
+      createGroup(
+        grp,
+        filteredButtons,
+        colorSelector,
+        forceLabels,
+        editEnabled,
+        onClick
+      )
     );
 
   return (
     <React.Fragment>{[...groupsByArea, ...grouplessButtons]}</React.Fragment>
   );
-};
-
-const compareTagsToFilters = (
-  filterId: number,
-  filterIds: number[] | undefined
-) => {
-  if (!filterIds || filterIds.length === 0 || filterId === -1) {
-    // tagless buttons are always included
-    return true;
-  }
-
-  for (let i = 0; i < filterIds.length; i++) {
-    if (filterIds[i] === filterId) {
-      return true;
-    }
-  }
-  return false;
 };

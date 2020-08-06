@@ -9,7 +9,8 @@ interface ButtonProps {
   buttonInfo: IButtonInfo;
   loading?: boolean;
   borderColor?: string;
-  size: "default" | "medium" | "large";
+  size?: "default" | "medium" | "large";
+  editEnabled: boolean;
   forceLabel?: boolean;
   onClick?: (buttonInfo: IButtonInfo) => void;
 }
@@ -18,12 +19,20 @@ export const Button = ({
   buttonInfo,
   borderColor,
   size,
+  editEnabled,
   forceLabel,
   onClick,
 }: ButtonProps) => {
   const [loadingClass, setLoadingClass] = React.useState("");
 
   const handleClick = async () => {
+    if (editEnabled) {
+      if (onClick) {
+        onClick(buttonInfo);
+      }
+      return;
+    }
+
     try {
       setLoadingClass("loading");
 
@@ -87,7 +96,9 @@ export const Button = ({
   return (
     <GridItem id={buttonInfo.label}>
       <motion.div
-        className={`button drag ${singleLetterLabelClass} ${loadingClass} ${size}`}
+        className={`button drag ${singleLetterLabelClass} ${loadingClass} ${
+          size || "default"
+        }`}
         initial="initial"
         whileTap="push"
         animate="show"

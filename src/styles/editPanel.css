@@ -1,0 +1,19 @@
+.edit-panel {
+  color: white;
+  font-size: 1.2em;
+}
+
+.edit-form {
+  padding: 20px 0;
+}
+
+.edit-panel,
+.edit-label,
+.edit-field,
+.edit-field input {
+  width: 100%;
+}
+
+.edit-field.lg input {
+  font-size: 1em;
+}
