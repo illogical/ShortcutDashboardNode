@@ -4,11 +4,13 @@ import { GridItem } from "./GridItem";
 import { sendKeys, sendCommand, sendPython } from "../api/keySettings";
 import { IButtonInfo } from "../models/buttonInfo";
 import { motion } from "framer-motion";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 interface ButtonProps {
   buttonInfo: IButtonInfo;
   loading?: boolean;
   borderColor?: string;
+  index: number;
   size?: "default" | "medium" | "large";
   editEnabled: boolean;
   forceLabel?: boolean;
@@ -19,6 +21,7 @@ export const Button = ({
   buttonInfo,
   borderColor,
   size,
+  index,
   editEnabled,
   forceLabel,
   onClick,
@@ -76,6 +79,17 @@ export const Button = ({
           borderColor,
         };
 
+  const getDragStyle = (isDragging: any, draggableStyle: any) => ({
+    // some basic styles to make the items look a bit nicer
+    userSelect: "none",
+
+    // change background colour if dragging
+    background: isDragging ? "lightgreen" : "grey",
+
+    // styles we need to apply on draggables
+    ...draggableStyle,
+  });
+
   //X,Y,Z
   const singleLetterLabelClass = isSingleLetterLabel ? "letter" : "";
 
@@ -94,6 +108,17 @@ export const Button = ({
   };
 
   return (
+    // <Draggable draggableId={buttonInfo.id.toString()} index={index}>
+    //   {(provided, snapshot) => (
+    //     <div
+    //       ref={provided.innerRef}
+    //       {...provided.draggableProps}
+    //       {...provided.dragHandleProps}
+    //       style={getDragStyle(
+    //         snapshot.isDragging,
+    //         provided.draggableProps.style
+    //       )}
+    //     >
     <GridItem id={buttonInfo.label}>
       <motion.div
         className={`button drag ${singleLetterLabelClass} ${loadingClass} ${
@@ -116,6 +141,9 @@ export const Button = ({
         )}
       </motion.div>
     </GridItem>
+    //     </div>
+    //   )}
+    // </Draggable>
   );
 };
 

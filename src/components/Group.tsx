@@ -1,5 +1,6 @@
 import * as React from "react";
 import { IGroupInfo } from "../models/groupInfo";
+import { Droppable } from "react-beautiful-dnd";
 
 export const Group: React.FunctionComponent<IGroupProps> = ({
   groupInfo,
@@ -14,7 +15,13 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
 
   return (
     <div className={`group ${selectedClass}`}>
-      <div className="item-content">
+      {/* <Droppable droppableId={groupInfo.id.toString()}>
+        {(provided) => ( */}
+      <div
+        className="item-content"
+        // ref={provided.innerRef}
+        // {...provided.droppableProps}
+      >
         <div
           className="drag title"
           style={titleStyle}
@@ -26,6 +33,8 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
         </div>
         {children}
       </div>
+      {/* )}
+      </Droppable> */}
     </div>
   );
 };

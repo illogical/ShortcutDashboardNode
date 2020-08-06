@@ -80,6 +80,7 @@ const SystemButtons = ({
   showAppMenu,
 }: ISystemButtonsProps) => {
   const editBtn: IButtonInfo = {
+    id: -1,
     label: "Edit Mode",
     area: "settings",
     command: {
@@ -88,6 +89,7 @@ const SystemButtons = ({
   };
 
   const labelToggleBtn: IButtonInfo = {
+    id: -2,
     label: "Toggle Icons",
     area: "settings",
     command: {
@@ -96,6 +98,7 @@ const SystemButtons = ({
   };
 
   const appBtn: IButtonInfo = {
+    id: -3,
     label: "Switch App",
     area: "settings",
     command: {
@@ -104,6 +107,7 @@ const SystemButtons = ({
   };
 
   const settingsBtn: IButtonInfo = {
+    id: -4,
     label: "Settings",
     area: "settings",
     icon: "fad fa-cog fa-3x",
@@ -116,6 +120,7 @@ const SystemButtons = ({
     borderColor: color,
     forceLabel: forceLabels,
     editEnabled: false,
+    index: 0,
   };
 
   return (

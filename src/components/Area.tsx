@@ -46,9 +46,10 @@ export const Area = ({
         btn.area === area &&
         !btn.group
     ) // get untagged buttons
-    .map((btnInfo) =>
+    .map((btnInfo, index) =>
       createButton(
         btnInfo,
+        index,
         forceLabels,
         editEnabled,
         onClick,

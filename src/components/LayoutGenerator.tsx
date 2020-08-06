@@ -11,6 +11,7 @@ import { useEditMode } from "../hooks/useEditMode";
 import { useState } from "react";
 import { IButtonInfo } from "../models/buttonInfo";
 import { IGroupInfo } from "../models/groupInfo";
+import { DragDropContext } from "react-beautiful-dnd";
 
 interface ILayoutGeneratorProps {
   config: IConfig;
@@ -45,6 +46,8 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
   const editClass = editEnabled ? "edit-mode" : "";
   const buttonClick = editEnabled ? setSelectedButton : addButtonToHistory;
 
+  // const onDragEnd = () => {};
+
   // const allFiltersEnable = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
 
   /* TODO: editEnabled needs to do lots of things
@@ -66,6 +69,7 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
   };
 
   return (
+    // <DragDropContext onDragEnd={onDragEnd}>
     <div className={`dashboard ${editClass}`}>
       {applicationMenu}
       <div className="flex-vertical">
@@ -114,6 +118,7 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
         </div>
       </div>
     </div>
+    // </DragDropContext>
   );
 };
 

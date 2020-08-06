@@ -7,6 +7,7 @@ import { Button } from "../components/Button";
 
 export const createButton = (
   button: IButtonInfo,
+  index: number,
   forceLabels: boolean,
   editEnabled: boolean,
   onClick: (buttonInfo: IButtonInfo) => void,
@@ -16,6 +17,7 @@ export const createButton = (
     <Button
       buttonInfo={button}
       key={button.id}
+      index={index}
       borderColor={colorOverride}
       size={button.size}
       forceLabel={forceLabels}
@@ -66,8 +68,15 @@ export const createGroup = (
       selected={selectedGroup}
       selectGroup={selectGroup}
     >
-      {groupButtons.map((btnInfo) =>
-        createButton(btnInfo, forceLabels, editEnabled, onClick, groupColor)
+      {groupButtons.map((btnInfo, index) =>
+        createButton(
+          btnInfo,
+          index,
+          forceLabels,
+          editEnabled,
+          onClick,
+          groupColor
+        )
       )}
     </Group>
   );

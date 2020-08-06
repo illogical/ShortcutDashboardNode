@@ -122,7 +122,7 @@ export const EditButtonPanel = ({
             value={selectedButton.icon ? selectedButton.icon : ""}
           />
           <div className="sample-button">
-            <Button buttonInfo={selectedButton} editEnabled={true} />
+            <Button buttonInfo={selectedButton} editEnabled={true} index={0} />
           </div>
         </FieldGroup>
       </div>
