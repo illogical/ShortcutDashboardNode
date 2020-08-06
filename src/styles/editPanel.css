@@ -1,6 +1,9 @@
-.edit-panel {
+.right-side.edit-panel {
+  background-color: #001a26;
+  width: 300px;
   color: white;
   font-size: 1.2em;
+  overflow-y: auto;
 }
 
 .edit-form {
@@ -14,6 +17,28 @@
   width: 100%;
 }
 
-.edit-field.lg input {
+.edit-label {
+  color: #00e3b0;
+}
+
+.edit-field input.lg {
   font-size: 1em;
+}
+
+.edit-field input.check-lg {
+  width: 25px;
+  height: 25px;
+}
+
+.field-group {
+  margin: 20px 0;
+}
+
+.sample-button {
+  padding: 20px 0;
+}
+
+.sample-button .item {
+  display: inline-block;
+  text-align: center;
 }

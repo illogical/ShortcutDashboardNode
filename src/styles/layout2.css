@@ -21,7 +21,7 @@ body {
 }
 
 .title {
-  color: rgb(24, 144, 214); /* default */
+  color: #009be3; /* default */
   font-weight: bold;
   font-size: 1.26em;
 }
@@ -104,11 +104,6 @@ body {
 
 .settings {
   xbackground-color: royalblue;
-}
-
-.right-side.edit-panel {
-  background-color: #001a26;
-  width: 300px;
 }
 
 /* display horizontally */
