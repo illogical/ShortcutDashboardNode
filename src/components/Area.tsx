@@ -12,10 +12,12 @@ interface AreaProps {
   groups: IGroupInfo[]; //pass all groups
   buttons: IButtonInfo[]; //pass all buttons
   filter: number;
+  selectedGroup?: IGroupInfo;
   colorSelector: ColorSelector;
   forceLabels: boolean;
   editEnabled: boolean;
   onClick: (buttonInfo: IButtonInfo) => void;
+  selectGroup: (group: IGroupInfo) => void;
 }
 
 export const Area = ({
@@ -27,6 +29,8 @@ export const Area = ({
   colorSelector,
   forceLabels,
   editEnabled,
+  selectGroup,
+  selectedGroup,
   onClick,
 }: AreaProps) => {
   const untaggedButtonColor = colorSelector.getColor();
@@ -63,7 +67,9 @@ export const Area = ({
         colorSelector,
         forceLabels,
         editEnabled,
-        onClick
+        onClick,
+        selectGroup,
+        selectedGroup
       )
     );
 

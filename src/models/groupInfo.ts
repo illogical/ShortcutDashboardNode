@@ -1,9 +1,9 @@
 export interface IGroupInfo {
-  id?: number; // TODO: require ID
+  id: number;
   name: string;
   color?: string;
   area: string;
   app: string;
-  appId?: number; // TODO: require
+  appId: number;
   tag: string;
 }

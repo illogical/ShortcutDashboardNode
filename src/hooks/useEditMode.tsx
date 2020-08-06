@@ -25,7 +25,7 @@ export const useEditMode = (
 
   // TODO: need a Create Button button and Create Group button
   const editButtonPanelComponent = (
-    <EditButtonPanel selectedButton={selectedButton} />
+    <EditButtonPanel panelTitle="EDIT MODE" selectedButton={selectedButton} />
   );
 
   return [editButtonPanelComponent] as const;

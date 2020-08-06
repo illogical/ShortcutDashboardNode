@@ -56,12 +56,12 @@ export const remapConfig = (settings: ISettings): IConfig => {
 const remapToUseIds = (config: IConfig): IConfig => {
   return {
     ...config,
-    groups: config.groups.map((group) => {
-      return {
-        ...group,
-        appId: lodash.find(config.apps, (a) => a.name === group.app)?.id,
-      };
-    }),
+    // groups: config.groups.map((group) => {
+    //   return {
+    //     ...group,
+    //     appId: lodash.find(config.apps, (a) => a.name === group.app)?.id,
+    //   };
+    // }),
     buttons: config.buttons.map((button) => {
       return {
         ...button,

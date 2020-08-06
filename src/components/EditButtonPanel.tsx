@@ -4,10 +4,14 @@ import { Modifier } from "../models/enums";
 import { Button } from "./Button";
 
 interface EditButtonPanelProps {
+  panelTitle: string;
   selectedButton?: IButtonInfo;
 }
 
-export const EditButtonPanel = ({ selectedButton }: EditButtonPanelProps) => {
+export const EditButtonPanel = ({
+  panelTitle,
+  selectedButton,
+}: EditButtonPanelProps) => {
   const [modifiers, setModifier] = useState({
     shift: false,
     ctrl: false,
@@ -16,8 +20,11 @@ export const EditButtonPanel = ({ selectedButton }: EditButtonPanelProps) => {
 
   if (!selectedButton) {
     return (
-      <div className="edit-panel edit-form">
-        Select a button or group to modify it
+      <div>
+        <div className="title centered">{panelTitle}</div>
+        <div className="edit-panel edit-form">
+          Select a button or group to modify it
+        </div>
       </div>
     );
   }
@@ -53,7 +60,7 @@ export const EditButtonPanel = ({ selectedButton }: EditButtonPanelProps) => {
 
   return (
     <div className="edit-panel">
-      <div className="title centered">EDIT BUTTON</div>
+      <div className="title centered">{panelTitle}</div>
       <div className="edit-form">
         <FieldGroup label="LABEL">
           <input type="text" className="lg" value={selectedButton.label} />
@@ -111,6 +118,7 @@ export const EditButtonPanel = ({ selectedButton }: EditButtonPanelProps) => {
         <FieldGroup label="ICON">
           <input
             type="text"
+            className="lg"
             value={selectedButton.icon ? selectedButton.icon : ""}
           />
           <div className="sample-button">

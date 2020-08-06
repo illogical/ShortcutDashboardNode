@@ -10,6 +10,7 @@ import { IConfig } from "../models/config";
 import { useEditMode } from "../hooks/useEditMode";
 import { useState } from "react";
 import { IButtonInfo } from "../models/buttonInfo";
+import { IGroupInfo } from "../models/groupInfo";
 
 interface ILayoutGeneratorProps {
   config: IConfig;
@@ -20,7 +21,7 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
   const [selectedButton, setSelectedButton] = useState<
     IButtonInfo | undefined
   >();
-  const [selectedGroup, setSelectedGroup] = useState();
+  const [selectedGroup, setSelectedGroup] = useState<IGroupInfo | undefined>();
 
   const colorSelector = new ColorSelector(
     config.settings.colors.options
@@ -41,6 +42,7 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
 
   const [editButtonPanelComponent] = useEditMode(config, selectedButton);
   const hideClass = "hide";
+  const editClass = editEnabled ? "edit-mode" : "";
   const buttonClick = editEnabled ? setSelectedButton : addButtonToHistory;
 
   // const allFiltersEnable = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
@@ -58,11 +60,13 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
     colorSelector,
     editEnabled,
     forceLabels,
+    selectedGroup,
     onClick: buttonClick,
+    selectGroup: setSelectedGroup,
   };
 
   return (
-    <div className="dashboard">
+    <div className={`dashboard ${editClass}`}>
       {applicationMenu}
       <div className="flex-vertical">
         <div className="flex flex-main">

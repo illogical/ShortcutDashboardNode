@@ -32,6 +32,18 @@ body {
   padding: 400px;
 }
 
+.dashboard.edit-mode {
+  border: 4px dashed #e64c3a;
+}
+
+.edit-mode .group .title {
+  cursor: pointer;
+}
+
+.group.selected {
+  background-color: #1f3e4d;
+}
+
 .flex {
   height: 100%;
   display: flex;

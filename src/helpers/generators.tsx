@@ -31,7 +31,9 @@ export const createGroup = (
   colorSelector: ColorSelector,
   forceLabels: boolean,
   editEnabled: boolean,
-  onClick: (buttonInfo: IButtonInfo) => void
+  onClick: (buttonInfo: IButtonInfo) => void,
+  selectGroup: (group: IGroupInfo) => void,
+  selectedGroup?: IGroupInfo
 ) => {
   const groupColor = colorSelector.getColor();
   group.color = groupColor;
@@ -57,7 +59,13 @@ export const createGroup = (
   }
 
   return (
-    <Group key={group.name} groupInfo={group}>
+    <Group
+      key={group.name}
+      groupInfo={group}
+      editEnabled={editEnabled}
+      selected={selectedGroup}
+      selectGroup={selectGroup}
+    >
       {groupButtons.map((btnInfo) =>
         createButton(btnInfo, forceLabels, editEnabled, onClick, groupColor)
       )}
