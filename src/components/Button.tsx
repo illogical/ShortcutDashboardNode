@@ -13,6 +13,7 @@ interface ButtonProps {
   index: number;
   size?: "default" | "medium" | "large";
   editEnabled: boolean;
+  draggable?: boolean;
   forceLabel?: boolean;
   onClick?: (buttonInfo: IButtonInfo) => void;
 }
@@ -22,6 +23,7 @@ export const Button = ({
   borderColor,
   size,
   index,
+  draggable,
   editEnabled,
   forceLabel,
   onClick,
@@ -107,18 +109,7 @@ export const Button = ({
     },
   };
 
-  return (
-    // <Draggable draggableId={buttonInfo.id.toString()} index={index}>
-    //   {(provided, snapshot) => (
-    //     <div
-    //       ref={provided.innerRef}
-    //       {...provided.draggableProps}
-    //       {...provided.dragHandleProps}
-    //       style={getDragStyle(
-    //         snapshot.isDragging,
-    //         provided.draggableProps.style
-    //       )}
-    //     >
+  const button = (
     <GridItem id={buttonInfo.label}>
       <motion.div
         className={`button drag ${singleLetterLabelClass} ${loadingClass} ${
@@ -141,10 +132,29 @@ export const Button = ({
         )}
       </motion.div>
     </GridItem>
-    //     </div>
-    //   )}
-    // </Draggable>
   );
+
+  if (draggable) {
+    return (
+      <Draggable draggableId={buttonInfo.id.toString()} index={index}>
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            style={getDragStyle(
+              snapshot.isDragging,
+              provided.draggableProps.style
+            )}
+          >
+            {button}
+          </div>
+        )}
+      </Draggable>
+    );
+  }
+
+  return button;
 };
 
 const getFontSize = (label: string, isDefault?: boolean): string => {

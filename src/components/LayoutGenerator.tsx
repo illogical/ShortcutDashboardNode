@@ -45,7 +45,7 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
   const editClass = editEnabled ? "edit-mode" : "";
   const buttonClick = editEnabled ? setSelectedButton : addButtonToHistory;
 
-  // const onDragEnd = () => {};
+  const onDragEnd = () => {};
 
   // const allFiltersEnable = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
 
@@ -68,56 +68,56 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
   };
 
   return (
-    // <DragDropContext onDragEnd={onDragEnd}>
-    <div className={`dashboard ${editClass}`}>
-      {applicationMenu}
-      <div className="flex-vertical">
-        <div className="flex flex-main">
-          <div className="applications"></div>
-          <div className="filters">
-            <Filters
-              filters={config.filters}
-              selectedFilter={filter}
-              selectFilter={setFilter}
-            />
-          </div>
-          <div className="top">
-            <Area app={selectedApp} area="top" {...areaProps} />
-          </div>
-          <div className="pusher"></div>
-          <div className="main">
-            <Grid>
-              <Area app={selectedApp} area="main" {...areaProps} />
-            </Grid>
-          </div>
-          <div className="footer">
-            <div className="common">
-              <div className="common-groups">
-                <Grid>
-                  <Area app={selectedApp} area="favorites" {...areaProps} />
-                </Grid>
-              </div>
-              <div className="common-buttons">
-                <Grid>
-                  <Area app={selectedApp} area="common" {...areaProps} />
-                </Grid>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className={`dashboard ${editClass}`}>
+        {applicationMenu}
+        <div className="flex-vertical">
+          <div className="flex flex-main">
+            <div className="applications"></div>
+            <div className="filters">
+              <Filters
+                filters={config.filters}
+                selectedFilter={filter}
+                selectFilter={setFilter}
+              />
+            </div>
+            <div className="top">
+              <Area app={selectedApp} area="top" {...areaProps} />
+            </div>
+            <div className="pusher"></div>
+            <div className="main">
+              <Grid>
+                <Area app={selectedApp} area="main" {...areaProps} />
+              </Grid>
+            </div>
+            <div className="footer">
+              <div className="common">
+                <div className="common-groups">
+                  <Grid>
+                    <Area app={selectedApp} area="favorites" {...areaProps} />
+                  </Grid>
+                </div>
+                <div className="common-buttons">
+                  <Grid>
+                    <Area app={selectedApp} area="common" {...areaProps} />
+                  </Grid>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={`right-side right-split ${editEnabled && hideClass}`}>
-          <div className="recent">
-            <div className="title centered">RECENT</div>
-            {generateButtonHistory()}
+          <div className={`right-side right-split ${editEnabled && hideClass}`}>
+            <div className="recent">
+              <div className="title centered">RECENT</div>
+              {generateButtonHistory()}
+            </div>
+            <div className="settings">{systemButtons}</div>
           </div>
-          <div className="settings">{systemButtons}</div>
-        </div>
-        <div className={`right-side edit-panel ${!editEnabled && hideClass}`}>
-          {editButtonPanelComponent}
+          <div className={`right-side edit-panel ${!editEnabled && hideClass}`}>
+            {editButtonPanelComponent}
+          </div>
         </div>
       </div>
-    </div>
-    // </DragDropContext>
+    </DragDropContext>
   );
 };
 

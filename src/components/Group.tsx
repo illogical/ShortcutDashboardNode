@@ -15,26 +15,26 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
 
   return (
     <div className={`group ${selectedClass}`}>
-      {/* <Droppable droppableId={groupInfo.id.toString()}>
-        {(provided) => ( */}
-      <div
-        className="item-content"
-        // ref={provided.innerRef}
-        // {...provided.droppableProps}
-      >
-        <div
-          className="drag title"
-          style={titleStyle}
-          onClick={() => selectGroup(groupInfo)}
-        >
-          <span className="far fa-horizontal-rule fa-lg"></span>
-          {` ${groupInfo.name.toUpperCase()} `}
-          <span className="far fa-horizontal-rule fa-lg"></span>
-        </div>
-        {children}
-      </div>
-      {/* )}
-      </Droppable> */}
+      <Droppable droppableId={groupInfo.id.toString()}>
+        {(provided) => (
+          <div
+            className="item-content"
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            <div
+              className="drag title"
+              style={titleStyle}
+              onClick={() => selectGroup(groupInfo)}
+            >
+              <span className="far fa-horizontal-rule fa-lg"></span>
+              {` ${groupInfo.name.toUpperCase()} `}
+              <span className="far fa-horizontal-rule fa-lg"></span>
+            </div>
+            {children}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 };

@@ -67,6 +67,7 @@ export const ButtonGroup = ({
           borderColor={groupColor}
           size={btnInfo.size}
           key={btnInfo.id}
+          draggable={editEnabled}
         />
       ))}
     </Group>

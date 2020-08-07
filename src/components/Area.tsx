@@ -35,11 +35,11 @@ export const Area = ({
 }: AreaProps) => {
   const untaggedButtonColor = colorSelector.getColor();
 
-  const filteredButtons = buttons.filter((button) =>
+  const filterButtons = buttons.filter((button) =>
     compareTagsToFilters(filter, button.filterIds)
   );
 
-  const grouplessButtons = filteredButtons
+  const grouplessButtons = filterButtons
     .filter(
       (btn) =>
         (btn.app === "all" || btn.appId === app) &&
@@ -66,7 +66,7 @@ export const Area = ({
     .map((group) => (
       <ButtonGroup
         group={group}
-        buttons={filteredButtons}
+        buttons={filterButtons}
         colorSelector={colorSelector}
         forceLabels={forceLabels}
         editEnabled={editEnabled}
