@@ -2,7 +2,6 @@ import * as React from "react";
 import { ColorSelector } from "../helpers/colorSelector";
 import { Grid } from "./Grid";
 import { useSettingsButtons } from "../hooks/useSettingsButtons";
-import { createButton } from "../helpers/generators";
 import { useButtonHistory } from "../hooks/useButtonHistory";
 import { Area } from "./Area";
 import { Filters } from "./Filters";
@@ -152,8 +151,6 @@ const ApplicationFilters = ({
     </React.Fragment>
   );
 };
-
-export default createButton;
 
 /*
 

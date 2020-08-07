@@ -1,10 +1,10 @@
 import { IGroupInfo } from "../models/groupInfo";
 import { IButtonInfo } from "../models/buttonInfo";
 import { ColorSelector } from "../helpers/colorSelector";
-import createButton from "./LayoutGenerator";
-import { createGroup } from "../helpers/generators";
 import React from "react";
 import { compareTagsToFilters } from "../helpers/compareTags";
+import { Button } from "./Button";
+import { ButtonGroup } from "./ButtonGroup";
 
 interface AreaProps {
   app: number;
@@ -46,33 +46,35 @@ export const Area = ({
         btn.area === area &&
         !btn.group
     ) // get untagged buttons
-    .map((btnInfo, index) =>
-      createButton(
-        btnInfo,
-        index,
-        forceLabels,
-        editEnabled,
-        onClick,
-        untaggedButtonColor
-      )
-    );
+    .map((btnInfo, index) => (
+      <Button
+        buttonInfo={btnInfo}
+        index={index}
+        forceLabel={forceLabels}
+        editEnabled={editEnabled}
+        onClick={onClick}
+        borderColor={untaggedButtonColor}
+        size={btnInfo.size}
+        key={btnInfo.id}
+      />
+    ));
 
   const groupsByArea = groups
     .filter(
       (grp) => (grp.appId === -1 || grp.appId === app) && grp.area === area
     )
-    .map((grp) =>
-      createGroup(
-        grp,
-        filteredButtons,
-        colorSelector,
-        forceLabels,
-        editEnabled,
-        onClick,
-        selectGroup,
-        selectedGroup
-      )
-    );
+    .map((group) => (
+      <ButtonGroup
+        group={group}
+        buttons={filteredButtons}
+        colorSelector={colorSelector}
+        forceLabels={forceLabels}
+        editEnabled={editEnabled}
+        onClick={onClick}
+        selectGroup={selectGroup}
+        selectedGroup={selectedGroup}
+      />
+    ));
 
   return (
     <React.Fragment>{[...groupsByArea, ...grouplessButtons]}</React.Fragment>
