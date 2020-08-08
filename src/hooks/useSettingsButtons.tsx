@@ -5,9 +5,12 @@ import { AppMenu } from "../components/AppMenu";
 import "../styles/slidingPanel.css";
 import { IEntity } from "../models/entity";
 
-export const useSettingsButtons = (apps: IEntity[], color: string) => {
+export const useSettingsButtons = (
+  apps: IEntity[],
+  color: string,
+  setEditEnabled: () => void
+) => {
   const [, setIsSettingsOpen] = useState(false);
-  const [editEnabled, setEditEnabled] = useState(false);
   const [forceLabels, setForceLabels] = useState(false);
   const [appMenuOpen, setAppMenuOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState(103); // blender? TODO: support a default app
@@ -25,7 +28,7 @@ export const useSettingsButtons = (apps: IEntity[], color: string) => {
   };
 
   const toggleEdit = () => {
-    setEditEnabled(true);
+    setEditEnabled();
   };
 
   const showAppMenu = () => setAppMenuOpen(true);
@@ -58,7 +61,6 @@ export const useSettingsButtons = (apps: IEntity[], color: string) => {
     applicationMenuComponent,
     forceLabels,
     selectedApp,
-    editEnabled,
   ] as const;
 };
 

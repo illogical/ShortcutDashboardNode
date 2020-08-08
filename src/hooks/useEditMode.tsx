@@ -8,7 +8,9 @@ import { EditButtonPanel } from "../components/EditButtonPanel";
 
 export const useEditMode = (
   config: IConfig,
-  selectedButton: IButtonInfo | undefined
+  selectedButton: IButtonInfo | undefined,
+  saveConfig: (saveConfig: IConfig) => void,
+  exitEdit: () => void
 ) => {
   const [editEnabled, setEditEnabled] = useState(false);
   const [editForm, setEditForm] = useState(); // decides if button or group is being modified
@@ -23,9 +25,32 @@ export const useEditMode = (
     });
   };
 
+  const handleSave = (button: IButtonInfo) => {
+    // look up button and replace it
+    const updatedConfig = {
+      ...config,
+      buttons: config.buttons.reduce((prev, cur) => {
+        if (cur.id === button.id) {
+          return [...prev, button];
+        }
+        return [...prev, cur];
+      }, [] as IButtonInfo[]),
+    };
+
+    saveConfig(updatedConfig);
+    exitEdit();
+  };
+
+  const handleDiscard = () => exitEdit();
+
   // TODO: need a Create Button button and Create Group button
   const editButtonPanelComponent = (
-    <EditButtonPanel panelTitle="EDIT MODE" selectedButton={selectedButton} />
+    <EditButtonPanel
+      panelTitle="EDIT MODE"
+      selectedButton={selectedButton}
+      onSave={handleSave}
+      onDiscard={handleDiscard}
+    />
   );
 
   return [editButtonPanelComponent] as const;

@@ -1,13 +1,14 @@
 var express = require("express");
 var router = express.Router();
 var fs = require("fs");
-const configPath = "../settings/dashboardConfig.json";
-var configJson = require(configPath);
 const path = require("path");
+
+const configPath = "../settings/dashboardConfig.json";
 
 /* GET  */
 router.get("/", function (req, res, next) {
-  res.json(configJson);
+  const file = fs.readFileSync(path.join(__dirname, configPath));
+  res.json(JSON.parse(file));
 });
 
 router.post("/", function (req, res, next) {

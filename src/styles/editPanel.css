@@ -6,10 +6,6 @@
   overflow-y: auto;
 }
 
-.edit-form {
-  padding: 20px 0;
-}
-
 .edit-panel,
 .edit-label,
 .edit-field,
@@ -17,8 +13,24 @@
   width: 100%;
 }
 
+.edit-panel > .title {
+  margin-top: 20px;
+}
+
+.edit-buttons {
+  margin: 40px 10px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+
+.edit-buttons .item:last-child {
+  margin-left: auto;
+}
+
 .edit-label {
-  color: #00e3b0;
+  color: #d7aba5;
+  font-size: 1.2em;
 }
 
 .edit-field input {

@@ -33,9 +33,21 @@ export const Layout = () => {
     );
   }
 
+  const updateConfig = async (updatedConfig: IConfig) => {
+    try {
+      await saveConfig(updatedConfig);
+      setConfig(updatedConfig);
+    } catch (error) {
+      console.error("Failed to save config.");
+    }
+  };
+
   return (
     <React.Fragment>
-      <LayoutGenerator config={config}></LayoutGenerator>
+      <LayoutGenerator
+        config={config}
+        saveConfig={updateConfig}
+      ></LayoutGenerator>
     </React.Fragment>
   );
 };

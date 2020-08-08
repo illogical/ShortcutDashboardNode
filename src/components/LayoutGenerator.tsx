@@ -10,18 +10,27 @@ import { useEditMode } from "../hooks/useEditMode";
 import { useState } from "react";
 import { IButtonInfo } from "../models/buttonInfo";
 import { IGroupInfo } from "../models/groupInfo";
-import { DragDropContext } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  DropResult,
+  ResponderProvided,
+} from "react-beautiful-dnd";
 
 interface ILayoutGeneratorProps {
   config: IConfig;
+  saveConfig: (saveConfig: IConfig) => void;
 }
 
-export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
+export const LayoutGenerator = ({
+  config,
+  saveConfig,
+}: ILayoutGeneratorProps) => {
   const [filter, setFilter] = useState<number>(-1);
   const [selectedButton, setSelectedButton] = useState<
     IButtonInfo | undefined
   >();
   const [selectedGroup, setSelectedGroup] = useState<IGroupInfo | undefined>();
+  const [editEnabled, setEditEnabled] = useState(false);
 
   const colorSelector = new ColorSelector(
     config.settings.colors.options
@@ -34,26 +43,29 @@ export const LayoutGenerator = ({ config }: ILayoutGeneratorProps) => {
     applicationMenu,
     forceLabels,
     selectedApp,
-    editEnabled,
-  ] = useSettingsButtons(config.apps, colorSelector.getColor());
+  ] = useSettingsButtons(config.apps, colorSelector.getColor(), () =>
+    setEditEnabled(true)
+  );
   const [generateButtonHistory, addButtonToHistory] = useButtonHistory(
     forceLabels
   );
 
-  const [editButtonPanelComponent] = useEditMode(config, selectedButton);
+  const [editButtonPanelComponent] = useEditMode(
+    config,
+    selectedButton,
+    saveConfig,
+    () => setEditEnabled(false)
+  );
   const hideClass = "hide";
   const editClass = editEnabled ? "edit-mode" : "";
   const buttonClick = editEnabled ? setSelectedButton : addButtonToHistory;
 
-  const onDragEnd = () => {};
-
-  // const allFiltersEnable = settings.filters.length === selectedTags.length;   // TODO: when this is enabled, ignore filters
-
-  /* TODO: editEnabled needs to do lots of things
-    -hide recent/settings
-    -when false, hide edit-panel
-    -button clicks should select the button rather than click it
-  */
+  const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
+    // result.destination.droppableId
+    // result.destination.index
+    // TODO: look up group
+    // TODO: add button to group and remove it from its current group
+  };
 
   const areaProps = {
     groups: config.groups,
