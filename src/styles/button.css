@@ -1,5 +1,5 @@
 .button {
-  width: 106px;
+  width: 107px;
   height: 55px;
   background: #152126; /* TODO: programatic color */
   color: #ffd6bb; /* TODO: programatic color */
@@ -20,11 +20,11 @@
                                   supported by Chrome and Opera */
 }
 
-.button.medium {
+.dashboard:not(.edit-mode) .button.medium {
   width: 165px;
 }
 
-.button.large {
+.dashboard:not(.edit-mode) .button.large {
   width: 340px;
 }
 

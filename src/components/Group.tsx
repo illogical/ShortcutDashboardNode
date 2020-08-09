@@ -1,6 +1,7 @@
 import * as React from "react";
 import { IGroupInfo } from "../models/groupInfo";
 import { Droppable } from "react-beautiful-dnd";
+import "../styles/group.css";
 
 export const Group: React.FunctionComponent<IGroupProps> = ({
   groupInfo,

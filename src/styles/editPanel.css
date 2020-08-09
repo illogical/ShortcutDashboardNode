@@ -13,8 +13,18 @@
   width: 100%;
 }
 
-.edit-panel > .title {
+.edit-panel .edit-form {
+  text-align: center;
+}
+
+.edit-panel .close-icon {
+  margin: 0.3em;
+  cursor: pointer;
+}
+
+.edit-panel .title {
   margin-top: 20px;
+  text-align: center;
 }
 
 .edit-buttons {

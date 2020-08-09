@@ -99,7 +99,6 @@ body {
 
 .right-side {
   width: 120px;
-  text-align: center;
   overflow: hidden;
   flex-shrink: 0;
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { IButtonInfo } from "../models/buttonInfo";
 import { Modifier } from "../models/enums";
 import { Button } from "./Button";
-import { unwatchFile } from "fs";
 
 interface EditButtonPanelProps {
   panelTitle: string;
@@ -49,10 +48,12 @@ export const EditButtonPanel = ({
   if (!selectedButton) {
     return (
       <div>
+        <i
+          className="fad fa-times-circle fa-2x close-icon"
+          onClick={onDiscard}
+        ></i>
         <div className="title centered">{panelTitle}</div>
-        <div className="edit-panel edit-form">
-          Select a button or group to modify it
-        </div>
+        <div className="edit-form">Select a button or group to modify it</div>
       </div>
     );
   }

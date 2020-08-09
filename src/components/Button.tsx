@@ -1,10 +1,9 @@
 import * as React from "react";
 import "../styles/button.css";
-import { GridItem } from "./GridItem";
 import { sendKeys, sendCommand, sendPython } from "../api/keySettings";
 import { IButtonInfo } from "../models/buttonInfo";
 import { motion } from "framer-motion";
-import { Droppable, Draggable } from "react-beautiful-dnd";
+import { Draggable } from "react-beautiful-dnd";
 
 interface ButtonProps {
   buttonInfo: IButtonInfo;
@@ -110,28 +109,28 @@ export const Button = ({
   };
 
   const button = (
-    <GridItem id={buttonInfo.label}>
-      <motion.div
-        className={`button drag ${singleLetterLabelClass} ${loadingClass} ${
-          size || "default"
-        }`}
-        initial="initial"
-        whileTap="push"
-        animate="show"
-        style={buttonStyles}
-        onTap={handleClick}
-        variants={variants}
-      >
-        {buttonInfo.icon && !forceLabel ? (
-          <div>
-            <span className={buttonInfo.icon} />
-            <span className="hidden">{buttonInfo.label.toUpperCase()}</span>
-          </div>
-        ) : (
-          <div>{buttonInfo.label.toUpperCase()}</div>
-        )}
-      </motion.div>
-    </GridItem>
+    <motion.div
+      className={`button drag ${singleLetterLabelClass} ${loadingClass} ${
+        size || "default"
+      }`}
+      key={buttonInfo.id}
+      id={buttonInfo.label}
+      initial="initial"
+      whileTap="push"
+      animate="show"
+      style={buttonStyles}
+      onTap={handleClick}
+      variants={variants}
+    >
+      {buttonInfo.icon && !forceLabel ? (
+        <div>
+          <span className={buttonInfo.icon} />
+          <span className="hidden">{buttonInfo.label.toUpperCase()}</span>
+        </div>
+      ) : (
+        <div>{buttonInfo.label.toUpperCase()}</div>
+      )}
+    </motion.div>
   );
 
   if (draggable) {
@@ -139,6 +138,7 @@ export const Button = ({
       <Draggable draggableId={buttonInfo.id.toString()} index={index}>
         {(provided, snapshot) => (
           <div
+            className={`item ${snapshot.isDragging ? "dragging" : ""}`}
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -154,7 +154,7 @@ export const Button = ({
     );
   }
 
-  return button;
+  return <div className="item">{button}</div>;
 };
 
 const getFontSize = (label: string, isDefault?: boolean): string => {

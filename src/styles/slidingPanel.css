@@ -32,18 +32,18 @@ for simplicity
   transform: translateX(0%);
 }
 
-.close-icon {
+.panel-wrap .close-icon {
   cursor: pointer;
   padding: 1em;
   margin-bottom: 10px;
 }
 
-.panel-title {
+.panel-wrap .panel-title {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.panel .app {
+.panel-wrap .panel .app {
   width: 100%;
   text-align: center;
   padding: 10px 0;
@@ -51,30 +51,8 @@ for simplicity
   font-size: 1.4em;
 }
 
-.panel .app.selected {
+.panel-wrap .panel .app.selected {
   font-weight: bold;
   background-color: lightsalmon;
   color: black;
-}
-
-/* demo display */
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  font-size: 18px;
-}
-h3 {
-  margin: 0;
-}
-p {
-  line-height: 1.4;
-  margin: 2em 0 0 0;
-}
-[type="checkbox"] {
-  font-size: 1em;
 }

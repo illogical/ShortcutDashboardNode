@@ -14,6 +14,7 @@ import {
   DragDropContext,
   DropResult,
   ResponderProvided,
+  DragUpdate,
 } from "react-beautiful-dnd";
 
 interface ILayoutGeneratorProps {
@@ -67,6 +68,11 @@ export const LayoutGenerator = ({
     // TODO: add button to group and remove it from its current group
   };
 
+  const onDragUpdate = (result: DragUpdate, provided: ResponderProvided) => {
+    // TODO: check which group is hovered over to highlight it
+    // TODO: how to move buttons out of the way?
+  };
+
   const areaProps = {
     groups: config.groups,
     buttons: config.buttons,
@@ -80,7 +86,7 @@ export const LayoutGenerator = ({
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <div className={`dashboard ${editClass}`}>
         {applicationMenu}
         <div className="flex-vertical">
