@@ -34,7 +34,6 @@ export const useButtonHistory = (forceLabels: boolean) => {
         forceLabel={forceLabels}
         editEnabled={false}
         onClick={addButtonToHistory}
-        size={button.size}
         key={button.id}
       />
     ));

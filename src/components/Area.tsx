@@ -54,7 +54,6 @@ export const Area = ({
         editEnabled={editEnabled}
         onClick={onClick}
         borderColor={untaggedButtonColor}
-        size={btnInfo.size}
         key={btnInfo.id}
       />
     ));

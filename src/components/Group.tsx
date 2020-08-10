@@ -16,7 +16,7 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
 
   return (
     <div className={`group ${selectedClass}`}>
-      <Droppable droppableId={groupInfo.id.toString()}>
+      <Droppable droppableId={groupInfo.id.toString()} direction="horizontal">
         {(provided) => (
           <div
             className="item-content"
@@ -33,6 +33,7 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
               <span className="far fa-horizontal-rule fa-lg"></span>
             </div>
             {children}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>

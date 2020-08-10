@@ -38,17 +38,6 @@ export const ButtonGroup = ({
     return null;
   }
 
-  //stretch buttons across bottom of groups
-  switch (groupButtons.length % 3) {
-    case 2:
-      groupButtons[groupButtons.length - 1].size = "medium";
-      groupButtons[groupButtons.length - 2].size = "medium";
-      break;
-    case 1:
-      groupButtons[groupButtons.length - 1].size = "large";
-      break;
-  }
-
   return (
     <Group
       key={group.name}
@@ -65,7 +54,6 @@ export const ButtonGroup = ({
           editEnabled={editEnabled}
           onClick={onClick}
           borderColor={groupColor}
-          size={btnInfo.size}
           key={btnInfo.id}
           draggable={editEnabled}
         />

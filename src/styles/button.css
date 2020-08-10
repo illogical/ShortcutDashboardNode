@@ -1,5 +1,6 @@
 .button {
-  width: 106px;
+  width: 100%; /* allows flexbox to [mostly] decide width */
+  min-width: 104px;
   height: 55px;
   background: #152126; /* TODO: programatic color */
   color: #ffd6bb; /* TODO: programatic color */
@@ -18,14 +19,6 @@
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
-}
-
-.dashboard:not(.edit-mode) .button.medium {
-  width: 165px;
-}
-
-.dashboard:not(.edit-mode) .button.large {
-  width: 340px;
 }
 
 .button.loading {

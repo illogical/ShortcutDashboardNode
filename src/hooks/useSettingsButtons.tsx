@@ -131,27 +131,19 @@ const SystemButtons = ({
         {...defaultStyle}
         buttonInfo={editBtn}
         key={editBtn.label}
-        size="default"
         onClick={toggleEdit}
       />
       <Button
         {...defaultStyle}
         buttonInfo={labelToggleBtn}
         key={labelToggleBtn.label}
-        size="default"
         onClick={toggleForceLabel}
       />
-      <Button
-        {...defaultStyle}
-        buttonInfo={appBtn}
-        size="default"
-        onClick={showAppMenu}
-      />
+      <Button {...defaultStyle} buttonInfo={appBtn} onClick={showAppMenu} />
       <Button
         {...defaultStyle}
         buttonInfo={settingsBtn}
         key={settingsBtn.label}
-        size="default"
         onClick={toggleSettings}
       />
     </React.Fragment>

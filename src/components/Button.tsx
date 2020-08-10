@@ -10,7 +10,6 @@ interface ButtonProps {
   loading?: boolean;
   borderColor?: string;
   index: number;
-  size?: "default" | "medium" | "large";
   editEnabled: boolean;
   draggable?: boolean;
   forceLabel?: boolean;
@@ -20,7 +19,6 @@ interface ButtonProps {
 export const Button = ({
   buttonInfo,
   borderColor,
-  size,
   index,
   draggable,
   editEnabled,
@@ -85,7 +83,7 @@ export const Button = ({
     userSelect: "none",
 
     // change background colour if dragging
-    background: isDragging ? "lightgreen" : "grey",
+    background: isDragging ? "lightgreen" : undefined,
 
     // styles we need to apply on draggables
     ...draggableStyle,
@@ -110,9 +108,7 @@ export const Button = ({
 
   const button = (
     <motion.div
-      className={`button drag ${singleLetterLabelClass} ${loadingClass} ${
-        size || "default"
-      }`}
+      className={`button drag ${singleLetterLabelClass} ${loadingClass}`}
       key={buttonInfo.id}
       id={buttonInfo.label}
       initial="initial"
