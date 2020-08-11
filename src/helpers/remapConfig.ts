@@ -20,12 +20,13 @@ export const remapConfig = (settings: ISettings): IConfig => {
         id: id++,
       };
     }),
-    areas: settings.areas.map((area) => {
-      return {
-        name: area,
-        id: id++,
-      };
-    }),
+    // areas: settings.areas.map((area) => {
+    //   return {
+    //     name: area,
+    //     id: id++,
+    //   };
+    // }),
+    areas: settings.areas,
     groups: settings.groups.map((group) => {
       return {
         ...group,

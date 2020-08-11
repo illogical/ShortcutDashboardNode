@@ -7,15 +7,17 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
   groupInfo,
   editEnabled,
   selected,
+  focus,
   selectGroup,
   children,
 }) => {
   const titleStyle = groupInfo.color ? { color: groupInfo.color } : {};
   const selectedClass =
     selected?.id === groupInfo.id && editEnabled ? "selected" : "";
+  const focusClass = focus ? "focus" : "";
 
   return (
-    <div className={`group ${selectedClass}`}>
+    <div className={`group ${selectedClass} ${focusClass}`}>
       <Droppable droppableId={groupInfo.id.toString()} direction="horizontal">
         {(provided) => (
           <div
@@ -44,6 +46,7 @@ export const Group: React.FunctionComponent<IGroupProps> = ({
 interface IGroupProps {
   groupInfo: IGroupInfo;
   selected?: IGroupInfo;
+  focus?: boolean;
   editEnabled: boolean;
   selectGroup: (group: IGroupInfo) => void;
 }

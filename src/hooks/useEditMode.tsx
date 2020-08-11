@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { IButtonInfo } from "../models/buttonInfo";
 import { IGroupInfo } from "../models/groupInfo";
-import { Modifier } from "../models/enums";
 import { IConfig } from "../models/config";
 import "../styles/editPanel.css";
 import { EditButtonPanel } from "../components/EditButtonPanel";
@@ -13,6 +12,7 @@ export const useEditMode = (
   exitEdit: () => void
 ) => {
   const [editEnabled, setEditEnabled] = useState(false);
+  const [focusedGroupId, setFocusedGroupId] = useState<number | undefined>();
   const [editForm, setEditForm] = useState(); // decides if button or group is being modified
 
   // TODO: keep history of config and add an UNDO button. So save on Blur?
@@ -47,13 +47,15 @@ export const useEditMode = (
   const editButtonPanelComponent = (
     <EditButtonPanel
       panelTitle="EDIT MODE"
+      config={config}
       selectedButton={selectedButton}
       onSave={handleSave}
       onDiscard={handleDiscard}
+      onGroupFocus={setFocusedGroupId}
     />
   );
 
-  return [editButtonPanelComponent] as const;
+  return [editButtonPanelComponent, focusedGroupId] as const;
 };
 
 // TODO: provide an edit button form

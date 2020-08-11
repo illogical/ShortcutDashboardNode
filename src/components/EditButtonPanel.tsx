@@ -2,19 +2,27 @@ import React, { useState, useEffect } from "react";
 import { IButtonInfo } from "../models/buttonInfo";
 import { Modifier } from "../models/enums";
 import { Button } from "./Button";
+import { IConfig } from "../models/config";
+import { SelectArea } from "./SelectArea";
+import "antd/dist/antd.css"; // TODO: find out why this affects the font size
+import { SelectGroup } from "./SelectGroup";
 
 interface EditButtonPanelProps {
   panelTitle: string;
+  config: IConfig;
   selectedButton?: IButtonInfo;
-  onSave: (IButtonConfig: IButtonInfo) => void;
+  onSave: (button: IButtonInfo) => void;
   onDiscard: () => void;
+  onGroupFocus: (groupId: number) => void;
 }
 
 export const EditButtonPanel = ({
   panelTitle,
+  config,
   selectedButton,
   onSave,
   onDiscard,
+  onGroupFocus,
 }: EditButtonPanelProps) => {
   const [modifiers, setModifier] = useState({
     shift: false,
@@ -30,6 +38,9 @@ export const EditButtonPanel = ({
   useEffect(() => {
     if (selectedButton) {
       setUpdatedButton(selectedButton);
+      if (selectedButton.groupId) {
+        onGroupFocus(selectedButton.groupId);
+      }
     }
     setModifier({
       shift: selectedButton?.command.mods
@@ -118,7 +129,22 @@ export const EditButtonPanel = ({
     });
   };
 
-  // TODO: need an onChange for each modifier to compile the booleans and create string
+  // TODO: need to look up group to get area for most buttons
+  const onSelectArea = (area: string) =>
+    setUpdatedButton({
+      ...updatedButton,
+      groupId: undefined,
+      area,
+    });
+
+  const onSelectGroup = (groupId: number) => {
+    onGroupFocus(groupId);
+    setUpdatedButton({
+      ...updatedButton,
+      groupId,
+      area: undefined,
+    });
+  };
 
   const modifierClick = (mod: Modifier) => {
     let mods = "";
@@ -254,6 +280,20 @@ export const EditButtonPanel = ({
           <div className="sample-button">
             <Button buttonInfo={updatedButton} editEnabled={true} index={0} />
           </div>
+        </FieldGroup>
+        <FieldGroup label="AREA">
+          <SelectArea
+            area={updatedButton.area}
+            areas={config.areas}
+            onSelect={onSelectArea}
+          />
+        </FieldGroup>
+        <FieldGroup label="GROUP">
+          <SelectGroup
+            groupId={updatedButton.groupId}
+            groups={config.groups}
+            onSelect={onSelectGroup}
+          />
         </FieldGroup>
       </div>
     </div>

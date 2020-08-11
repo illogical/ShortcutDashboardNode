@@ -11,6 +11,7 @@ interface ButtonGroupProps {
   colorSelector: ColorSelector;
   forceLabels: boolean;
   editEnabled: boolean;
+  focus?: boolean;
   onClick: (buttonInfo: IButtonInfo) => void;
   selectGroup: (group: IGroupInfo) => void;
   selectedGroup?: IGroupInfo;
@@ -22,6 +23,7 @@ export const ButtonGroup = ({
   colorSelector,
   forceLabels,
   editEnabled,
+  focus,
   onClick,
   selectGroup,
   selectedGroup,
@@ -40,21 +42,21 @@ export const ButtonGroup = ({
 
   return (
     <Group
-      key={group.name}
       groupInfo={group}
       editEnabled={editEnabled}
       selected={selectedGroup}
+      focus={focus}
       selectGroup={selectGroup}
     >
       {groupButtons.map((btnInfo, index) => (
         <Button
           buttonInfo={btnInfo}
+          key={btnInfo.id}
           index={index}
           forceLabel={forceLabels}
           editEnabled={editEnabled}
           onClick={onClick}
           borderColor={groupColor}
-          key={btnInfo.id}
           draggable={editEnabled}
         />
       ))}

@@ -51,15 +51,23 @@ export const LayoutGenerator = ({
     forceLabels
   );
 
-  const [editButtonPanelComponent] = useEditMode(
+  // TODO: show edits while they are being made (not just during saveConfig)
+  const [editButtonPanelComponent, focusedGroupId] = useEditMode(
     config,
     selectedButton,
     saveConfig,
     () => setEditEnabled(false)
   );
+
+  const handleSelectButton = (buttonInfo: IButtonInfo) => {
+    const group = config.groups.find((g) => g.id === buttonInfo.groupId);
+    // sets the button groupId based upon its group
+    setSelectedButton({ ...buttonInfo, groupId: group ? group.id : undefined });
+  };
+
   const hideClass = "hide";
   const editClass = editEnabled ? "edit-mode" : "";
-  const buttonClick = editEnabled ? setSelectedButton : addButtonToHistory;
+  const buttonClick = editEnabled ? handleSelectButton : addButtonToHistory;
 
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
     // result.destination.droppableId
@@ -81,6 +89,7 @@ export const LayoutGenerator = ({
     editEnabled,
     forceLabels,
     selectedGroup,
+    focusedGroupId,
     onClick: buttonClick,
     selectGroup: setSelectedGroup,
   };

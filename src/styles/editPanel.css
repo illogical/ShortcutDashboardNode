@@ -1,7 +1,6 @@
 .right-side.edit-panel {
   background-color: #001a26;
   width: 300px;
-  color: white;
   font-size: 1.3em;
   overflow-y: auto;
 }
@@ -9,7 +8,8 @@
 .edit-panel,
 .edit-label,
 .edit-field,
-.edit-field input {
+.edit-field input,
+.edit-panel .dropdown {
   width: 100%;
 }
 
@@ -43,12 +43,14 @@
   font-size: 1.2em;
 }
 
-.edit-field input {
+.edit-field input,
+.edit-panel .dropdown {
   text-align: center;
   margin: 0 3px;
 }
 
-.edit-field input.lg {
+.edit-field input.lg,
+.edit-panel .dropdown {
   font-size: 1.1em;
 }
 

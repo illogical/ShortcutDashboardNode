@@ -12,14 +12,11 @@ export const Layout = () => {
     const fetchSettings = async () => {
       const { data } = await getConfig();
       console.log("Settings:", data);
-      setConfig(data);
+      setConfig({
+        ...data,
+        areas: ["main", "top", "bottom", "common"],
+      });
     };
-
-    // const save = async (config: IConfig) => {
-    //   // const configFile: IConfig = remapConfig(config);
-
-    //   await saveConfig(config);
-    // };
 
     fetchSettings();
   }, []);
@@ -35,7 +32,7 @@ export const Layout = () => {
 
   const updateConfig = async (updatedConfig: IConfig) => {
     try {
-      await saveConfig(updatedConfig);
+      // await saveConfig(updatedConfig);
       setConfig(updatedConfig);
     } catch (error) {
       console.error("Failed to save config.");

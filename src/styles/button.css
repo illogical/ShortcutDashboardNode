@@ -1,4 +1,4 @@
-.button {
+.item .button {
   width: 100%; /* allows flexbox to [mostly] decide width */
   min-width: 104px;
   height: 55px;

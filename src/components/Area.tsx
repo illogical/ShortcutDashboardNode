@@ -13,6 +13,7 @@ interface AreaProps {
   buttons: IButtonInfo[]; //pass all buttons
   filter: number;
   selectedGroup?: IGroupInfo;
+  focusedGroupId?: number;
   colorSelector: ColorSelector;
   forceLabels: boolean;
   editEnabled: boolean;
@@ -29,6 +30,7 @@ export const Area = ({
   colorSelector,
   forceLabels,
   editEnabled,
+  focusedGroupId,
   selectGroup,
   selectedGroup,
   onClick,
@@ -49,12 +51,12 @@ export const Area = ({
     .map((btnInfo, index) => (
       <Button
         buttonInfo={btnInfo}
+        key={btnInfo.id}
         index={index}
         forceLabel={forceLabels}
         editEnabled={editEnabled}
         onClick={onClick}
         borderColor={untaggedButtonColor}
-        key={btnInfo.id}
       />
     ));
 
@@ -62,9 +64,10 @@ export const Area = ({
     .filter(
       (grp) => (grp.appId === -1 || grp.appId === app) && grp.area === area
     )
-    .map((group) => (
+    .map((grp) => (
       <ButtonGroup
-        group={group}
+        key={grp.id}
+        group={grp}
         buttons={filterButtons}
         colorSelector={colorSelector}
         forceLabels={forceLabels}
@@ -72,6 +75,7 @@ export const Area = ({
         onClick={onClick}
         selectGroup={selectGroup}
         selectedGroup={selectedGroup}
+        focus={editEnabled && focusedGroupId === grp.id}
       />
     ));
 

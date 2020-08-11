@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/react-beautiful-dnd": "^13.0.0",
+    "antd": "^4.5.3",
     "axios": "^0.19.2",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
@@ -50,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/antd": "^1.0.0",
     "@types/faker": "^4.1.9",
     "@types/jest": "^24.9.1",
     "@types/lodash": "^4.14.158",

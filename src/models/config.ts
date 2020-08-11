@@ -7,7 +7,7 @@ import { ISystem } from "./system";
 export interface IConfig {
   system: ISystem;
   apps: IEntity[];
-  areas: IEntity[];
+  areas: string[];
   filters: IEntity[];
   settings: ISettings;
   buttons: IButtonInfo[];
