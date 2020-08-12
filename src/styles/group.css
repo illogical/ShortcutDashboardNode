@@ -21,7 +21,9 @@ h2 {
 }
 
 .group.focus {
-  border: 2px dashed #6db1d1;
+  xborder: 2px dashed #6db1d1;
+  border-radius: 20px;
+  background-color: #333;
 }
 
 .dashboard:not(.edit-mode) .group .item {

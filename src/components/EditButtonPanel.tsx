@@ -260,14 +260,16 @@ export const EditButtonPanel = ({
           {" "}
           <input
             type="text"
-            value={updatedButton.command.python}
+            value={
+              updatedButton.command.python ? updatedButton.command.python : ""
+            }
             onChange={updatePython}
           />
         </FieldGroup>
         <FieldGroup label="EXECUTE COMMAND">
           <input
             type="text"
-            value={updatedButton.command.exec}
+            value={updatedButton.command.exec ? updatedButton.command.exec : ""}
             onChange={updateExec}
           />
         </FieldGroup>
