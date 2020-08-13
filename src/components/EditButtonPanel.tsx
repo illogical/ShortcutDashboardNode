@@ -6,6 +6,7 @@ import { IConfig } from "../models/config";
 import { SelectArea } from "./SelectArea";
 import "antd/dist/antd.css"; // TODO: find out why this affects the font size
 import { SelectGroup } from "./SelectGroup";
+import { FieldGroup } from "./FieldGroup";
 
 interface EditButtonPanelProps {
   panelTitle: string;
@@ -301,14 +302,3 @@ export const EditButtonPanel = ({
     </div>
   );
 };
-
-interface FieldGroupProps {
-  label?: string;
-}
-
-const FieldGroup: React.FC<FieldGroupProps> = ({ label, children }) => (
-  <div className="field-group">
-    {label && <div className="edit-label">{label}</div>}
-    <div className="edit-field">{children}</div>
-  </div>
-);
