@@ -55,6 +55,7 @@ export const LayoutGenerator = ({
   const [editButtonPanelComponent, focusedGroupId] = useEditMode(
     config,
     selectedButton,
+    selectedGroup,
     saveConfig,
     () => setEditEnabled(false)
   );
@@ -63,6 +64,12 @@ export const LayoutGenerator = ({
     const group = config.groups.find((g) => g.id === buttonInfo.groupId);
     // sets the button groupId based upon its group
     setSelectedButton({ ...buttonInfo, groupId: group ? group.id : undefined });
+    setSelectedGroup(undefined);
+  };
+
+  const handleSelectGroup = (group: IGroupInfo) => {
+    setSelectedGroup(group);
+    setSelectedButton(undefined);
   };
 
   const hideClass = "hide";
@@ -91,7 +98,7 @@ export const LayoutGenerator = ({
     selectedGroup,
     focusedGroupId,
     onClick: buttonClick,
-    selectGroup: setSelectedGroup,
+    selectGroup: handleSelectGroup,
   };
 
   return (

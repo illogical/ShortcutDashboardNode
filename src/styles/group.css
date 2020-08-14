@@ -3,6 +3,7 @@
   margin: 3px;
   float: left;
   display: flex;
+  border-radius: 20px;
 }
 
 h2 {
@@ -21,9 +22,11 @@ h2 {
 }
 
 .group.focus {
-  xborder: 2px dashed #6db1d1;
-  border-radius: 20px;
-  background-color: #333;
+  background-color: #1f3e4d4f;
+}
+
+.group.selected {
+  border: 2px dashed #6db1d1;
 }
 
 .dashboard:not(.edit-mode) .group .item {

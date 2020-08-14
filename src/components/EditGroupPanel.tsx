@@ -123,6 +123,7 @@ export const EditGroupPanel = ({
 
           {/* TODO: edit group name */}
           {/* TODO: edit group order (single column list with drag and drop) */}
+          <div className="reorder-buttons"></div>
         </div>
 
         {/* TODO: add group selection via clicking on title */}

@@ -4,20 +4,22 @@ import { IGroupInfo } from "../models/groupInfo";
 import { IConfig } from "../models/config";
 import "../styles/editPanel.css";
 import { EditButtonPanel } from "../components/EditButtonPanel";
+import { EditGroupPanel } from "../components/EditGroupPanel";
 
 export const useEditMode = (
   config: IConfig,
   selectedButton: IButtonInfo | undefined,
+  selectedGroup: IGroupInfo | undefined,
   saveConfig: (saveConfig: IConfig) => void,
   exitEdit: () => void
 ) => {
-  const [editEnabled, setEditEnabled] = useState(false);
+  // TODO: need a way to swap between group and button
+  //const [editMode, setEditMode] = useState<"button" | "group">("button");
   const [focusedGroupId, setFocusedGroupId] = useState<number | undefined>();
-  const [editForm, setEditForm] = useState(); // decides if button or group is being modified
 
   // TODO: keep history of config and add an UNDO button. So save on Blur?
   const [configHistory, setConfigHistory] = useState([{ ...config }]);
-  const [configHistoryPosition, setConfigHistoryPosition] = useState(0);
+  //const [configHistoryPosition, setConfigHistoryPosition] = useState(0);
 
   const addToHistory = () => {
     setConfigHistory((x) => {
@@ -25,7 +27,7 @@ export const useEditMode = (
     });
   };
 
-  const handleSave = (button: IButtonInfo) => {
+  const handleSaveButton = (button: IButtonInfo) => {
     // look up button and replace it
     const updatedConfig = {
       ...config,
@@ -41,28 +43,38 @@ export const useEditMode = (
     exitEdit();
   };
 
+  const handleSaveGroup = (group: IGroupInfo) => {};
+
   const handleDiscard = () => exitEdit();
 
-  // TODO: need a Create Button button and Create Group button
   const editButtonPanelComponent = (
     <EditButtonPanel
       panelTitle="EDIT MODE"
       config={config}
       selectedButton={selectedButton}
-      onSave={handleSave}
+      onSave={handleSaveButton}
       onDiscard={handleDiscard}
       onGroupFocus={setFocusedGroupId}
     />
   );
 
-  return [editButtonPanelComponent, focusedGroupId] as const;
+  const editGroupPanelComponent = (
+    <EditGroupPanel
+      panelTitle="EDIT MODE"
+      config={config}
+      selectedGroup={selectedGroup}
+      onSave={handleSaveGroup}
+      onDiscard={handleDiscard}
+      onGroupFocus={setFocusedGroupId}
+    />
+  );
+
+  const showPanel = selectedGroup
+    ? editGroupPanelComponent
+    : editButtonPanelComponent;
+
+  return [showPanel, focusedGroupId] as const;
 };
 
 // TODO: provide an edit button form
 // TOOD: label above full width field. use Ant Design for form?
-
-interface EditGroupPanelProps {
-  groupInfo: IGroupInfo;
-}
-// TODO: provide an edit group form
-const EditGroupPanel = ({ groupInfo }: EditGroupPanelProps) => {};

@@ -43,10 +43,6 @@ body,
   cursor: pointer;
 }
 
-.group.selected {
-  background-color: #1f3e4d;
-}
-
 .flex {
   height: 100%;
   display: flex;
