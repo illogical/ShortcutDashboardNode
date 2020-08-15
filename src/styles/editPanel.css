@@ -20,6 +20,7 @@
 .edit-panel .close-icon {
   margin: 0.3em;
   cursor: pointer;
+  color: white;
 }
 
 .edit-panel .title {
@@ -38,9 +39,14 @@
   margin-left: auto;
 }
 
-.edit-label {
+.edit-label,
+.edit-form.no-select {
   color: #d7aba5;
   font-size: 1.2em;
+}
+
+.edit-form.no-select {
+  margin-top: 30px;
 }
 
 .edit-field input,

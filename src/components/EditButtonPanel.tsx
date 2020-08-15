@@ -7,6 +7,7 @@ import { SelectArea } from "./SelectArea";
 import "antd/dist/antd.css"; // TODO: find out why this affects the font size
 import { SelectGroup } from "./SelectGroup";
 import { FieldGroup } from "./FieldGroup";
+import { EditPanelHeader } from "./EditPanelHeader";
 
 interface EditButtonPanelProps {
   panelTitle: string;
@@ -60,12 +61,10 @@ export const EditButtonPanel = ({
   if (!selectedButton) {
     return (
       <div>
-        <i
-          className="fad fa-times-circle fa-2x close-icon"
-          onClick={onDiscard}
-        ></i>
-        <div className="title centered">{panelTitle}</div>
-        <div className="edit-form">Select a button or group to modify it</div>
+        <EditPanelHeader panelTitle={panelTitle} onClose={onDiscard} />
+        <div className="edit-form no-select">
+          Select a button or group to modify it
+        </div>
       </div>
     );
   }
@@ -194,7 +193,7 @@ export const EditButtonPanel = ({
 
   return (
     <div className="edit-panel">
-      <div className="title centered">{panelTitle}</div>
+      <EditPanelHeader panelTitle={panelTitle} onClose={onDiscard} />
       <div className="edit-buttons">
         <Button
           buttonInfo={saveBtn}

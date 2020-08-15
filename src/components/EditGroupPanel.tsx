@@ -5,6 +5,7 @@ import { IButtonInfo } from "../models/buttonInfo";
 import { Button } from "./Button";
 import { FieldGroup } from "./FieldGroup";
 import { SelectArea } from "./SelectArea";
+import { EditPanelHeader } from "./EditPanelHeader";
 
 export const EditGroupPanel = ({
   panelTitle,
@@ -77,7 +78,7 @@ export const EditGroupPanel = ({
 
   return (
     <div className="edit-panel">
-      <div className="title centered">{panelTitle}</div>
+      <EditPanelHeader panelTitle={panelTitle} onClose={onDiscard} />
       <div className="edit-groups">
         <Button
           buttonInfo={saveBtn}

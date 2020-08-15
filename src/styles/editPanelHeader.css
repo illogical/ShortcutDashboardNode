@@ -1,0 +1,14 @@
+.panel-header {
+  color: white;
+}
+
+.panel-header .horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.panel-header .icon {
+  color: white;
+  margin: 0.4em;
+  cursor: pointer;
+}
