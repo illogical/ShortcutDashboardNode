@@ -4,6 +4,7 @@ import "../styles/editPanelHeader.css";
 export const EditPanelHeader = ({
   panelTitle,
   onClose,
+  onCreate,
 }: IEditPanelHeaderProps) => {
   return (
     <div className="panel-header">
@@ -13,7 +14,7 @@ export const EditPanelHeader = ({
         </div>
         <div className="title">{panelTitle}</div>
         <div>
-          <i className="fad fa-plus-circle fa-2x icon"></i>
+          <i className="fad fa-plus-circle fa-2x icon" onClick={onCreate}></i>
         </div>
       </div>
     </div>
@@ -23,4 +24,5 @@ export const EditPanelHeader = ({
 interface IEditPanelHeaderProps {
   panelTitle: string;
   onClose: () => void;
+  onCreate: () => void;
 }

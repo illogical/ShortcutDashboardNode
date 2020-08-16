@@ -11,9 +11,10 @@ export const useEditMode = (
   selectedButton: IButtonInfo | undefined,
   selectedGroup: IGroupInfo | undefined,
   saveConfig: (saveConfig: IConfig) => void,
+  setSelectedButton: (button: IButtonInfo) => void,
+  setSelectedGroup: (group: IGroupInfo) => void,
   exitEdit: () => void
 ) => {
-  // TODO: need a way to swap between group and button
   //const [editMode, setEditMode] = useState<"button" | "group">("button");
   const [focusedGroupId, setFocusedGroupId] = useState<number | undefined>();
 
@@ -21,13 +22,59 @@ export const useEditMode = (
   const [configHistory, setConfigHistory] = useState([{ ...config }]);
   //const [configHistoryPosition, setConfigHistoryPosition] = useState(0);
 
+  // TODO: track a new button
+  // TODO: plus icon needs to open the EditButtonPanel
+  const [newButton, setNewButton] = useState<IButtonInfo>({
+    id: -1,
+    label: "",
+    command: {},
+  });
+
+  // TODO: need to get current appId
+  // TODO: need to provide a list of the areas that can have groups added
+  const [newGroup] = useState<IGroupInfo>({
+    id: -1,
+    name: "",
+    appId: -1,
+    tag: "",
+    area: "main",
+  });
+
   const addToHistory = () => {
     setConfigHistory((x) => {
       return [...x, config];
     });
   };
 
+  const handleCreateButton = () => setSelectedButton(newButton);
+  const handleCreateGroup = () => setSelectedGroup(newGroup);
+
   const handleSaveButton = (button: IButtonInfo) => {
+    if (button.id === -1) {
+      // this is a new button
+      const newId = config.system.lastId;
+
+      const updatedConfig = {
+        ...config,
+        system: {
+          ...config.system,
+          lastId: newId + 1,
+        },
+        buttons: [
+          ...config.buttons,
+          {
+            ...button,
+            id: newId,
+          },
+        ],
+      };
+
+      saveConfig(updatedConfig);
+      exitEdit();
+
+      return;
+    }
+
     // look up button and replace it
     const updatedConfig = {
       ...config,
@@ -49,23 +96,25 @@ export const useEditMode = (
 
   const editButtonPanelComponent = (
     <EditButtonPanel
-      panelTitle="EDIT MODE"
+      panelTitle="EDIT BUTTON"
       config={config}
       selectedButton={selectedButton}
       onSave={handleSaveButton}
       onDiscard={handleDiscard}
       onGroupFocus={setFocusedGroupId}
+      onCreate={handleCreateButton}
     />
   );
 
   const editGroupPanelComponent = (
     <EditGroupPanel
-      panelTitle="EDIT MODE"
+      panelTitle="EDIT GROUP"
       config={config}
       selectedGroup={selectedGroup}
       onSave={handleSaveGroup}
       onDiscard={handleDiscard}
       onGroupFocus={setFocusedGroupId}
+      onCreateGroup={handleCreateGroup}
     />
   );
 

@@ -16,6 +16,7 @@ interface EditButtonPanelProps {
   onSave: (button: IButtonInfo) => void;
   onDiscard: () => void;
   onGroupFocus: (groupId: number) => void;
+  onCreate: () => void;
 }
 
 export const EditButtonPanel = ({
@@ -25,6 +26,7 @@ export const EditButtonPanel = ({
   onSave,
   onDiscard,
   onGroupFocus,
+  onCreate,
 }: EditButtonPanelProps) => {
   const [modifiers, setModifier] = useState({
     shift: false,
@@ -61,7 +63,11 @@ export const EditButtonPanel = ({
   if (!selectedButton) {
     return (
       <div>
-        <EditPanelHeader panelTitle={panelTitle} onClose={onDiscard} />
+        <EditPanelHeader
+          panelTitle={panelTitle}
+          onClose={onDiscard}
+          onCreate={onCreate}
+        />
         <div className="edit-form no-select">
           Select a button or group to modify it
         </div>
@@ -193,7 +199,11 @@ export const EditButtonPanel = ({
 
   return (
     <div className="edit-panel">
-      <EditPanelHeader panelTitle={panelTitle} onClose={onDiscard} />
+      <EditPanelHeader
+        panelTitle={panelTitle}
+        onClose={onDiscard}
+        onCreate={onCreate}
+      />
       <div className="edit-buttons">
         <Button
           buttonInfo={saveBtn}

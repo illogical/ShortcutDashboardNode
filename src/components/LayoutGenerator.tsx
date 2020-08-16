@@ -57,6 +57,8 @@ export const LayoutGenerator = ({
     selectedButton,
     selectedGroup,
     saveConfig,
+    setSelectedButton,
+    setSelectedGroup,
     () => setEditEnabled(false)
   );
 

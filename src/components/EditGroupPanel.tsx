@@ -14,6 +14,7 @@ export const EditGroupPanel = ({
   onSave,
   onDiscard,
   onGroupFocus,
+  onCreateGroup,
 }: IEditGroupPanelProps) => {
   const [updatedGroup, setUpdatedGroup] = useState<IGroupInfo>({
     id: -99,
@@ -78,7 +79,11 @@ export const EditGroupPanel = ({
 
   return (
     <div className="edit-panel">
-      <EditPanelHeader panelTitle={panelTitle} onClose={onDiscard} />
+      <EditPanelHeader
+        panelTitle={panelTitle}
+        onClose={onDiscard}
+        onCreate={onCreateGroup}
+      />
       <div className="edit-groups">
         <Button
           buttonInfo={saveBtn}
@@ -141,4 +146,5 @@ interface IEditGroupPanelProps {
   onSave: (group: IGroupInfo) => void;
   onDiscard: () => void;
   onGroupFocus: (groupId: number) => void;
+  onCreateGroup: () => void;
 }
