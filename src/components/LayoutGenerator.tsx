@@ -32,6 +32,7 @@ export const LayoutGenerator = ({
   >();
   const [selectedGroup, setSelectedGroup] = useState<IGroupInfo | undefined>();
   const [editEnabled, setEditEnabled] = useState(false);
+  const [previewConfig, setPreviewConfig] = useState<IConfig>(config);
 
   const colorSelector = new ColorSelector(
     config.settings.colors.options
@@ -57,6 +58,7 @@ export const LayoutGenerator = ({
     selectedButton,
     selectedGroup,
     saveConfig,
+    setPreviewConfig,
     setSelectedButton,
     setSelectedGroup,
     () => setEditEnabled(false)
@@ -91,8 +93,8 @@ export const LayoutGenerator = ({
   };
 
   const areaProps = {
-    groups: config.groups,
-    buttons: config.buttons,
+    groups: previewConfig.groups,
+    buttons: previewConfig.buttons,
     filter,
     colorSelector,
     editEnabled,

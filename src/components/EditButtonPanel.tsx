@@ -17,6 +17,7 @@ interface EditButtonPanelProps {
   onDiscard: () => void;
   onGroupFocus: (groupId: number) => void;
   onCreate: () => void;
+  onChange: (button: IButtonInfo) => void;
 }
 
 export const EditButtonPanel = ({
@@ -27,6 +28,7 @@ export const EditButtonPanel = ({
   onDiscard,
   onGroupFocus,
   onCreate,
+  onChange,
 }: EditButtonPanelProps) => {
   const [modifiers, setModifier] = useState({
     shift: false,
@@ -58,6 +60,11 @@ export const EditButtonPanel = ({
         : false,
     });
   }, [selectedButton]);
+
+  useEffect(() => {
+    // when updatedButton changes then run onChange
+    onChange(updatedButton);
+  }, [updatedButton]);
 
   // no button is selected
   if (!selectedButton) {

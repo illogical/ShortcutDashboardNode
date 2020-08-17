@@ -11,6 +11,7 @@ export const useEditMode = (
   selectedButton: IButtonInfo | undefined,
   selectedGroup: IGroupInfo | undefined,
   saveConfig: (saveConfig: IConfig) => void,
+  previewConfig: (saveConfig: IConfig) => void, // TODO: should this pass something up or should this be a variable being passed down?
   setSelectedButton: (button: IButtonInfo) => void,
   setSelectedGroup: (group: IGroupInfo) => void,
   exitEdit: () => void
@@ -49,6 +50,26 @@ export const useEditMode = (
   const handleCreateButton = () => setSelectedButton(newButton);
   const handleCreateGroup = () => setSelectedGroup(newGroup);
 
+  const handleButtonChange = (button: IButtonInfo) => {
+    if (button.id === -1) {
+      const updatedConfig = {
+        ...config,
+        buttons: [
+          ...config.buttons,
+          {
+            ...button,
+          },
+        ],
+      };
+
+      previewConfig(updatedConfig);
+
+      return;
+    }
+
+    previewConfig(updateConfig(config, button));
+  };
+
   const handleSaveButton = (button: IButtonInfo) => {
     if (button.id === -1) {
       // this is a new button
@@ -75,24 +96,16 @@ export const useEditMode = (
       return;
     }
 
-    // look up button and replace it
-    const updatedConfig = {
-      ...config,
-      buttons: config.buttons.reduce((prev, cur) => {
-        if (cur.id === button.id) {
-          return [...prev, button];
-        }
-        return [...prev, cur];
-      }, [] as IButtonInfo[]),
-    };
-
-    saveConfig(updatedConfig);
+    saveConfig(updateConfig(config, button));
     exitEdit();
   };
 
   const handleSaveGroup = (group: IGroupInfo) => {};
 
-  const handleDiscard = () => exitEdit();
+  const handleDiscard = () => {
+    previewConfig(config); // reset to the loaded config
+    exitEdit();
+  };
 
   const editButtonPanelComponent = (
     <EditButtonPanel
@@ -103,6 +116,7 @@ export const useEditMode = (
       onDiscard={handleDiscard}
       onGroupFocus={setFocusedGroupId}
       onCreate={handleCreateButton}
+      onChange={handleButtonChange}
     />
   );
 
@@ -125,5 +139,15 @@ export const useEditMode = (
   return [showPanel, focusedGroupId] as const;
 };
 
-// TODO: provide an edit button form
-// TOOD: label above full width field. use Ant Design for form?
+// look up button and replace it
+const updateConfig = (config: IConfig, button: IButtonInfo) => {
+  return {
+    ...config,
+    buttons: config.buttons.reduce((prev, cur) => {
+      if (cur.id === button.id) {
+        return [...prev, button];
+      }
+      return [...prev, cur];
+    }, [] as IButtonInfo[]),
+  };
+};
