@@ -62,6 +62,12 @@
       "app": "blender"
     },
     {
+      "name": "Snapping",
+      "tag": "snapping",
+      "area": "main",
+      "app": "blender"
+    },
+    {
       "name": "Websites",
       "tag": "websites",
       "area": "main",
@@ -613,6 +619,25 @@
       "group": "menu",
       "tags": ["menu"],
       "command": { "keys": "c", "mods": "a" }
+    },
+    {
+      "label": "To Center",
+      "group": "snapping",
+      "command": { "python": "bpy.ops.view3d.snap_cursor_to_center()" }
+    },
+    {
+      "label": "To Selected",
+      "group": "snapping",
+      "command": {
+        "python": "bpy.ops.view3d.snap_cursor_to_selected()"
+      }
+    },
+    {
+      "label": "To Cursor",
+      "group": "snapping",
+      "command": {
+        "python": "bpy.ops.view3d.snap_selected_to_cursor(use_offset=False)"
+      }
     },
     {
       "label": "Back",
