@@ -7,10 +7,11 @@ import { Draggable } from "react-beautiful-dnd";
 
 interface ButtonProps {
   buttonInfo: IButtonInfo;
-  loading?: boolean;
-  borderColor?: string;
   index: number;
   editEnabled: boolean;
+  className?: string;
+  loading?: boolean;
+  borderColor?: string;
   draggable?: boolean;
   forceLabel?: boolean;
   onClick?: (buttonInfo: IButtonInfo) => void;
@@ -23,6 +24,7 @@ export const Button = ({
   draggable,
   editEnabled,
   forceLabel,
+  className,
   onClick,
 }: ButtonProps) => {
   const [loadingClass, setLoadingClass] = React.useState("");
@@ -108,7 +110,7 @@ export const Button = ({
 
   const button = (
     <motion.div
-      className={`button drag ${singleLetterLabelClass} ${loadingClass}`}
+      className={`button drag ${singleLetterLabelClass} ${loadingClass} ${className}`}
       key={buttonInfo.id}
       id={buttonInfo.label}
       initial="initial"

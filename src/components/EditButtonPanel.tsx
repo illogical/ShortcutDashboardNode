@@ -211,20 +211,21 @@ export const EditButtonPanel = ({
         onClose={onDiscard}
         onCreate={onCreate}
       />
-      <div className="edit-buttons">
+      <div className="edit-buttons">        
+        <Button
+          className="cancel"
+          buttonInfo={discardBtn}
+          editEnabled={true}
+          index={0}
+          borderColor="#9E424E"
+          onClick={onDiscard}
+        />
         <Button
           buttonInfo={saveBtn}
           editEnabled={true}
           index={0}
           borderColor="#6DB1D1"
           onClick={saveUpdatedButton}
-        />
-        <Button
-          buttonInfo={discardBtn}
-          editEnabled={true}
-          index={0}
-          borderColor="#9E424E"
-          onClick={onDiscard}
         />
       </div>
       <div className="edit-form">

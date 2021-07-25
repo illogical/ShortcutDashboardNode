@@ -32,7 +32,7 @@ export const Layout = () => {
 
   const updateConfig = async (updatedConfig: IConfig) => {
     try {
-      // await saveConfig(updatedConfig);
+      await saveConfig(updatedConfig);
       setConfig(updatedConfig);
     } catch (error) {
       console.error("Failed to save config.");
