@@ -1,63 +1,66 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost:8080",
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/react-beautiful-dnd": "^13.0.0",
-    "antd": "^4.5.3",
-    "axios": "^0.21.1",
-    "cookie-parser": "^1.4.5",
-    "debug": "^4.3.2",
-    "express": "^4.17.1",
-    "faker": "^5.5.3",
-    "framer-motion": "^1.8.3",
-    "http-errors": "^1.8.0",
-    "jjg-ping": "^1.0.3",
-    "ladash": "^1.2.0",
-    "morgan": "^1.10.0",
-    "node-sass": "^6.0.1",
-    "pug": "^3.0.2",
-    "react": "^17.0.2",
-    "react-beautiful-dnd": "^13.0.0",
-    "react-dom": "^17.0.2",
-    "react-scripts": "3.3.0",
-    "stormdb": "^0.5.1",
-    "typescript": "^4.3.5"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "sendkeys": "node ./bin/www",
-    "debug": "node --nolazy --inspect-brk=9229 ./bin/www"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@types/antd": "^1.0.0",
-    "@types/faker": "^5.5.7",
-    "@types/jest": "^26.0.24",
-    "@types/lodash": "^4.14.171",
-    "@types/node": "^16.4.2",
-    "@types/react": "^17.0.15",
-    "@types/react-dom": "^17.0.9"
-  }
+    "name": "my-app",
+    "version": "0.1.0",
+    "private": true,
+    "proxy": "http://localhost:8080",
+    "dependencies": {
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.4.0",
+        "@testing-library/user-event": "^7.2.1",
+        "@types/react-beautiful-dnd": "^13.0.0",
+        "antd": "^4.5.3",
+        "axios": "^0.21.1",
+        "cookie-parser": "^1.4.5",
+        "debug": "^4.3.2",
+        "express": "^4.17.1",
+        "faker": "^5.5.3",
+        "framer-motion": "^1.8.3",
+        "http-errors": "^1.8.0",
+        "jjg-ping": "^1.0.3",
+        "ladash": "^1.2.0",
+        "morgan": "^1.10.0",
+        "node-sass": "^6.0.1",
+        "pug": "^3.0.2",
+        "react": "^17.0.2",
+        "react-beautiful-dnd": "^13.0.0",
+        "react-dom": "^17.0.2",
+        "react-scripts": "3.3.0",
+        "stormdb": "^0.5.1",
+        "typescript": "^4.3.5"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "sendkeys": "node ./bin/www",
+        "debug": "node --nolazy --inspect-brk=9229 ./bin/www",
+        "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@types/antd": "^1.0.0",
+        "@types/faker": "^5.5.7",
+        "@types/jest": "^26.0.24",
+        "@types/lodash": "^4.14.171",
+        "@types/node": "^16.4.2",
+        "@types/react": "^17.0.15",
+        "@types/react-dom": "^17.0.9",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0"
+    }
 }

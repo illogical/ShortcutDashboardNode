@@ -1,50 +1,24 @@
-import * as React from "react";
-import { getConfig, saveConfig } from "../api/keySettings";
-import { LayoutGenerator } from "./LayoutGenerator";
-import "../styles/layout2.css";
-import { ReactComponent as Loader } from "../styles/three-dots.svg";
-import { IConfig } from "../models/config";
+import * as React from 'react';
+import { LayoutConfig } from './LayoutConfig';
+import '../styles/layout2.css';
+import { ReactComponent as Loader } from '../styles/three-dots.svg';
+import { useConfigApi } from '../hooks/useConfigApi';
 
 export const Layout = () => {
-  const [config, setConfig] = React.useState<IConfig>();
+    const { config, updateConfig } = useConfigApi();
 
-  React.useEffect(() => {
-    const fetchSettings = async () => {
-      const { data } = await getConfig();
-      console.log("Settings:", data);
-      setConfig({
-        ...data,
-        areas: ["main", "top", "bottom", "common"],
-      });
-    };
-
-    fetchSettings();
-  }, []);
-
-  //show loader
-  if (!config) {
-    return (
-      <div className={`loader`}>
-        <Loader />
-      </div>
-    );
-  }
-
-  const updateConfig = async (updatedConfig: IConfig) => {
-    try {
-      await saveConfig(updatedConfig);
-      setConfig(updatedConfig);
-    } catch (error) {
-      console.error("Failed to save config.");
+    //show loader
+    if (!config) {
+        return (
+            <div className={`loader`}>
+                <Loader />
+            </div>
+        );
     }
-  };
 
-  return (
-    <React.Fragment>
-      <LayoutGenerator
-        config={config}
-        saveConfig={updateConfig}
-      ></LayoutGenerator>
-    </React.Fragment>
-  );
+    return (
+        <React.Fragment>
+            <LayoutConfig config={config} saveConfig={updateConfig}></LayoutConfig>
+        </React.Fragment>
+    );
 };

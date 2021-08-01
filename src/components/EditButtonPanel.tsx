@@ -8,6 +8,7 @@ import "antd/dist/antd.css"; // TODO: find out why this affects the font size
 import { SelectGroup } from "./SelectGroup";
 import { FieldGroup } from "./FieldGroup";
 import { EditPanelHeader } from "./EditPanelHeader";
+import { IGroupInfo } from "../models/groupInfo";
 
 interface EditButtonPanelProps {
   panelTitle: string;
@@ -40,6 +41,9 @@ export const EditButtonPanel = ({
     label: "",
     command: {},
   });
+  const [selectedGroup, setSelectedGroup] = useState<number>(-99);
+  const [selectedArea, setSelectedArea] = useState<string>(""); // TODO: ideally Area would be an enum (top, center, bottom)
+
 
   useEffect(() => {
     if (selectedButton) {
@@ -48,6 +52,7 @@ export const EditButtonPanel = ({
         onGroupFocus(selectedButton.groupId);
       }
     }
+    
     setModifier({
       shift: selectedButton?.command.mods
         ? selectedButton.command.mods.indexOf("s") >= 0
@@ -143,14 +148,17 @@ export const EditButtonPanel = ({
   };
 
   // TODO: need to look up group to get area for most buttons
-  const onSelectArea = (area: string) =>
+  const onSelectArea = (area: string) => {
+    setSelectedArea(area);    
     setUpdatedButton({
       ...updatedButton,
       groupId: undefined,
       area,
     });
+  }
 
   const onSelectGroup = (groupId: number) => {
+    setSelectedGroup(groupId);
     onGroupFocus(groupId);
     setUpdatedButton({
       ...updatedButton,
@@ -297,9 +305,9 @@ export const EditButtonPanel = ({
             className="lg"
             value={updatedButton.icon ? updatedButton.icon : ""}
           />
-          <div className="sample-button">
+          {/* <div className="sample-button">
             <Button buttonInfo={updatedButton} editEnabled={true} index={0} />
-          </div>
+          </div> */}
         </FieldGroup>
         <FieldGroup label="AREA">
           <SelectArea

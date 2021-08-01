@@ -3,3 +3,9 @@ export enum Modifier {
   ctrl = "c",
   alt = "a",
 }
+
+export enum Area {
+  Top = "Top",
+  Main = "Main",
+  Bottom = "Bottom"
+}

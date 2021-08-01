@@ -1,85 +1,89 @@
-import { IGroupInfo } from "../models/groupInfo";
-import { IButtonInfo } from "../models/buttonInfo";
-import { ColorSelector } from "../helpers/colorSelector";
-import React from "react";
-import { compareTagsToFilters } from "../helpers/compareTags";
-import { Button } from "./Button";
-import { ButtonGroup } from "./ButtonGroup";
+import { IGroupInfo } from '../models/groupInfo';
+import { IButtonInfo } from '../models/buttonInfo';
+import { ColorSelector } from '../helpers/colorSelector';
+import React, { useMemo } from 'react';
+import { compareTagsToFilters } from '../helpers/compareTags';
+import { Button } from './Button';
+import { ButtonGroup } from './ButtonGroup';
 
 interface AreaProps {
-  app: number;
-  area: string;
-  groups: IGroupInfo[]; //pass all groups
-  buttons: IButtonInfo[]; //pass all buttons
-  filter: number;
-  selectedGroup?: IGroupInfo;
-  focusedGroupId?: number;
-  colorSelector: ColorSelector;
-  forceLabels: boolean;
-  editEnabled: boolean;
-  onClick: (buttonInfo: IButtonInfo) => void;
-  selectGroup: (group: IGroupInfo) => void;
+    app: number;
+    area: string;
+    groups: IGroupInfo[]; //pass all groups
+    buttons: IButtonInfo[]; //pass all buttons
+    filter: number;
+    selectedGroup?: IGroupInfo;
+    focusedGroupId?: number;
+    colorSelector: ColorSelector;
+    forceLabels: boolean;
+    editEnabled: boolean;
+    onClick: (buttonInfo: IButtonInfo) => void;
+    selectGroup: (group: IGroupInfo) => void;
 }
 
 export const Area = ({
-  app,
-  area,
-  groups,
-  buttons,
-  filter,
-  colorSelector,
-  forceLabels,
-  editEnabled,
-  focusedGroupId,
-  selectGroup,
-  selectedGroup,
-  onClick,
+    app,
+    area,
+    groups,
+    buttons,
+    filter,
+    colorSelector,
+    forceLabels,
+    editEnabled,
+    focusedGroupId,
+    selectGroup,
+    selectedGroup,
+    onClick,
 }: AreaProps) => {
-  const untaggedButtonColor = colorSelector.getColor();
+    const untaggedButtonColor = colorSelector.getColor();
 
-  const filterButtons = buttons.filter((button) =>
-    compareTagsToFilters(filter, button.filterIds)
-  );
+    const filterButtons = useMemo(
+        () => buttons.filter((button) => compareTagsToFilters(filter, button.filterIds)),
+        [buttons, filter]
+    );
 
-  const grouplessButtons = filterButtons
-    .filter(
-      (btn) =>
-        (btn.app === "all" || btn.appId === app) &&
-        btn.area === area &&
-        !btn.group
-    ) // get untagged buttons
-    .map((btnInfo, index) => (
-      <Button
-        buttonInfo={btnInfo}
-        key={btnInfo.id}
-        index={index}
-        forceLabel={forceLabels}
-        editEnabled={editEnabled}
-        onClick={onClick}
-        borderColor={untaggedButtonColor}
-      />
-    ));
+    // TODO: change these to use Relationships and/or toRecord
+    const grouplessButtons = useMemo(
+        () =>
+            filterButtons
+                .filter(
+                    (btn) =>
+                        (btn.app === 'all' || btn.appId === app) && btn.area === area && !btn.group
+                ) // get untagged buttons
+                .map((btnInfo, index) => (
+                    <Button
+                        buttonInfo={btnInfo}
+                        key={btnInfo.id}
+                        index={index}
+                        forceLabel={forceLabels}
+                        editEnabled={editEnabled}
+                        onClick={onClick}
+                        borderColor={untaggedButtonColor}
+                    />
+                )),
+        [filterButtons, app, area, forceLabels, editEnabled]
+    );
 
-  const groupsByArea = groups
-    .filter(
-      (grp) => (grp.appId === -1 || grp.appId === app) && grp.area === area
-    )
-    .map((grp) => (
-      <ButtonGroup
-        key={grp.id}
-        group={grp}
-        buttons={filterButtons}
-        colorSelector={colorSelector}
-        forceLabels={forceLabels}
-        editEnabled={editEnabled}
-        onClick={onClick}
-        selectGroup={selectGroup}
-        selectedGroup={selectedGroup}
-        focus={editEnabled && focusedGroupId === grp.id}
-      />
-    ));
+    const groupsByArea = useMemo(
+        () =>
+            groups
+                .filter((grp) => (grp.appId === -1 || grp.appId === app) && grp.area === area)
+                .map((grp) => (
+                    <ButtonGroup
+                        key={grp.id}
+                        group={grp}
+                        buttons={filterButtons}
+                        colorSelector={colorSelector}
+                        forceLabels={forceLabels}
+                        editEnabled={editEnabled}
+                        onClick={onClick}
+                        selectGroup={selectGroup}
+                        selectedGroup={selectedGroup}
+                        focus={editEnabled && focusedGroupId === grp.id}
+                    />
+                )),
+        [filterButtons, app, area, groups, forceLabels, editEnabled, selectedGroup, focusedGroupId]
+    );
 
-  return (
-    <React.Fragment>{[...groupsByArea, ...grouplessButtons]}</React.Fragment>
-  );
+    return <React.Fragment>{[...groupsByArea, ...grouplessButtons]}</React.Fragment>;
 };
