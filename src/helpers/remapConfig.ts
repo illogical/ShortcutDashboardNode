@@ -3,6 +3,7 @@ import { IConfig } from '../models/config';
 import { ISettings } from '../models/settings';
 import { IEntity } from '../models/entity';
 import { Area } from '../models/enums';
+import { IButtonInfo } from '../models/buttonInfo';
 
 export const remapConfig = (config: IConfig) => mapRelationships(config);
 
@@ -71,37 +72,74 @@ const remapToUseIds = (config: IConfig): IConfig =>
     });
 
 const mapRelationships = (config: IConfig): IConfig => {
-    const buttonsToGroups = config.buttons.reduce((prev, cur) => {
-        return { ...prev, [cur.id]: [cur.groupId] };
+    const buttonsToGroup = config.buttons.reduce<Record<number, number[]>>((prev, cur) => {
+        if (!cur.groupId) {
+            return prev;
+        }
+
+        if (prev[cur.groupId]) {
+            return { ...prev, [cur.groupId]: [...prev[cur.groupId], cur.id] };
+        }
+
+        return { ...prev, [cur.groupId]: [cur.id] };
     }, {});
 
-    const buttonsToAreas = config.buttons.reduce((prev, cur) => {
+    const buttonsToArea = config.buttons.reduce<Record<Area, number[]>>((prev, cur) => {
         if (!cur.area) {
             return prev;
         }
-        return { ...prev, [cur.id]: [mapAreas(cur.area)] };
+
+        const area = mapAreas(cur.area);
+
+        if (prev[area]) {
+            return { ...prev, [area]: [...prev[area], cur.id] };
+        }
+
+        return { ...prev, [area]: [cur.id] };
+    }, {} as Record<Area, number[]>);
+
+    const buttonsToApp = config.buttons.reduce<Record<number, number[]>>((prev, cur) => {
+        if (!cur.appId) {
+            return prev;
+        }
+
+        if (prev[cur.appId]) {
+            return { ...prev, [cur.appId]: [...prev[cur.appId], cur.id] };
+        }
+
+        return { ...prev, [cur.appId]: [cur.id] };
     }, {});
 
-    const buttonsToApps = config.buttons.reduce((prev, cur) => {
-        return { ...prev, [cur.id]: [cur.appId] };
+    const groupsToApp = config.groups.reduce<Record<number, number[]>>((prev, cur) => {
+        if (prev[cur.appId]) {
+            return { ...prev, [cur.appId]: [...prev[cur.appId], cur.id] };
+        }
+
+        return { ...prev, [cur.appId]: [cur.id] };
     }, {});
 
-    const groupsToArea = config.groups.reduce((prev, cur) => {
-        return { ...prev, [cur.id]: [mapAreas(cur.area)] };
-    }, {});
+    const groupsToArea = config.groups.reduce<Record<Area, number[]>>((prev, cur) => {
+        if (!cur.area) {
+            return prev;
+        }
 
-    const groupsToApps = config.groups.reduce((prev, cur) => {
-        return { ...prev, [cur.id]: [cur.appId] };
-    }, {});
+        const area = mapAreas(cur.area);
+
+        if (prev[area]) {
+            return { ...prev, [area]: [...prev[area], cur.id] };
+        }
+
+        return { ...prev, [area]: [cur.id] };
+    }, {} as Record<Area, number[]>);
 
     return {
         ...config,
         relationships: {
-            buttonsToGroup: buttonsToGroups,
-            buttonsToAreas,
-            buttonsToApps,
+            buttonsToGroup,
+            buttonsToArea,
+            buttonsToApp,
+            groupsToApp,
             groupsToArea,
-            groupsToApps,
         },
     };
 };

@@ -2,8 +2,9 @@ import { Area } from './enums';
 
 export interface IRelationships {
     buttonsToGroup: Record<number, number[]>; // groupId, buttonId[]
-    buttonsToAreas: Record<number, Area[]>;
-    buttonsToApps: Record<number, number[]>;
-    groupsToArea: Record<number, number>; // TODO: groups can only be in a single area and typically the main area. Avoid groups for header and footer?
-    groupsToApps: Record<number, number[]>;
+    buttonsToArea: Record<Area, number[]>; // area, buttonId[]
+    buttonsToApp: Record<number, number[]>; // appId, buttonId[]
+    groupsToApp: Record<number, number[]>; // appId, buttonId[]
+    // TODO: groups can only be in a single area and typically the main area. Avoid groups for header and footer?
+    groupsToArea: Record<Area, number[]>; // area, groupId[]
 }
