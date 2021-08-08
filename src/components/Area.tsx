@@ -5,8 +5,12 @@ import React, { useMemo } from 'react';
 import { compareTagsToFilters } from '../helpers/compareTags';
 import { Button } from './Button';
 import { ButtonGroup } from './ButtonGroup';
+import { IRelationships } from '../models/relationships';
+import { remapAreas } from '../helpers/remapAreas';
+import { toRecord } from '../helpers/toRecord';
 
 interface AreaProps {
+    relationships: IRelationships;
     app: number;
     area: string;
     groups: IGroupInfo[]; //pass all groups
@@ -22,6 +26,7 @@ interface AreaProps {
 }
 
 export const Area = ({
+    relationships,
     app,
     area,
     groups,
@@ -37,31 +42,72 @@ export const Area = ({
 }: AreaProps) => {
     const untaggedButtonColor = colorSelector.getColor();
 
-    const filterButtons = useMemo(
+    const filteredButtons = useMemo(
         () => buttons.filter((button) => compareTagsToFilters(filter, button.filterIds)),
         [buttons, filter]
     );
 
     // TODO: change these to use Relationships and/or toRecord
+    // how to use dictionaries for multiple lookups? Example: button that matches appId, area, and group.
+
+    const buttonIdsForArea = relationships.buttonsToArea[remapAreas(area)];
+    const groupIdsForArea = relationships.groupsToArea[remapAreas(area)];
+
+    const allButtons = toRecord(buttons, (b) => b.id);
+    const allGroups = toRecord(groups, (g) => remapAreas(g.area));
+
+    let areaButtons: IButtonInfo[] = [];
+    if (buttonIdsForArea) {
+        areaButtons = buttonIdsForArea.map((b) => allButtons[b]);
+        //console.log('relationships area buttons count', areaButtons.length);
+    }
+
+    if (groupIdsForArea) {
+        // TODO: need buttons by group here now that I know what groups are in this area
+
+        if (groupIdsForArea.length > 0) {
+            const areaGroups: IGroupInfo[] = groupIdsForArea.map((g) => allGroups[g]);
+            console.log('Groups for area:', areaGroups);
+        }
+
+        const buttonsIdsForArea = groupIdsForArea.reduce<number[]>((prev, cur) => {
+            const btns = relationships.buttonsToGroup[cur];
+            return btns ? [...prev, ...btns] : prev;
+        }, []);
+
+        const test = buttonsIdsForArea.map((b) => allButtons[b]);
+        console.log('All Buttons for area', test);
+        //console.log('relationships area groups count', areaGroups.length);
+    }
+
+    // TODO: TEMP: compare current buttons to Relationships
+    const grouplessFilter = (buttons: IButtonInfo[]) => {
+        const filtered = buttons.filter(
+            (btn) => (btn.app === 'all' || btn.appId === app) && btn.area === area && !btn.group
+        ); // get untagged buttons
+
+        console.log('AREA', area);
+        console.log(`${filtered.length} groupless buttons`, filtered);
+        console.log(`${areaButtons.length} area buttons`, areaButtons);
+
+        return filtered;
+    };
+
+    // TODO: how to incorporate special handling for buttons across apps (brn.app === 'all')? Is that the same as appId === -1?
     const grouplessButtons = useMemo(
         () =>
-            filterButtons
-                .filter(
-                    (btn) =>
-                        (btn.app === 'all' || btn.appId === app) && btn.area === area && !btn.group
-                ) // get untagged buttons
-                .map((btnInfo, index) => (
-                    <Button
-                        buttonInfo={btnInfo}
-                        key={btnInfo.id}
-                        index={index}
-                        forceLabel={forceLabels}
-                        editEnabled={editEnabled}
-                        onClick={onClick}
-                        borderColor={untaggedButtonColor}
-                    />
-                )),
-        [filterButtons, app, area, forceLabels, editEnabled]
+            grouplessFilter(filteredButtons).map((btnInfo, index) => (
+                <Button
+                    buttonInfo={btnInfo}
+                    key={btnInfo.id}
+                    index={index}
+                    forceLabel={forceLabels}
+                    editEnabled={editEnabled}
+                    onClick={onClick}
+                    borderColor={untaggedButtonColor}
+                />
+            )),
+        [filteredButtons, app, area, forceLabels, editEnabled]
     );
 
     const groupsByArea = useMemo(
@@ -72,7 +118,7 @@ export const Area = ({
                     <ButtonGroup
                         key={grp.id}
                         group={grp}
-                        buttons={filterButtons}
+                        buttons={filteredButtons}
                         colorSelector={colorSelector}
                         forceLabels={forceLabels}
                         editEnabled={editEnabled}
@@ -82,8 +128,20 @@ export const Area = ({
                         focus={editEnabled && focusedGroupId === grp.id}
                     />
                 )),
-        [filterButtons, app, area, groups, forceLabels, editEnabled, selectedGroup, focusedGroupId]
+        [
+            filteredButtons,
+            app,
+            area,
+            groups,
+            forceLabels,
+            editEnabled,
+            selectedGroup,
+            focusedGroupId,
+        ]
     );
+
+    // console.log('expected groups count', groupsByArea.length);
+    // console.log('expected groupless buttons', grouplessButtons.length);
 
     return <React.Fragment>{[...groupsByArea, ...grouplessButtons]}</React.Fragment>;
 };
