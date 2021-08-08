@@ -4,6 +4,7 @@ import { Grid } from './Grid';
 import { useSettingsButtons } from '../hooks/useSettingsButtons';
 import { useButtonHistory } from '../hooks/useButtonHistory';
 import { Area } from './Area';
+import { Area as AreaEnum } from '../models/enums';
 import { Filters } from './Filters';
 import { IConfig } from '../models/config';
 import { useEditMode } from '../hooks/useEditMode';
@@ -11,6 +12,7 @@ import { useState } from 'react';
 import { IButtonInfo } from '../models/buttonInfo';
 import { IGroupInfo } from '../models/groupInfo';
 import { DragDropContext, DropResult, ResponderProvided, DragUpdate } from 'react-beautiful-dnd';
+import { ILayout } from '../models/layout';
 
 interface ILayoutConfigProps {
     config: IConfig;
@@ -30,11 +32,8 @@ export const LayoutConfig = ({ config, saveConfig }: ILayoutConfigProps) => {
     ); //use this for groups and buttons
 
     // custom hooks
-    const [systemButtons, applicationMenu, forceLabels, selectedApp] = useSettingsButtons(
-        config.apps,
-        colorSelector.getColor(),
-        () => setEditEnabled(true)
-    );
+    const [systemButtons, applicationMenu, forceLabels, selectedLayout, selectLayout] =
+        useSettingsButtons(config.layouts, colorSelector.getColor(), () => setEditEnabled(true));
     const [generateButtonHistory, addButtonToHistory] = useButtonHistory(forceLabels);
 
     // TODO: show edits while they are being made (not just during saveConfig)
@@ -80,7 +79,8 @@ export const LayoutConfig = ({ config, saveConfig }: ILayoutConfigProps) => {
     const areaProps = {
         groups: previewConfig.groups,
         buttons: previewConfig.buttons,
-        relationships: config.relationships,
+        appSettings: config.appSettings,
+        layout: selectedLayout,
         filter,
         colorSelector,
         editEnabled,
@@ -97,33 +97,39 @@ export const LayoutConfig = ({ config, saveConfig }: ILayoutConfigProps) => {
                 {applicationMenu}
                 <div className="flex-vertical">
                     <div className="flex flex-main">
-                        <div className="applications"></div>
-                        <div className="filters">
+                        <div className="layouts">
+                            <LayoutFilters
+                                layouts={config.layouts}
+                                selected={selectedLayout}
+                                onSelect={selectLayout}
+                            />
+                        </div>
+                        {/* <div className="filters">
                             <Filters
                                 filters={config.filters}
                                 selectedFilter={filter}
                                 selectFilter={setFilter}
                             />
-                        </div>
+                        </div> */}
                         <div className="top">
-                            <Area app={selectedApp} area="top" {...areaProps} />
+                            <Area area={AreaEnum.Top} {...areaProps} />
                         </div>
                         <div className="pusher"></div>
                         <div className="main">
                             <Grid>
-                                <Area app={selectedApp} area="main" {...areaProps} />
+                                <Area area={AreaEnum.Main} {...areaProps} />
                             </Grid>
                         </div>
                         <div className="footer">
                             <div className="common">
                                 <div className="common-groups">
                                     <Grid>
-                                        <Area app={selectedApp} area="favorites" {...areaProps} />
+                                        <Area area={AreaEnum.Bottom} {...areaProps} />
                                     </Grid>
                                 </div>
                                 <div className="common-buttons">
                                     <Grid>
-                                        <Area app={selectedApp} area="common" {...areaProps} />
+                                        <Area area={AreaEnum.Common} {...areaProps} />
                                     </Grid>
                                 </div>
                             </div>
@@ -146,25 +152,25 @@ export const LayoutConfig = ({ config, saveConfig }: ILayoutConfigProps) => {
 };
 
 interface IApplicationFilters {
-    applications: string[];
-    selected: string;
-    onSelect: (app: string) => void;
+    layouts: ILayout[];
+    selected: ILayout;
+    onSelect: (layout: ILayout) => void;
 }
 
-const ApplicationFilters = ({ applications, selected, onSelect }: IApplicationFilters) => {
+const LayoutFilters = ({ layouts, selected, onSelect }: IApplicationFilters) => {
     return (
         <React.Fragment>
-            {applications.map((app) => {
+            {layouts.map((layout) => {
                 const handleClick = () => {
-                    onSelect(app);
+                    onSelect(layout);
                 };
 
                 return (
                     <span
                         onClick={handleClick}
-                        className={`app-item ${selected === app ? 'selected' : ''}`}
+                        className={`app-item ${selected.name === layout.name ? 'selected' : ''}`}
                     >
-                        {app.toUpperCase()}
+                        {layout.name.toUpperCase()}
                     </span>
                 );
             })}

@@ -16,7 +16,7 @@ export interface IConfig {
     system: IAppSettings; // TODO: kill system (replaced by appSettings)
     appSettings: IAppSettings;
     apps: IEntity[];
-    layouts?: ILayout[];
+    layouts: ILayout[];
 
     // these need to go:
     areas: string[]; // TODO: ideally this would be an enum. top, main, bottom

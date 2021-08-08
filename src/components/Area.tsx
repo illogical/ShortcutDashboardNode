@@ -1,20 +1,22 @@
 import { IGroupInfo } from '../models/groupInfo';
 import { IButtonInfo } from '../models/buttonInfo';
 import { ColorSelector } from '../helpers/colorSelector';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { compareTagsToFilters } from '../helpers/compareTags';
 import { Button } from './Button';
 import { ButtonGroup } from './ButtonGroup';
-import { IRelationships } from '../models/relationships';
 import { remapAreas } from '../helpers/remapAreas';
 import { toRecord } from '../helpers/toRecord';
+import { ILayout } from '../models/layout';
+import { Area as AreaEnum } from '../models/enums';
+import { IAppSettings } from '../models/appSettings';
 
 interface AreaProps {
-    relationships: IRelationships;
-    app: number;
-    area: string;
-    groups: IGroupInfo[]; //pass all groups
-    buttons: IButtonInfo[]; //pass all buttons
+    layout: ILayout;
+    area: AreaEnum;
+    groups: IGroupInfo[]; //pass all groups (needed to show edit preview)
+    buttons: IButtonInfo[]; //pass all buttons (needed to show edit preview)
+    appSettings: IAppSettings;
     filter: number;
     selectedGroup?: IGroupInfo;
     focusedGroupId?: number;
@@ -26,12 +28,11 @@ interface AreaProps {
 }
 
 export const Area = ({
-    relationships,
-    app,
+    layout,
     area,
     groups,
     buttons,
-    filter,
+    appSettings,
     colorSelector,
     forceLabels,
     editEnabled,
@@ -42,106 +43,68 @@ export const Area = ({
 }: AreaProps) => {
     const untaggedButtonColor = colorSelector.getColor();
 
-    const filteredButtons = useMemo(
-        () => buttons.filter((button) => compareTagsToFilters(filter, button.filterIds)),
-        [buttons, filter]
-    );
+    // TODO: bring back filters for Blender?
+    // const filteredButtons = useMemo(
+    //     () => layout.buttons.filter((button) => compareTagsToFilters(filter, button.filterIds)),
+    //     [layout, filter]
+    // );
 
-    // TODO: change these to use Relationships and/or toRecord
-    // how to use dictionaries for multiple lookups? Example: button that matches appId, area, and group.
+    const buttonIdsForArea = layout.relationships.buttonsToArea[area];
+    const groupIdsForArea = layout.relationships.groupsToArea[area];
 
-    const buttonIdsForArea = relationships.buttonsToArea[remapAreas(area)];
-    const groupIdsForArea = relationships.groupsToArea[remapAreas(area)];
+    const allButtons = toRecord(buttons.concat(appSettings.pinnedButtons), (b) => b.id);
+    const allGroups = toRecord(groups, (g) => g.id);
 
-    const allButtons = toRecord(buttons, (b) => b.id);
-    const allGroups = toRecord(groups, (g) => remapAreas(g.area));
+    const groupsForArea: IGroupInfo[] =
+        groupIdsForArea && Object.keys(groupIdsForArea).length > 0
+            ? groupIdsForArea.map((g) => allGroups[g])
+            : [];
 
-    let areaButtons: IButtonInfo[] = [];
-    if (buttonIdsForArea) {
-        areaButtons = buttonIdsForArea.map((b) => allButtons[b]);
-        //console.log('relationships area buttons count', areaButtons.length);
-    }
+    const buttonsByGroup = (groupId: number) =>
+        layout.relationships.buttonsToGroup &&
+        Object.keys(layout.relationships.buttonsToGroup).length > 0
+            ? layout.relationships.buttonsToGroup[groupId].map((b) => allButtons[b])
+            : [];
 
-    if (groupIdsForArea) {
-        // TODO: need buttons by group here now that I know what groups are in this area
+    const groupsByArea = groupsForArea.map((grp) => (
+        <ButtonGroup
+            key={grp.id}
+            group={grp}
+            buttons={buttonsByGroup(grp.id)} // TODO: this should be buttons filtered by group
+            colorSelector={colorSelector}
+            forceLabels={forceLabels}
+            editEnabled={editEnabled}
+            onClick={onClick}
+            selectGroup={selectGroup}
+            selectedGroup={selectedGroup}
+            focus={editEnabled && focusedGroupId === grp.id}
+        />
+    ));
 
-        if (groupIdsForArea.length > 0) {
-            const areaGroups: IGroupInfo[] = groupIdsForArea.map((g) => allGroups[g]);
-            console.log('Groups for area:', areaGroups);
-        }
+    const buttonsForArea: IButtonInfo[] = buttonIdsForArea
+        ? buttonIdsForArea.map((id) => allButtons[id])
+        : [];
 
-        const buttonsIdsForArea = groupIdsForArea.reduce<number[]>((prev, cur) => {
-            const btns = relationships.buttonsToGroup[cur];
-            return btns ? [...prev, ...btns] : prev;
-        }, []);
+    const pinnedButtonsForArea =
+        appSettings.pinnedButtonsToArea &&
+        Object.keys(appSettings.pinnedButtonsToArea).length > 0 &&
+        appSettings.pinnedButtonsToArea[area]
+            ? appSettings.pinnedButtonsToArea[area].map((id) => allButtons[id])
+            : [];
 
-        const test = buttonsIdsForArea.map((b) => allButtons[b]);
-        console.log('All Buttons for area', test);
-        //console.log('relationships area groups count', areaGroups.length);
-    }
-
-    // TODO: TEMP: compare current buttons to Relationships
-    const grouplessFilter = (buttons: IButtonInfo[]) => {
-        const filtered = buttons.filter(
-            (btn) => (btn.app === 'all' || btn.appId === app) && btn.area === area && !btn.group
-        ); // get untagged buttons
-
-        console.log('AREA', area);
-        console.log(`${filtered.length} groupless buttons`, filtered);
-        console.log(`${areaButtons.length} area buttons`, areaButtons);
-
-        return filtered;
-    };
-
-    // TODO: how to incorporate special handling for buttons across apps (brn.app === 'all')? Is that the same as appId === -1?
-    const grouplessButtons = useMemo(
-        () =>
-            grouplessFilter(filteredButtons).map((btnInfo, index) => (
-                <Button
-                    buttonInfo={btnInfo}
-                    key={btnInfo.id}
-                    index={index}
-                    forceLabel={forceLabels}
-                    editEnabled={editEnabled}
-                    onClick={onClick}
-                    borderColor={untaggedButtonColor}
-                />
-            )),
-        [filteredButtons, app, area, forceLabels, editEnabled]
-    );
-
-    const groupsByArea = useMemo(
-        () =>
-            groups
-                .filter((grp) => (grp.appId === -1 || grp.appId === app) && grp.area === area)
-                .map((grp) => (
-                    <ButtonGroup
-                        key={grp.id}
-                        group={grp}
-                        buttons={filteredButtons}
-                        colorSelector={colorSelector}
-                        forceLabels={forceLabels}
-                        editEnabled={editEnabled}
-                        onClick={onClick}
-                        selectGroup={selectGroup}
-                        selectedGroup={selectedGroup}
-                        focus={editEnabled && focusedGroupId === grp.id}
-                    />
-                )),
-        [
-            filteredButtons,
-            app,
-            area,
-            groups,
-            forceLabels,
-            editEnabled,
-            selectedGroup,
-            focusedGroupId,
-        ]
-    );
-
-    // console.log('expected groups count', groupsByArea.length);
-    // console.log('expected groupless buttons', grouplessButtons.length);
+    const grouplessButtons = buttonsForArea
+        .concat(pinnedButtonsForArea)
+        .map((btnInfo, index) => (
+            <Button
+                buttonInfo={btnInfo}
+                key={btnInfo.id}
+                index={index}
+                forceLabel={forceLabels}
+                editEnabled={editEnabled}
+                onClick={onClick}
+                borderColor={untaggedButtonColor}
+            />
+        ));
 
     return <React.Fragment>{[...groupsByArea, ...grouplessButtons]}</React.Fragment>;
 };

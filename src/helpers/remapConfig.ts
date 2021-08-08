@@ -163,7 +163,13 @@ const mapRelationshipsPerApp = (config: IConfig, appId: number): IRelationships 
     return {
         ...config.relationships, // TODO: Kill buttonsToApp, groupsToApp
         buttonsToGroup: config.buttons.reduce<Record<number, number[]>>((prev, cur) => {
-            if (!cur.groupId || cur.appId !== appId) {
+            if (!cur.groupId) {
+                return prev;
+            }
+
+            // check group's appId
+            const group = config.groups.find((g) => g.id === cur.groupId);
+            if (group?.appId !== appId) {
                 return prev;
             }
 
