@@ -8,7 +8,7 @@ export const useConfigApi = () => {
 
     const fetchConfig = async () => {
         const { data } = await getConfig();
-        console.log('Settings:', data);
+        console.log('Config:', data);
 
         const fetchedConfig = {
             ...data,

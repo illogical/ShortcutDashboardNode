@@ -1,153 +1,162 @@
-import React, { useState } from "react";
-import { IButtonInfo } from "../models/buttonInfo";
-import { IGroupInfo } from "../models/groupInfo";
-import { IConfig } from "../models/config";
-import "../styles/editPanel.css";
-import { EditButtonPanel } from "../components/EditButtonPanel";
-import { EditGroupPanel } from "../components/EditGroupPanel";
+import React, { useState } from 'react';
+import { IButtonInfo } from '../models/buttonInfo';
+import { IGroupInfo } from '../models/groupInfo';
+import { IConfig } from '../models/config';
+import '../styles/editPanel.css';
+import { EditButtonPanel } from '../components/EditButtonPanel';
+import { EditGroupPanel } from '../components/EditGroupPanel';
+import { Area } from '../models/enums';
+import { ISelectedInfo } from '../models/selectedInfo';
 
 export const useEditMode = (
-  config: IConfig,
-  selectedButton: IButtonInfo | undefined,
-  selectedGroup: IGroupInfo | undefined,
-  saveConfig: (saveConfig: IConfig) => void,
-  previewConfig: (saveConfig: IConfig) => void, // TODO: should this pass something up or should this be a variable being passed down?
-  setSelectedButton: (button: IButtonInfo) => void,
-  setSelectedGroup: (group: IGroupInfo) => void,
-  exitEdit: () => void
+    config: IConfig,
+    selectedInfo: ISelectedInfo,
+    saveConfig: (saveConfig: IConfig) => void,
+    previewConfig: (saveConfig: IConfig) => void, // TODO: should this pass something up or should this be a variable being passed down?
+    setSelectedInfo: (selectedInfo: ISelectedInfo) => void,
+    exitEdit: () => void
 ) => {
-  //const [editMode, setEditMode] = useState<"button" | "group">("button");
-  const [focusedGroupId, setFocusedGroupId] = useState<number | undefined>();
+    //const [editMode, setEditMode] = useState<"button" | "group">("button");
+    const [focusedGroupId, setFocusedGroupId] = useState<number | undefined>();
 
-  // TODO: keep history of config and add an UNDO button. So save on Blur?
-  const [configHistory, setConfigHistory] = useState([{ ...config }]);
-  //const [configHistoryPosition, setConfigHistoryPosition] = useState(0);
+    // TODO: keep history of config and add an UNDO button. So save on Blur?
+    const [configHistory, setConfigHistory] = useState([{ ...config }]);
+    //const [configHistoryPosition, setConfigHistoryPosition] = useState(0);
 
-  // TODO: track a new button
-  // TODO: plus icon needs to open the EditButtonPanel
-  const [newButton, setNewButton] = useState<IButtonInfo>({
-    id: -1,
-    label: "",
-    command: {},
-  });
-
-  // TODO: need to get current appId
-  // TODO: need to provide a list of the areas that can have groups added
-  const [newGroup] = useState<IGroupInfo>({
-    id: -1,
-    name: "",
-    appId: -1,
-    tag: "",
-    area: "main",
-  });
-
-  const addToHistory = () => {
-    setConfigHistory((x) => {
-      return [...x, config];
+    // TODO: track a new button
+    // TODO: plus icon needs to open the EditButtonPanel
+    const [newButton, setNewButton] = useState<IButtonInfo>({
+        id: -1,
+        label: '',
+        command: {},
     });
-  };
 
-  const handleCreateButton = () => setSelectedButton(newButton);
-  const handleCreateGroup = () => setSelectedGroup(newGroup);
+    // TODO: need to provide a list of the areas that can have groups added
+    const [newGroup] = useState<IGroupInfo>({
+        id: -1,
+        name: '',
+        appId: -1,
+        tag: '',
+        area: 'main',
+    });
 
-  const handleButtonChange = (button: IButtonInfo) => {
-    if (button.id === -1) {
-      const updatedConfig = {
-        ...config,
-        buttons: [
-          ...config.buttons,
-          {
-            ...button,
-          },
-        ],
-      };
+    const addToHistory = () => {
+        setConfigHistory((x) => {
+            return [...x, config];
+        });
+    };
 
-      previewConfig(updatedConfig);
+    const handleCreateButton = () => setSelectedInfo({ ...selectedInfo, button: newButton });
+    const handleCreateGroup = () => setSelectedInfo({ ...selectedInfo, group: newGroup });
 
-      return;
-    }
+    const handleButtonChange = (button: IButtonInfo) => {
+        if (button.id === -1) {
+            const updatedConfig = {
+                ...config,
+                buttons: [
+                    ...config.buttons,
+                    {
+                        ...button,
+                    },
+                ],
+            };
 
-    previewConfig(updateConfig(config, button));
-  };
+            previewConfig(updatedConfig);
 
-  const handleSaveButton = (button: IButtonInfo) => {
-    if (button.id === -1) {
-      // this is a new button
-      const newId = config.system.lastId;
+            return;
+        }
 
-      const updatedConfig = {
-        ...config,
-        system: {
-          ...config.system,
-          lastId: newId + 1,
-        },
-        buttons: [
-          ...config.buttons,
-          {
-            ...button,
-            id: newId,
-          },
-        ],
-      };
+        previewConfig(updateConfig(config, button));
+    };
 
-      saveConfig(updatedConfig);
-      exitEdit();
+    const handleSaveButton = (button: IButtonInfo) => {
+        if (button.id === -1) {
+            // this is a new button
+            const newId = config.appSettings.lastId; // TODO: replace this with a function that finds prior highest ID
 
-      return;
-    }
+            // TODO: how to know what group to add the buttons to? There was a dropdown
+            const updatedConfig: IConfig = {
+                ...config,
+                appSettings: {
+                    ...config.appSettings,
+                    lastId: newId + 1,
+                },
+                buttons: [
+                    ...config.buttons,
+                    {
+                        ...button,
+                        id: newId,
+                    },
+                ],
+                layouts: config.layouts.map((l) => {
+                    if (l.name === selectedInfo.layout.name) {
+                        // TODO: update layout.Relationships
+                        return selectedInfo.layout;
+                    }
 
-    saveConfig(updateConfig(config, button));
-    exitEdit();
-  };
+                    return l;
+                }),
+            };
 
-  const handleSaveGroup = (group: IGroupInfo) => {};
+            // TODO: update selectedInfo.layout for Relationships if a button moved. How to know button moved (via change group or area dropdowns)? Assume selectedLayout has been updated?
 
-  const handleDiscard = () => {
-    previewConfig(config); // reset to the loaded config
-    exitEdit();
-  };
+            saveConfig(updatedConfig);
+            exitEdit();
 
-  const editButtonPanelComponent = (
-    <EditButtonPanel
-      panelTitle="EDIT BUTTON"
-      config={config}
-      selectedButton={selectedButton}
-      onSave={handleSaveButton}
-      onDiscard={handleDiscard}
-      onGroupFocus={setFocusedGroupId}
-      onCreate={handleCreateButton}
-      onChange={handleButtonChange}
-    />
-  );
+            return;
+        }
 
-  const editGroupPanelComponent = (
-    <EditGroupPanel
-      panelTitle="EDIT GROUP"
-      config={config}
-      selectedGroup={selectedGroup}
-      onSave={handleSaveGroup}
-      onDiscard={handleDiscard}
-      onGroupFocus={setFocusedGroupId}
-      onCreateGroup={handleCreateGroup}
-    />
-  );
+        saveConfig(updateConfig(config, button));
+        exitEdit();
+    };
 
-  const showPanel = selectedGroup
-    ? editGroupPanelComponent
-    : editButtonPanelComponent;
+    const handleSaveGroup = (group: IGroupInfo) => {};
 
-  return [showPanel, focusedGroupId] as const;
+    const handleDiscard = () => {
+        previewConfig(config); // reset to the loaded config
+        exitEdit();
+    };
+
+    const editButtonPanelComponent = (
+        <EditButtonPanel
+            panelTitle="EDIT BUTTON"
+            layout={selectedInfo.layout}
+            config={config}
+            selectedButton={selectedInfo.button}
+            onSave={handleSaveButton}
+            onDiscard={handleDiscard}
+            onGroupFocus={setFocusedGroupId}
+            onCreate={handleCreateButton}
+            onChange={handleButtonChange}
+        />
+    );
+
+    const editGroupPanelComponent = (
+        <EditGroupPanel
+            panelTitle="EDIT GROUP"
+            config={config}
+            selectedInfo={selectedInfo}
+            onSave={handleSaveGroup}
+            onDiscard={handleDiscard}
+            onGroupFocus={setFocusedGroupId}
+            onCreateGroup={handleCreateGroup}
+        />
+    );
+
+    const showPanel = selectedInfo?.group ? editGroupPanelComponent : editButtonPanelComponent;
+
+    return [showPanel, focusedGroupId] as const;
 };
 
 // look up button and replace it
 const updateConfig = (config: IConfig, button: IButtonInfo) => {
-  return {
-    ...config,
-    buttons: config.buttons.reduce((prev, cur) => {
-      if (cur.id === button.id) {
-        return [...prev, button];
-      }
-      return [...prev, cur];
-    }, [] as IButtonInfo[]),
-  };
+    return {
+        ...config,
+        buttons: config.buttons.reduce((prev, cur) => {
+            if (cur.id === button.id) {
+                return [...prev, button];
+            }
+            return [...prev, cur];
+        }, [] as IButtonInfo[]),
+    };
 };

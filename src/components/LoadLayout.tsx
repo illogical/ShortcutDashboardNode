@@ -4,7 +4,7 @@ import '../styles/layout2.css';
 import { ReactComponent as Loader } from '../styles/three-dots.svg';
 import { useConfigApi } from '../hooks/useConfigApi';
 
-export const Layout = () => {
+export const LoadLayout = () => {
     const { config, updateConfig } = useConfigApi();
 
     //show loader

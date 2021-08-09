@@ -5,7 +5,6 @@ import { useSettingsButtons } from '../hooks/useSettingsButtons';
 import { useButtonHistory } from '../hooks/useButtonHistory';
 import { Area } from './Area';
 import { Area as AreaEnum } from '../models/enums';
-import { Filters } from './Filters';
 import { IConfig } from '../models/config';
 import { useEditMode } from '../hooks/useEditMode';
 import { useState } from 'react';
@@ -13,6 +12,7 @@ import { IButtonInfo } from '../models/buttonInfo';
 import { IGroupInfo } from '../models/groupInfo';
 import { DragDropContext, DropResult, ResponderProvided, DragUpdate } from 'react-beautiful-dnd';
 import { ILayout } from '../models/layout';
+import { ISelectedInfo } from '../models/selectedInfo';
 
 interface ILayoutConfigProps {
     config: IConfig;
@@ -21,8 +21,6 @@ interface ILayoutConfigProps {
 
 export const LayoutConfig = ({ config, saveConfig }: ILayoutConfigProps) => {
     const [filter, setFilter] = useState<number>(-1);
-    const [selectedButton, setSelectedButton] = useState<IButtonInfo | undefined>();
-    const [selectedGroup, setSelectedGroup] = useState<IGroupInfo | undefined>();
     const [editEnabled, setEditEnabled] = useState(false);
     const [previewConfig, setPreviewConfig] = useState<IConfig>(config);
 
@@ -35,29 +33,39 @@ export const LayoutConfig = ({ config, saveConfig }: ILayoutConfigProps) => {
     const [systemButtons, applicationMenu, forceLabels, selectedLayout, selectLayout] =
         useSettingsButtons(config.layouts, colorSelector.getColor(), () => setEditEnabled(true));
     const [generateButtonHistory, addButtonToHistory] = useButtonHistory(forceLabels);
+    const [selectedInfo, setSelectedInfo] = useState<ISelectedInfo>({
+        layout: selectedLayout,
+        button: undefined,
+        group: undefined,
+        area: undefined,
+    });
 
     // TODO: show edits while they are being made (not just during saveConfig)
     const [editButtonPanelComponent, focusedGroupId] = useEditMode(
         config,
-        selectedButton,
-        selectedGroup,
+        selectedInfo,
         saveConfig,
         setPreviewConfig,
-        setSelectedButton,
-        setSelectedGroup,
+        setSelectedInfo,
         () => setEditEnabled(false)
     );
 
+    // TODO: this seems like it should be supplied but useEditMode
     const handleSelectButton = (buttonInfo: IButtonInfo) => {
         const group = config.groups.find((g) => g.id === buttonInfo.groupId);
         // sets the button groupId based upon its group
-        setSelectedButton({ ...buttonInfo, groupId: group ? group.id : undefined });
-        setSelectedGroup(undefined);
+        setSelectedInfo((i) => ({
+            ...i,
+            button: { ...buttonInfo, groupId: group ? group.id : undefined },
+            group: undefined,
+            layout: selectedLayout,
+        }));
+        // setSelectedButton({ ...buttonInfo, groupId: group ? group.id : undefined });
+        // setSelectedGroup(undefined);
     };
 
     const handleSelectGroup = (group: IGroupInfo) => {
-        setSelectedGroup(group);
-        setSelectedButton(undefined);
+        setSelectedInfo((i) => ({ ...i, group, button: undefined, layout: selectedLayout }));
     };
 
     const hideClass = 'hide';
@@ -80,12 +88,12 @@ export const LayoutConfig = ({ config, saveConfig }: ILayoutConfigProps) => {
         groups: previewConfig.groups,
         buttons: previewConfig.buttons,
         appSettings: config.appSettings,
-        layout: selectedLayout,
+        layout: selectedInfo.layout,
         filter,
         colorSelector,
         editEnabled,
         forceLabels,
-        selectedGroup,
+        selectedGroup: selectedInfo?.group,
         focusedGroupId,
         onClick: buttonClick,
         selectGroup: handleSelectGroup,
@@ -100,7 +108,7 @@ export const LayoutConfig = ({ config, saveConfig }: ILayoutConfigProps) => {
                         <div className="layouts">
                             <LayoutFilters
                                 layouts={config.layouts}
-                                selected={selectedLayout}
+                                selected={selectedInfo.layout}
                                 onSelect={selectLayout}
                             />
                         </div>
